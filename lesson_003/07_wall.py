@@ -9,13 +9,19 @@ sd.resolution = (1200, 600)
 # Использовать вложенные циклы for
 
 # TODO здесь ваш код
-x=0
-for y in range(0, 100, 50):
-
-    for x in range (0, 1200, 100):
+def briks (start, finish, color, width):
+    for x in range (start, finish, 100):
         start_point=sd.get_point(x, y)
         end_point=sd.get_point(x+100, y+50)
-        sd.rectangle(start_point, end_point, color=(255, 255, 255), width=2)
+        sd.rectangle(start_point, end_point, color=color, width=width)
+
+k=1
+for y in range(0, 800, 50):
+    if k%2 != 0:
+        briks(0, 1200, (255, 240, 125), 2)
+    else:
+        briks(50, 1200, (125, 240, 125), 2)
+    k+=1
 
 # Подсказки:
 #  Для отрисовки кирпича использовать функцию rectangle
