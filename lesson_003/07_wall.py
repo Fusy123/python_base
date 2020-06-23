@@ -8,7 +8,6 @@ sd.resolution = (1200, 600)
 # Нарисовать стену из кирпичей. Размер кирпича - 100х50
 # Использовать вложенные циклы for
 
-# TODO здесь ваш код
 def briks (start, finish, color, width):
     for x in range (start, finish, 100):
         start_point=sd.get_point(x, y)
