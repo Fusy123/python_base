@@ -10,16 +10,16 @@ rainbow_colors = (sd.COLOR_RED, sd.COLOR_ORANGE, sd.COLOR_YELLOW, sd.COLOR_GREEN
 
 # Нарисовать радугу: 7 линий разного цвета толщиной 4 с шагом 5 из точки (50, 50) в точку (350, 450)
 
-x=50
-y=50
-x1=1100
-y1=1100
-for lines in rainbow_colors:
-    x+=5
-    x1+=5
-    start_point = sd.get_point(x, 50)
-    end_point = sd.get_point(x1, 450)
-    sd.line(start_point=start_point, end_point=end_point, color=lines, width=4)
+# x=50
+# y=50
+# x1=1100
+# y1=1100
+# for lines in rainbow_colors:
+#     x+=5
+#     x1+=5
+#     start_point = sd.get_point(x, 50)
+#     end_point = sd.get_point(x1, 450)
+#     sd.line(start_point=start_point, end_point=end_point, color=lines, width=4)
 
 
 # Подсказка: цикл нужно делать сразу по тьюплу с цветами радуги.
@@ -31,7 +31,7 @@ for lines in rainbow_colors:
 
 point=sd.get_point(600, -60)
 def bubble(point, step):
-    radius=340
+    radius=380
     for lines in rainbow_colors:
         radius += step
         sd.circle(center_position=point, radius=radius, color=lines, width=40)
