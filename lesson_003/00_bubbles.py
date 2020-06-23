@@ -18,7 +18,7 @@ sd.resolution = (1200, 600)
 
 
 def bubble(point, step):
-    radius=50
+    radius=30
     for _ in range(3):
         color=sd.random_color()
         radius += step
@@ -45,7 +45,7 @@ def bubble(point, step):
 
 for _ in range(100):
     point=sd.random_point()
-    step=random.randint(2,10)
+    step=random.randint(3,12)
     bubble(point=point, step=step)
 
 sd.pause()
