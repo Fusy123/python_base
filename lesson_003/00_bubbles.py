@@ -10,11 +10,11 @@ sd.resolution = (1200, 600)
 # sd.circle(center_position=point, radius=radius, color=COLOR_RED, width=3)
 # NameError: name 'COLOR_RED' is not defined
 
-# point=sd.get_point(600, 300)
-# radius=50
-# for _ in range(3):
-#     sd.circle(center_position=point, radius=radius, color=(150, 24,120), width=3)
-#     radius+=5
+point=sd.get_point(600, 300)
+radius=50
+for _ in range(3):
+    sd.circle(center_position=point, radius=radius, color=(150, 24,120), width=3)
+    radius+=5
 
 
 def bubble(point, step):

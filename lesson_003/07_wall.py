@@ -4,6 +4,7 @@
 import simple_draw as sd
 
 sd.resolution = (1200, 600)
+sd.background_color = (127, 63, 0)
 
 # Нарисовать стену из кирпичей. Размер кирпича - 100х50
 # Использовать вложенные циклы for
@@ -14,12 +15,13 @@ def briks (start, finish, color, width):
         end_point=sd.get_point(x+100, y+50)
         sd.rectangle(start_point, end_point, color=color, width=width)
 
+
 k=1
 for y in range(0, 800, 50):
     if k%2 != 0:
-        briks(0, 1200, (255, 240, 125), 2)
+        briks(0, 1200, (255, 255, 255), 2)
     else:
-        briks(50, 1200, (125, 240, 125), 2)
+        briks(50, 1200, (255, 255, 255), 2)
     k+=1
 
 # Подсказки:
