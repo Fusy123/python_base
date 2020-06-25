@@ -11,7 +11,7 @@
 
 a, b = 179, 37
 d, e = a, b
-result=0
+result = 0
 
 while a >= b:
         a -= b
