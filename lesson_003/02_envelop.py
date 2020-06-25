@@ -56,15 +56,15 @@ brick_x, brick_y, brick_z = 11, 10, 2
 
 hole_x, hole_y = 8, 9
 if hole_x >= brick_x and hole_y >= brick_y:
-    print ('YES')
-elif hole_x >= brick_y and hole_y >=brick_x:
+    print('YES')
+elif hole_x >= brick_y and hole_y >= brick_x:
     print('YES')
 elif hole_x >= brick_x and hole_y >= brick_z:
-    print ('YES')
+    print('YES')
 elif hole_x >= brick_z and hole_y >= brick_x:
-    print ('YES')
-elif hole_x >= brick_z and hole_y >=brick_y:
-    print ('YES')
+    print('YES')
+elif hole_x >= brick_z and hole_y >= brick_y:
+    print('YES')
 elif hole_x >= brick_y and hole_y >= brick_z:
     print('YES')
 
