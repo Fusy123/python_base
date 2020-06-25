@@ -21,7 +21,7 @@ violator_songs = [
 # где a, это число которое надо округлить, а b количество знаков после запятой
 # более подробно про функцию round смотрите в документации https://docs.python.org/3/search.html?q=round
 
-time_songs=round(violator_songs[3][1]+violator_songs[5][1]+violator_songs[-1][1], 2)
+time_songs = round(violator_songs[3][1]+violator_songs[5][1]+violator_songs[-1][1], 2)
 
 
 # Есть словарь песен группы Yellow со временем звучания с точностью до долей минут
@@ -42,8 +42,14 @@ pocket_universe_songs = {
 # Распечатайте общее время звучания трех песен: 'On Track', 'To the Sea' и 'Beyond Mirrors'
 #   А другие три песни звучат приблизительно ХХХ минут
 
-other_songs=round(pocket_universe_songs['On Track']+pocket_universe_songs['To the Sea']+pocket_universe_songs['Beyond Mirrors'], 2)
+# Строка сильно длинная и вылезла за границы документа, ее нужно перенести
+# При переносе строк лучше не использовать /, а взять все в () тогда данный символ не требуется Вот так
+# TODO По заданию нужно сделать округление до минуты, использовать только раунд
+other_songs = round(pocket_universe_songs['On Track']
+                    + pocket_universe_songs['To the Sea']
+                    + pocket_universe_songs['Beyond Mirrors'], 2)
 
+# TODO Сильно длинные вывод разбить на два принта! Тогда перенос строки не понадобится
 print ('Три песни звучат ', time_songs, 'минут','\n''А другие три песни звучат приблизительно ', other_songs, 'минут')
 
 # Обратите внимание, что делать много вычислений внутри print() - плохой стиль.
