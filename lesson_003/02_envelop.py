@@ -14,13 +14,13 @@ envelop_x, envelop_y = 10, 7
 # paper_x, paper_y = 8, 9
 # проверить для
 # paper_x, paper_y = 9, 8
-# paper_x, paper_y = 6, 8
+paper_x, paper_y = 6, 8
 # paper_x, paper_y = 8, 6
 # paper_x, paper_y = 3, 4
-paper_x, paper_y = 11, 9
+# paper_x, paper_y = 11, 9
 # paper_x, paper_y = 9, 11
 # (просто раскоментировать нужную строку и проверить свой код)
-
+# TODO Есть недочеты в форматировании по PEP8, используйте пункт меню в пайчарме
 if (envelop_x >= paper_x or envelop_x >= paper_y) and (envelop_y >= paper_x or envelop_y >= paper_y):
     print ("Да")
 else:
@@ -34,7 +34,7 @@ else:
 #
 # Определить, пройдет ли кирпич через отверстие (грани кирпича параллельны сторонам отверстия)
 
-brick_x, brick_y, brick_z = 11, 10, 2
+# brick_x, brick_y, brick_z = 11, 10, 2
 # brick_x, brick_y, brick_z = 11, 2, 10
 # brick_x, brick_y, brick_z = 10, 11, 2
 # brick_x, brick_y, brick_z = 10, 2, 11
@@ -47,7 +47,7 @@ brick_x, brick_y, brick_z = 11, 10, 2
 # brick_x, brick_y, brick_z = 5, 6, 3
 # brick_x, brick_y, brick_z = 5, 3, 6
 # brick_x, brick_y, brick_z = 11, 3, 6
-# brick_x, brick_y, brick_z = 11, 6, 3
+brick_x, brick_y, brick_z = 11, 6, 3
 # brick_x, brick_y, brick_z = 6, 11, 3
 # brick_x, brick_y, brick_z = 6, 3, 11
 # brick_x, brick_y, brick_z = 3, 6, 11

@@ -6,9 +6,12 @@ import simple_draw as sd
 sd.resolution = (1200, 600)
 
 # Нарисовать пузырек - три вложенных окружностей с шагом 5 пикселей
-# TODO почему когда указываю color=(150, 24,120) цвет меняется, а если указывать color=COLOR_RED выпадает ошибка?
-# sd.circle(center_position=point, radius=radius, color=COLOR_RED, width=3)
-# NameError: name 'COLOR_RED' is not defined
+# TODO константа COLOR_RED объявлена в модуле simple_draw чтобы до нее достучаться нужно сначала
+# TODO обратиться к модулю который вы выше импортировали и вызвать константу
+# TODO Переделать код с этим дополнением
+# TODO В коде присутствуют недочеты по PEP8
+# TODO В основном это форматирование
+# TODO Можно привести все к нужному формату code\Reformat code
 
 point = sd.get_point(600, 300)
 radius = 50
