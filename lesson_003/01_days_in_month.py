@@ -25,10 +25,10 @@ day_month={'1':['январь', 31],
            '12':['декабрь', 31]}
 
 if 0 > month or month>13:
-    print ('Вы ввели некоректный месяц!')
+    print('Вы ввели некоректный месяц!')
 for day in day_month:
     if day == user_input:
-        days=day_month[day]
+        days = day_month[day]
         print(days[1])
         break
 
