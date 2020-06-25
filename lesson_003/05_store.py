@@ -55,18 +55,18 @@ store = {
 #     вывод на консоль количества и стоимости товара на складе
 
 for good in goods:
-    produkt_code=goods[good]
-    items=len(store[produkt_code])
-    quantity=0
-    summ_quantity=0
-    chek=0
-    summ_chek=0
+    produkt_code = goods[good]
+    items = len(store[produkt_code])
+    quantity = 0
+    summ_quantity = 0
+    chek = 0
+    summ_chek = 0
     for item in range(items):
-        sklad=store[produkt_code][item]
-        quantity=sklad['quantity']
-        summ_quantity+=quantity
-        chek=quantity*sklad['price']
-        summ_chek+=chek
+        sklad = store[produkt_code][item]
+        quantity = sklad['quantity']
+        summ_quantity += quantity
+        chek = quantity*sklad['price']
+        summ_chek += chek
 
     print (good, '-',  summ_quantity, 'шт, стоимость', summ_chek, 'руб.')
 
