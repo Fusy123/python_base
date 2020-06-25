@@ -29,9 +29,9 @@ rainbow_colors = (sd.COLOR_RED, sd.COLOR_ORANGE, sd.COLOR_YELLOW, sd.COLOR_GREEN
 # Нарисовать радугу дугами от окружности (cсм sd.circle) за нижним краем экрана,
 # поэкспериментировать с параметрами, что бы было красиво
 
-point=sd.get_point(600, -60)
+point = sd.get_point(600, -60)
 def bubble(point, step):
-    radius=380
+    radius = 380
     for lines in rainbow_colors:
         radius += step
         sd.circle(center_position=point, radius=radius, color=lines, width=40)
