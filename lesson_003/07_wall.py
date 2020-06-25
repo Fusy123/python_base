@@ -6,24 +6,9 @@ import simple_draw as sd
 sd.resolution = (1200, 600)
 sd.background_color = (127, 63, 0)
 
+
 # Нарисовать стену из кирпичей. Размер кирпича - 100х50
 # Использовать вложенные циклы for
-
-def briks (start, finish, color, width):
-    for x in range (start, finish, 100):
-        start_point=sd.get_point(x, y)
-        end_point=sd.get_point(x+100, y+50)
-        sd.rectangle(start_point, end_point, color=color, width=width)
-
-
-k=1
-for y in range(0, 800, 50):
-    if k%2 != 0:
-        briks(0, 1200, (255, 255, 255), 2)
-    else:
-        briks(50, 1200, (255, 255, 255), 2)
-    k+=1
-
 # Подсказки:
 #  Для отрисовки кирпича использовать функцию rectangle
 #  Алгоритм должен получиться приблизительно такой:
@@ -33,5 +18,20 @@ for y in range(0, 800, 50):
 #       цикл координате X
 #           вычисляем правый нижний и левый верхний углы кирпича
 #           рисуем кирпич
+
+def briks(start, finish, color, width):
+    for x in range(start, finish, 100):
+        start_point = sd.get_point(x, y)
+        end_point = sd.get_point(x + 100, y + 50)
+        sd.rectangle(start_point, end_point, color=color, width=width)
+
+
+k = 1
+for y in range(0, 800, 50):
+    if k % 2 != 0:
+        briks(0, 1200, (255, 255, 255), 2)
+    else:
+        briks(50, 1200, (255, 255, 255), 2)
+    k += 1
 
 sd.pause()
