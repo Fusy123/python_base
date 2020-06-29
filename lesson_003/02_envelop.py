@@ -14,10 +14,10 @@ envelop_x, envelop_y = 10, 7
 # paper_x, paper_y = 8, 9
 # проверить для
 # paper_x, paper_y = 9, 8
-paper_x, paper_y = 6, 8
+# paper_x, paper_y = 6, 8
 # paper_x, paper_y = 8, 6
 # paper_x, paper_y = 3, 4
-# paper_x, paper_y = 11, 9
+paper_x, paper_y = 11, 9
 # paper_x, paper_y = 9, 11
 # (просто раскоментировать нужную строку и проверить свой код)
 # TODO Есть недочеты в форматировании по PEP8, используйте пункт меню в пайчарме
@@ -25,8 +25,9 @@ paper_x, paper_y = 6, 8
 # TODO Сильно пере усложненное условие, плохо расширяемое
 # TODO Переделать как во втором задании этого урока
 # TODO такие длинные цепочки условий плохо читаются и плохо расширяются при изменении требований заказчика.
-if (envelop_x >= paper_x or envelop_x >= paper_y) and (envelop_y >= paper_x or envelop_y >= paper_y):
-    print ("Да")
+if envelop_x >= paper_x or envelop_x >= paper_y:
+    if envelop_y >= paper_x or envelop_y >= paper_y:
+        print ("Да")
 else:
     print ("Нет")
 
