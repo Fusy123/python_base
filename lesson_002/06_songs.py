@@ -44,10 +44,9 @@ pocket_universe_songs = {
 # Строка сильно длинная и вылезла за границы документа, ее нужно перенести
 # При переносе строк лучше не использовать /, а взять все в () тогда данный символ не требуется Вот так
 
-# TODO Данная переменная все равно выводится с в формате 17.0 нужно без дробной части
 other_songs = round(pocket_universe_songs['On Track']
                     + pocket_universe_songs['To the Sea']
-                    + pocket_universe_songs['Beyond Mirrors'], 0)
+                    + pocket_universe_songs['Beyond Mirrors'])
 
 print('Три песни звучат ', time_songs, 'минут.')
 print('А другие три песни звучат приблизительно ', other_songs, 'минут.')
