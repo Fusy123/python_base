@@ -20,18 +20,13 @@ envelop_x, envelop_y = 10, 7
 paper_x, paper_y = 11, 9
 # paper_x, paper_y = 9, 11
 # (просто раскоментировать нужную строку и проверить свой код)
-# TODO Есть недочеты в форматировании по PEP8, используйте пункт меню в пайчарме
 
-# TODO Сильно пере усложненное условие, плохо расширяемое
-# TODO Переделать как во втором задании этого урока
-# TODO такие длинные цепочки условий плохо читаются и плохо расширяются при изменении требований заказчика.
-if envelop_x >= paper_x or envelop_x >= paper_y:
-    if envelop_y >= paper_x or envelop_y >= paper_y:
-        print ("Да")
+if envelop_x >= paper_x and envelop_y >= paper_y:
+    print ("YES")
+elif envelop_x >= paper_y or envelop_y >= paper_x:
+        print("YES")
 else:
-    print ("Нет")
-
-
+    print("NO")
 
 # Усложненное задание, решать по желанию.
 # Заданы размеры hole_x, hole_y прямоугольного отверстия и размеры brick_х, brick_у, brick_z кирпича (все размеры
@@ -74,4 +69,4 @@ elif hole_x >= brick_y and hole_y >= brick_z:
     print('YES')
 
 else:
-    print ("NO")
+    print("NO")
