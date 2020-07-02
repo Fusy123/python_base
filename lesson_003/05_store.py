@@ -54,28 +54,16 @@ store = {
 #         подсчет стоимости товара
 #     вывод на консоль количества и стоимости товара на складе
 
-# TODO Нейминг переменных, никакого транслита на анг!
-# TODO Используйте например https://multitran.com
-
 # TODO Используйте все силу Python, можно сразу распаковать получить ключ и значение .items()
-for good in goods:
-    # TODO В след. двух переменных не будет необходимости
-    produkt_code = goods[good]
-    items = len(store[produkt_code])
+for good in goods.items():
     quantity = 0
     summ_quantity = 0
     chek = 0
     summ_chek = 0
-    # TODO Тут можно сразу итерироваться по словарю store с ключем полученным в первом цикле
-    # TODO Получая список словарей
-    for item in range(items):
-        sklad = store[produkt_code][item]
-        quantity = sklad['quantity']
+    for product in store[good[1]]:
+        quantity = product['quantity']
         summ_quantity += quantity
-        chek = quantity*sklad['price']
+        chek = quantity * product['price']
         summ_chek += chek
 
-    print (good, '-',  summ_quantity, 'шт, стоимость', summ_chek, 'руб.')
-
-
-
+    print(good, '-', summ_quantity, 'шт, стоимость', summ_chek, 'руб.')
