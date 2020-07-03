@@ -45,3 +45,5 @@ print('Точка входит? ', distance_point_2 <= radius)
 # 77777.7777
 # False
 # False
+
+# зачет!
