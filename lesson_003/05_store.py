@@ -54,16 +54,14 @@ store = {
 #         подсчет стоимости товара
 #     вывод на консоль количества и стоимости товара на складе
 
-# TODO Используйте все силу Python, можно сразу распаковать получить ключ и значение .items()
-for good in goods.items():
+for item, id_item in goods.items():
     quantity = 0
-    summ_quantity = 0
     chek = 0
-    summ_chek = 0
-    for product in store[good[1]]:
-        quantity = product['quantity']
-        summ_quantity += quantity
-        chek = quantity * product['price']
-        summ_chek += chek
-
-    print(good, '-', summ_quantity, 'шт, стоимость', summ_chek, 'руб.')
+    total_quantity = 0
+    total_chek = 0
+    for _ in store[id_item]:
+        quantity = _['quantity']
+        chek = _['quantity'] * _['price']
+        total_quantity += quantity
+        total_chek += chek
+    print(item, '-', total_quantity, 'шт, стоимость', total_chek, 'руб.')
