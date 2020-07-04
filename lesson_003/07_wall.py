@@ -23,7 +23,7 @@ def draw_briks(start, finish):
         start_point = sd.get_point(x, y)
         end_point = sd.get_point(x + 100, y + 50)
         sd.rectangle(start_point, end_point, color=color, width=2)
-
+# TODO переменную "а" назовем более говорящим именем например row
 for a, y in enumerate(range(0, 800, 50)):
     if a % 2 != 0:
         draw_briks(0, 1200)
@@ -31,3 +31,5 @@ for a, y in enumerate(range(0, 800, 50)):
         draw_briks(50, 1200)
 
 sd.pause()
+
+# TODO Есть недочеты в форматировании по PEP8, используйте пункт меню в пайчарме
