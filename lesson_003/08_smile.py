@@ -11,12 +11,8 @@ sd.resolution = (1200, 600)
 # Параметры функции: кордината X, координата Y, цвет.
 # Вывести 10 смайликов в произвольных точках экрана.
 
-
-# TODO добавить параметр цвет в параметры вызова функции
-# Параметры функции: кордината X, координата Y, цвет.
-def smile(point, step):
-    radius = step
-    color = sd.random_color()
+def smile(x, y, color):
+    point = sd.get_point(x, y)
     sd.circle(center_position=point, radius=radius, color=color, width=0)
     # рисуем глаза
     left_eye = sd.get_point(x - 20, y + 13)
@@ -33,10 +29,10 @@ def smile(point, step):
 
 
 for _ in range(10):
+    color = sd.random_color()
     x = sd.random_number(100, 1200)
     y = sd.random_number(100, 600)
-    point = sd.get_point(x, y)
-    step = sd.random_number(40, 60)
-    smile(point=point, step=step)
+    radius = sd.random_number(40, 60)
+    smile(x, y, color=color)
 
 sd.pause()
