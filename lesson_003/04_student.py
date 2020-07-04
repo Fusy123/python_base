@@ -19,3 +19,5 @@ while month < 10:
     month += 1
 
 print('Студенту надо попросить', round(debet_1 + debet_2, 2), 'рублей')
+
+# зачет!

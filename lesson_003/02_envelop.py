@@ -22,7 +22,7 @@ paper_x, paper_y = 11, 9
 # (просто раскоментировать нужную строку и проверить свой код)
 
 if envelop_x >= paper_x and envelop_y >= paper_y:
-    print ("YES")
+    print("YES")
 elif envelop_x >= paper_y or envelop_y >= paper_x:
         print("YES")
 else:
@@ -70,3 +70,5 @@ elif hole_x >= brick_y and hole_y >= brick_z:
 
 else:
     print("NO")
+
+# зачет!

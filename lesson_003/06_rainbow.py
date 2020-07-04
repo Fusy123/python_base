@@ -37,3 +37,6 @@ def bubble(point, step):
 
 bubble(point, 40)
 sd.pause()
+
+
+# зачет!

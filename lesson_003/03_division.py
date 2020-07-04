@@ -19,3 +19,4 @@ while a >= b:
 
 print('Целочисленное деление', source_a, 'на', source_b, 'дает', result)
 
+# зачет!
