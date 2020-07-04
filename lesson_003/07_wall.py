@@ -5,7 +5,9 @@ import simple_draw as sd
 
 sd.resolution = (1200, 600)
 sd.background_color = (127, 63, 0)
-color=sd.COLOR_WHITE
+color = sd.COLOR_WHITE
+
+
 # Нарисовать стену из кирпичей. Размер кирпича - 100х50
 # Использовать вложенные циклы for
 # Подсказки:
@@ -23,13 +25,11 @@ def draw_briks(start, finish):
         start_point = sd.get_point(x, y)
         end_point = sd.get_point(x + 100, y + 50)
         sd.rectangle(start_point, end_point, color=color, width=2)
-# TODO переменную "а" назовем более говорящим именем например row
-for a, y in enumerate(range(0, 800, 50)):
-    if a % 2 != 0:
+
+for row, y in enumerate(range(0, 800, 50)):
+    if row % 2 != 0:
         draw_briks(0, 1200)
     else:
         draw_briks(50, 1200)
 
 sd.pause()
-
-# TODO Есть недочеты в форматировании по PEP8, используйте пункт меню в пайчарме
