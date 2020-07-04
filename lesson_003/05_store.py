@@ -59,11 +59,9 @@ for item, id_item in goods.items():
     chek = 0
     total_quantity = 0
     total_chek = 0
-    # TODO Если мы используем переменную полученную из цикла то ее нужно назвать говорящим именем например
-    # TODO продукты или еще как нибудь
-    for _ in store[id_item]:
-        quantity = _['quantity']
-        chek = _['quantity'] * _['price']
+    for produkt in store[id_item]:
+        quantity = produkt['quantity']
+        chek = produkt['quantity'] * produkt['price']
         total_quantity += quantity
         total_chek += chek
     print(item, '-', total_quantity, 'шт, стоимость', total_chek, 'руб.')
