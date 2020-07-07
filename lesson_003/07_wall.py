@@ -35,3 +35,4 @@ for row, y in enumerate(range(0, 800, 50)):
 
 sd.pause()
 
+# зачет!

@@ -63,3 +63,5 @@ for item, id_item in goods.items():
         total_quantity += quantity
         total_payment += payment
     print(item, '-', total_quantity, 'шт, стоимость', total_payment, 'руб.')
+
+# зачет!
