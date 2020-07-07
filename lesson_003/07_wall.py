@@ -33,3 +33,6 @@ for row, y in enumerate(range(0, 800, 50)):
         draw_briks(50, 1200)
 
 sd.pause()
+
+
+# TODO Есть недочеты в форматировании по PEP8, используйте пункт меню в пайчарме

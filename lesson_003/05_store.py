@@ -55,12 +55,16 @@ store = {
 #     вывод на консоль количества и стоимости товара на складе
 
 for item, id_item in goods.items():
+    # TODO Эти две переменных можно не определять, мы их определяем ниже по коду во втором цикле
     quantity = 0
     chek = 0
     total_quantity = 0
+    # TODO Пайчар подчеркивает ошибки
     total_chek = 0
+    # TODO Нейминг никакого транслита
     for produkt in store[id_item]:
         quantity = produkt['quantity']
+        # TODO Нейминг ошибка в слове
         chek = produkt['quantity'] * produkt['price']
         total_quantity += quantity
         total_chek += chek
