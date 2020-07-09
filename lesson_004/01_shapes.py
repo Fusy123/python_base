@@ -43,10 +43,12 @@ sd.resolution = (1200, 600)
 angle = 0
 length = 100
 start_point_triangle = sd.get_point(100, 100)
+# TODO поправьте название функции ошибка
 start_point_quadrate = sd.get_point(200, 300)
 start_point_pentagan = sd.get_point(600, 100)
 start_point_hexagon = sd.get_point(700, 300)
 
+# TODO во всех функциях используем циклы и всего один вектор
 
 def triangle(point, angle, length):
     v1 = sd.get_vector(start_point=point, angle=angle, length=length, width=3)
@@ -106,6 +108,11 @@ def hexagon(point, angle, length):
 
 hexagon(point=start_point_hexagon, angle=angle, length=length)
 #---------------------------------------------------------------------------------------------------------
+
+# TODO вывод должен быть формата lesson_004/results/exercise_01_shapes.jpg
+
+# TODO Есть недочеты по оформлению PEP8, используйте пункт меню Пайчарма
+# TODO В данном примере отступы между блоками функций и комментарии подчеркиваются поправить
 
 # Часть 1-бис.
 # Попробуйте прикинуть обьем работы, если нужно будет внести изменения в этот код.
