@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 
 import simple_draw as sd
+from simple_draw import Point
 
 sd.resolution = (1200, 600)
+
 
 # Часть 1.
 # Написать функции рисования равносторонних геометрических фигур:
@@ -38,81 +40,98 @@ sd.resolution = (1200, 600)
 # sd.line()
 # Результат решения см lesson_004/results/exercise_01_shapes.jpg
 
-#----------------------------------------------------------------------------------------
+# ----------------------------------------------------------------------------------------
 # рисуем треугольник
-angle = 0
-length = 100
-start_point_triangle = sd.get_point(100, 100)
-# TODO поправьте название функции ошибка
-start_point_quadrate = sd.get_point(200, 300)
-start_point_pentagan = sd.get_point(600, 100)
-start_point_hexagon = sd.get_point(700, 300)
-
-# TODO во всех функциях используем циклы и всего один вектор
-
-def triangle(point, angle, length):
-    v1 = sd.get_vector(start_point=point, angle=angle, length=length, width=3)
-    v1.draw()
-    v2 = sd.get_vector(start_point=v1.end_point, angle=angle + 120, length=length, width=3)
-    v2.draw()
-    v3 = sd.line(start_point=point, end_point=v2.end_point, width=3)
+# angle = 0
+# length = 150
+# start_point_triangle = sd.get_point(100, 100)
+# TODO  Где именно ошибка? согласно рекомендованного сервиса:
+# TODO квадрат сущ. общ.	square; quadrate; regular tetragon; four-square; the second degree;
+#  boxball (игра в мяч Lassielle); square of a number (вторая степень числа)
+# start_point_quadrate = sd.get_point(600, 100)
+# start_point_pentagan = sd.get_point(300, 300)
+# start_point_hexagon = sd.get_point(700, 300)
 
 
-triangle(point=start_point_triangle, angle=angle, length=length)
+# def triangle(point, angle, length):
+#     arm2 = sd.get_vector(start_point=point, angle=90, length=length, width=3)
+#     arm2.draw()
+#     for angle in range(30, 241, 120):
+#         arm = sd.get_vector(start_point=point, angle=angle, length=length, width=3)
+#         arm.draw()
+#         point = arm.end_point
+#
+#
+# triangle(point=start_point_triangle, angle=angle, length=length)
+#
 
-#-----------------------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------------------
 # рисуем квадрат
-def quadrate(point, angle, length):
-    v1 = sd.get_vector(start_point=point, angle=angle, length=length, width=3)
-    v1.draw()
-    v2 = sd.get_vector(start_point=v1.end_point, angle=angle + 90, length=length, width=3)
-    v2.draw()
-    v3 = sd.get_vector(start_point=v2.end_point, angle=angle + 180, length=length, width=3)
-    v3.draw()
-    v4 = sd.line(start_point=point, end_point=v3.end_point, width=3)
+# def quadrate(point, angle, length):
+#     arm2 = sd.get_vector(start_point=point, angle=120, length=length, width=3)
+#     arm2.draw()
+#     for angle in range(30, 271, 90):
+#         arm = sd.get_vector(start_point=point, angle=angle, length=length, width=3)
+#         arm.draw()
+#         point = arm.end_point
+#
+#
+# quadrate(point=start_point_quadrate, angle=angle, length=length)
+#
 
-
-quadrate(point=start_point_quadrate, angle=angle, length=length)
-
-#------------------------------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------------------------------
 # рисуем пятиугольник
-def pentagan(point, angle, length):
-    v1 = sd.get_vector(start_point=point, angle=angle, length=length, width=3)
-    v1.draw()
-    v2 = sd.get_vector(start_point=v1.end_point, angle=angle + 72, length=length, width=3)
-    v2.draw()
-    v3 = sd.get_vector(start_point=v2.end_point, angle=angle + 144, length=length, width=3)
-    v3.draw()
-    v4 = sd.get_vector(start_point=v3.end_point, angle=angle + 216, length=length, width=3)
-    v4.draw()
-    v5 = sd.line(start_point=point, end_point=v4.end_point, width=3)
+# def pentagan(point, angle, length):
+#     arm2 = sd.get_vector(start_point=point, angle=139, length=length, width=3)
+#     arm2.draw()
+#     for angle in range(30, 289, 72):
+#         arm = sd.get_vector(start_point=point, angle=angle, length=length, width=3)
+#         arm.draw()
+#         point = arm.end_point
+#
+#
+# pentagan(point=start_point_pentagan, angle=angle, length=length)
+#
 
-
-pentagan(point=start_point_pentagan, angle=angle, length=length)
-
-#---------------------------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------------------------
 # рисуем шестиугольник
-def hexagon(point, angle, length):
-    v1 = sd.get_vector(start_point=point, angle=angle, length=length, width=3)
-    v1.draw()
-    v2 = sd.get_vector(start_point=v1.end_point, angle=angle + 60, length=length, width=3)
-    v2.draw()
-    v3 = sd.get_vector(start_point=v2.end_point, angle=angle + 120, length=length, width=3)
-    v3.draw()
-    v4 = sd.get_vector(start_point=v3.end_point, angle=angle + 180, length=length, width=3)
-    v4.draw()
-    v5 = sd.get_vector(start_point=v4.end_point, angle=angle + 240, length=length, width=3)
-    v5.draw()
-    v6 = sd.line(start_point=point, end_point=v5.end_point, width=3)
+# def hexagon(point, angle, length):
+#     arm2 = sd.get_vector(start_point=point, angle=150, length=length, width=3)
+#     arm2.draw()
+#     for angle in range(30, 301, 60):
+#         arm = sd.get_vector(start_point=point, angle=angle, length=length, width=3)
+#         arm.draw()
+#         point = arm.end_point
+#
+#
+# hexagon(point=start_point_hexagon, angle=angle, length=length)
+# ---------------------------------------------------------------------------------------------------------
+
+# общая функция.
+# условие: количество углов, длина стороны, толщина линии, цвет, стартовая точка,
+# расчет наклона в зависимости от количества углов
+
+def figure_draw(vertex):
+    length = 200
+    width = 5
+    x = 600
+    y = 100
+    start_point_figure = sd.get_point(x, y)
+    point = start_point_figure
+    angle_start = 0
+    angle_step = round(360 / vertex)
+    angle_finish = 361 - angle_step
+    color = sd.random_color()
+
+    for angle in range(angle_start, angle_finish, angle_step):
+        arm = sd.get_vector(start_point=point, angle=angle, length=length, width=width)
+        arm.draw(color=color)
+        point = arm.end_point
+    arm2 = sd.line(start_point=start_point_figure, end_point=point, color=color, width=width)
 
 
-hexagon(point=start_point_hexagon, angle=angle, length=length)
-#---------------------------------------------------------------------------------------------------------
-
-# TODO вывод должен быть формата lesson_004/results/exercise_01_shapes.jpg
-
-# TODO Есть недочеты по оформлению PEP8, используйте пункт меню Пайчарма
-# TODO В данном примере отступы между блоками функций и комментарии подчеркиваются поправить
+vertex = int(input('Введите количество углов: '))
+figure_draw(vertex=vertex)
 
 # Часть 1-бис.
 # Попробуйте прикинуть обьем работы, если нужно будет внести изменения в этот код.
