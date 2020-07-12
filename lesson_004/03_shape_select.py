@@ -15,10 +15,10 @@ sd.resolution = (1200, 600)
 # TODO здесь ваш код
 # пишем функцию рисования фигур
 def figure_draw(angle):
-    length = 100
+    length = 200
     width = 5
     x = 600
-    y = 300
+    y = 100
     # расчет переменных
     color = sd.random_color()
     start_point_figure = sd.get_point(x, y)
