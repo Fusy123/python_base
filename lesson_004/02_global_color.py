@@ -24,22 +24,23 @@ def figure_draw(color):
     width = 5
     x = 300
     y = 100
-    for vertex in range(3, 7, 1):   # расчет переменных
+    for vertex in range(3, 7, 1):  # расчет переменных
         start_point_figure = sd.get_point(x, y)
         point = start_point_figure
         angle_start = 30
         angle_step = round(360 / vertex)
         angle_finish = 361 - angle_step
 
-        for angle in range(angle_start, angle_finish, angle_step):  #рисование фигур
+        for angle in range(angle_start, angle_finish, angle_step):  # рисование фигур
             arm = sd.get_vector(start_point=point, angle=angle, length=length, width=width)
             arm.draw(color=color)
             point = arm.end_point
         arm2 = sd.line(start_point=start_point_figure, end_point=point, color=color, width=width)
-        x += 500  #смещение координат для следующей фигуры
+        x += 500  # смещение координат для следующей фигуры
         if x > 800:
             x = 300
             y = 300
+
 
 # словарь цветов
 colors = {sd.COLOR_RED: ['1', 'Красный'],
@@ -56,7 +57,7 @@ print('Выберите цвет: ')
 for color in colors.items():
     print(color[1][0], ': ', color[1][1])
 
-#выбор цвета и проверка правильности ввода
+# выбор цвета и проверка правильности ввода
 i = 1
 while i == 1:
     user_color = input('Введите желаемый цвет: ')
