@@ -32,6 +32,7 @@ sd.resolution = (1200, 600)
 root_point = sd.get_point(300, 30)
 angle = 90
 lehght = 100
+delta = 30
 
 
 def draw_branches(point, angle, length, delta):
@@ -39,24 +40,18 @@ def draw_branches(point, angle, length, delta):
         return
     v1 = sd.get_vector(start_point=point, angle=angle, length=length, width=3)
     v1.draw()
-    # v2 = sd.get_vector(start_point=v1.end_point,angle=angle, length=length, width=3)
-    # v2.draw()
     next_point_0 = v1.end_point
     next_point_2 = v1.end_point
-    next_angle_0 = angle - delta
-    next_angle_2 = angle + delta
-    next_length_0 = length * .75
-    next_length_2 = length * .75
+    next_angle_0 = angle - (sd.random_number(delta * .6, delta * 1.4))
+    next_angle_2 = angle + (sd.random_number(delta * .6, delta * 1.4))
+    next_length_0 = length * ((sd.random_number(75 * .8, 75 * 1.2)) / 100)
+    next_length_2 = length * ((sd.random_number(75 * .8, 75 * 1.2)) / 100)
     draw_branches(point=next_point_0, angle=next_angle_0, length=next_length_0, delta=delta)
     draw_branches(point=next_point_2, angle=next_angle_2, length=next_length_2, delta=delta)
 
-delta = 30
-# for delta in range(0, 70, 10):
+
 draw_branches(point=root_point, angle=angle, length=lehght, delta=delta)
-# for delta in range(-60, 1, 10):
-#      draw_branches(point=root_point, angle=angle, length=lehght, delta=delta1)
-
-
+sd.pause()
 
 # 4) Усложненное задание (делать по желанию)
 # - сделать рандомное отклонение угла ветвей в пределах 40% от 30-ти градусов
@@ -65,27 +60,5 @@ draw_branches(point=root_point, angle=angle, length=lehght, delta=delta)
 
 # Пригодятся функции
 # sd.random_number()
-# root_point = sd.get_point(300, 30)
-# angle = 90
-# lehght = 100
-#
-#
-# def draw_branches(point, angle, length, delta):
-#     if length < 10:
-#         return
-#     v1 = sd.get_vector(start_point=point, angle=angle, length=length, width=3)
-#     v1.draw()
-#     next_point_0 = v1.end_point
-#     next_point_2 = v1.end_point
-#     next_angle_0 = angle - delta
-#     next_angle_2 = angle + delta
-#     next_length_0 = length * .75
-#     next_length_2 = length * .75
-#     draw_branches(point=next_point_0, angle=next_angle_0, length=next_length_0, delta=delta)
-#     draw_branches(point=next_point_2, angle=next_angle_2, length=next_length_2, delta=delta)
-#
-#
-# for delta in range(0, 60, 30):
-#     draw_branches(point=root_point, angle=angle, length=lehght, delta=delta)
 
-sd.pause()
+
