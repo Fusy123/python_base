@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import simple_draw as sd
-
+sd.resolution = (1200, 600)
 
 # На основе кода из практической части реализовать снегопад:
 # - создать списки данных для отрисовки N снежинок
@@ -17,15 +17,34 @@ N = 20
 # sd.random_number()
 # sd.user_want_exit()
 
+y = sd.random_number(500, 600)
+x = sd.random_number(0, 1200)
 
+y2 = sd.random_number(500, 600)
+x2 = sd.random_number(0, 1200)
 while True:
     sd.clear_screen()
-    # TODO здесь ваш код
+    point = sd.get_point(x, y)
+    sd.snowflake(center=point, length=50)
+    y -= 10
+    if y < 50:
+       break
+    x = x + 10
+
+    point2 = sd.get_point(x2, y2)
+    sd.snowflake(center=point2, length=30)
+    y2 -= 10
+    if y2 < 50:
+       break
+    x2 = x2 + 20
+
     sd.sleep(0.1)
     if sd.user_want_exit():
         break
+
 sd.pause()
 
+#------------------------------------------------------------------------------------------
 # Примерный алгоритм отрисовки снежинок
 #   навсегда
 #     очистка экрана
