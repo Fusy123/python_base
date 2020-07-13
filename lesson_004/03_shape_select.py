@@ -12,7 +12,6 @@ sd.resolution = (1200, 600)
 # Код функций из упр lesson_004/02_global_color.py скопировать сюда
 # Результат решения см lesson_004/results/exercise_03_shape_select.jpg
 
-# TODO здесь ваш код
 # пишем функцию рисования фигур
 def figure_draw(angle):
     length = 200
