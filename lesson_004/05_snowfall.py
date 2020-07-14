@@ -17,33 +17,30 @@ N = 20
 # sd.random_number()
 # sd.user_want_exit()
 
-y = sd.random_number(500, 600)
-x = sd.random_number(0, 1200)
+snowflake_points = ([50, 600], [100, 500], [150, 600], [200, 500], [250, 550],
+                     [300, 600], [350, 550], [400, 500], [450, 600], [500, 550],
+                     [550, 500], [600, 600], [650, 550], [700, 500], [750, 600],
+                     [800, 550], [850, 500], [900, 600], [950, 550], [1000, 500])
 
-y2 = sd.random_number(500, 600)
-x2 = sd.random_number(0, 1200)
 while True:
     sd.clear_screen()
-    point = sd.get_point(x, y)
-    sd.snowflake(center=point, length=50)
-    y -= 10
-    if y < 50:
-       break
-    x = x + 10
+    for x, y in snowflake_points:
+        if y > 10:
+            point = sd.get_point(x, y)
+            length = sd.random_number(10, 100)
+            sd.snowflake(center=point, length=length)
+            y -= 10
+            x = x + 10
+        else:
+            break
 
-    point2 = sd.get_point(x2, y2)
-    sd.snowflake(center=point2, length=30)
-    y2 -= 10
-    if y2 < 50:
-       break
-    x2 = x2 + 20
 
-    sd.sleep(0.1)
+    sd.sleep(0.2)
     if sd.user_want_exit():
         break
 
 sd.pause()
-
+# TODO не могу понять, как заставить снежинки падать.
 #------------------------------------------------------------------------------------------
 # Примерный алгоритм отрисовки снежинок
 #   навсегда
