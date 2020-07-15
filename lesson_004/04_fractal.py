@@ -38,11 +38,13 @@ lehght = 100
 delta = 20
 
 
+# TODO Пайчарм подчеркивает некоторые параметры потому что они определены выше
 def draw_branches(point, angle, length, delta, color):
     if length < 10:
         return
     v1 = sd.get_vector(start_point=point, angle=angle, length=length, width=3)
     v1.draw(color)
+    # TODO дублирование кода, две переменные на один объект
     next_point_0 = v1.end_point
     next_point_2 = v1.end_point
     next_angle_0 = angle - (sd.random_number(delta * .6, delta * 1.4))
@@ -60,6 +62,8 @@ for _ in range(3):
 
 
 sd.pause()
+
+# TODO Есть недочеты в форматировании по PEP8, используйте пункт меню в пайчарме
 
 # 4) Усложненное задание (делать по желанию)
 # - сделать рандомное отклонение угла ветвей в пределах 40% от 30-ти градусов
