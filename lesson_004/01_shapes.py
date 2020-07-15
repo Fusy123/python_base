@@ -45,10 +45,9 @@ sd.resolution = (1200, 600)
 # angle = 0
 # length = 150
 # start_point_triangle = sd.get_point(100, 100)
-# TODO  Где именно ошибка? согласно рекомендованного сервиса:
-# TODO квадрат сущ. общ.	square; quadrate; regular tetragon; four-square; the second degree;
-#  boxball (игра в мяч Lassielle); square of a number (вторая степень числа)
+# TODO  start_point_quadrate на start_point_squares нужно заменить
 # start_point_quadrate = sd.get_point(600, 100)
+# TODO тут тоже пайчарм подчеркивает имя
 # start_point_pentagan = sd.get_point(300, 300)
 # start_point_hexagon = sd.get_point(700, 300)
 
@@ -112,6 +111,8 @@ sd.resolution = (1200, 600)
 # расчет наклона в зависимости от количества углов
 
 def figure_draw(vertex):
+    # TODO все параметры передаем в функции в переменных kwargs, по большей части оставляем только логику рисования
+    # TODO Остальную общею статику выносим, или передаем при вызове функции
     length = 200
     width = 5
     x = 600
@@ -129,6 +130,8 @@ def figure_draw(vertex):
         point = arm.end_point
     arm2 = sd.line(start_point=start_point_figure, end_point=point, color=color, width=width)
 
+
+# TODO вывод делаем как тут lesson_004/results/exercise_01_shapes.jpg
 
 vertex = int(input('Введите количество углов: '))
 figure_draw(vertex=vertex)
