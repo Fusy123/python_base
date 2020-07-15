@@ -58,9 +58,11 @@ for color in colors.items():
     print(color[1][0], ': ', color[1][1])
 
 # выбор цвета и проверка правильности ввода
+# TODO используем цикл while True тогда i = 1 не нужно
 i = 1
 while i == 1:
     user_color = input('Введите желаемый цвет: ')
+    # TODO Сразу проверяем вхождение по ключу в условии, и если тру то берем этот ключ и нужные данные
     for color in colors.items():
         if user_color in color[1][0]:
             color_draw = color[0]
@@ -68,6 +70,6 @@ while i == 1:
             break
     else:
         print('Вы ввели неправильный номер цвета!')
-
+# TODO ругается что данная переменная не объявлена
 figure_draw(color=color_draw)
 sd.pause()
