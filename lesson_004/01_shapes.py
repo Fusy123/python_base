@@ -1,10 +1,8 @@
 # -*- coding: utf-8 -*-
 
 import simple_draw as sd
-from simple_draw import Point
 
 sd.resolution = (1200, 600)
-
 
 # Часть 1.
 # Написать функции рисования равносторонних геометрических фигур:
@@ -45,10 +43,8 @@ sd.resolution = (1200, 600)
 # angle = 0
 # length = 150
 # start_point_triangle = sd.get_point(100, 100)
-# TODO  start_point_quadrate на start_point_squares нужно заменить
-# start_point_quadrate = sd.get_point(600, 100)
-# TODO тут тоже пайчарм подчеркивает имя
-# start_point_pentagan = sd.get_point(300, 300)
+# start_point_squares = sd.get_point(600, 100)
+# start_point_pentagon = sd.get_point(300, 300)
 # start_point_hexagon = sd.get_point(700, 300)
 
 
@@ -66,7 +62,7 @@ sd.resolution = (1200, 600)
 
 # -----------------------------------------------------------------------------------------------------
 # рисуем квадрат
-# def quadrate(point, angle, length):
+# def squares(point, angle, length):
 #     arm2 = sd.get_vector(start_point=point, angle=120, length=length, width=3)
 #     arm2.draw()
 #     for angle in range(30, 271, 90):
@@ -75,12 +71,12 @@ sd.resolution = (1200, 600)
 #         point = arm.end_point
 #
 #
-# quadrate(point=start_point_quadrate, angle=angle, length=length)
+# squares(point=start_point_squares, angle=angle, length=length)
 #
 
 # ------------------------------------------------------------------------------------------------------
 # рисуем пятиугольник
-# def pentagan(point, angle, length):
+# def pentagon(point, angle, length):
 #     arm2 = sd.get_vector(start_point=point, angle=139, length=length, width=3)
 #     arm2.draw()
 #     for angle in range(30, 289, 72):
@@ -89,7 +85,7 @@ sd.resolution = (1200, 600)
 #         point = arm.end_point
 #
 #
-# pentagan(point=start_point_pentagan, angle=angle, length=length)
+# pentagon(point=start_point_pentagon, angle=angle, length=length)
 #
 
 # ---------------------------------------------------------------------------------------------------------
@@ -109,33 +105,39 @@ sd.resolution = (1200, 600)
 # общая функция.
 # условие: количество углов, длина стороны, толщина линии, цвет, стартовая точка,
 # расчет наклона в зависимости от количества углов
+length = 100
+width = 3
+x = 300
+y = 100
+angle = 30
 
-def figure_draw(vertex):
-    # TODO все параметры передаем в функции в переменных kwargs, по большей части оставляем только логику рисования
-    # TODO Остальную общею статику выносим, или передаем при вызове функции
-    length = 200
-    width = 5
-    x = 600
-    y = 100
-    start_point_figure = sd.get_point(x, y)
-    point = start_point_figure
-    angle_start = 0
-    angle_step = round(360 / vertex)
-    angle_finish = 361 - angle_step
+
+def figure_draw(**kwargs):
     color = sd.random_color()
+    x1 = x
+    y1 = y
+    for vertex in range(3, 7, 1):  # расчет переменных
+        start_point_figure1 = sd.get_point(x1, y1)
+        point1 = start_point_figure1
+        angle_start = angle
+        angle_step = round(360 / vertex)
+        angle_finish = 360 - angle_step
 
-    for angle in range(angle_start, angle_finish, angle_step):
-        arm = sd.get_vector(start_point=point, angle=angle, length=length, width=width)
-        arm.draw(color=color)
-        point = arm.end_point
-    arm2 = sd.line(start_point=start_point_figure, end_point=point, color=color, width=width)
+        for angles in range(angle_start, angle_finish, angle_step):  # рисование фигур
+            arm = sd.get_vector(start_point=point1, angle=angles, length=length, width=width)
+            arm.draw(color=color)
+            point1 = arm.end_point
+        arm2 = sd.line(start_point=start_point_figure1, end_point=point1, color=color, width=width)
+        x1 += 500  # смещение координат для следующей фигуры
+        if x1 > 800:
+            x1 = 300
+            y1 = 300
 
 
-# TODO вывод делаем как тут lesson_004/results/exercise_01_shapes.jpg
+start_point_figure = sd.get_point(x, y)
+figure_draw(angle=angle, length=length, width=width)
 
-vertex = int(input('Введите количество углов: '))
-figure_draw(vertex=vertex)
-
+sd.pause()
 # Часть 1-бис.
 # Попробуйте прикинуть обьем работы, если нужно будет внести изменения в этот код.
 # Скажем, связывать точки не линиями, а дугами. Или двойными линиями. Или рисовать круги в угловых точках. Или...
@@ -158,6 +160,3 @@ figure_draw(vertex=vertex)
 # А теперь - сколько надо работы что бы внести изменения в код? Выгода на лицо :)
 # Поэтому среди программистов есть принцип D.R.Y. https://clck.ru/GEsA9
 # Будьте ленивыми, не используйте копи-пасту!
-
-
-sd.pause()
