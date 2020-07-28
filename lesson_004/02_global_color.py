@@ -55,7 +55,7 @@ for color in enumerate(colors):
 # выбор цвета и проверка правильности ввода
 while True:
     user_color = int(input('Введите желаемый цвет: '))
-    if user_color >= 0 and user_color <= len(colors) - 1:
+    if 0 <= user_color <= len(colors) - 1:
         color_draw = colors[user_color][1]
         break
     else:
