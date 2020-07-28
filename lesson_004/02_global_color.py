@@ -43,33 +43,24 @@ def figure_draw(color):
 
 
 # словарь цветов
-colors = {sd.COLOR_RED: ['1', 'Красный'],
-          sd.COLOR_ORANGE: ['2', 'Оранжевый'],
-          sd.COLOR_YELLOW: ['3', 'Желтый'],
-          sd.COLOR_GREEN: ['4', 'Зеленый'],
-          sd.COLOR_CYAN: ['5', 'Голубой'],
-          sd.COLOR_BLUE: ['6', 'Синий'],
-          sd.COLOR_PURPLE: ['7', 'Фиолетовый']
-          }
+colors = (('Красный', sd.COLOR_RED), ('Оранжевый', sd.COLOR_ORANGE), ('Желтый', sd.COLOR_YELLOW),
+          ('Зеленый', sd.COLOR_GREEN), ('Голубой', sd.COLOR_CYAN), ('Синий', sd.COLOR_BLUE),
+          ('Фиолетовый', sd.COLOR_PURPLE))
 
 print('Выберите цвет: ')
-# вывод соответсвия номера - цвету
-for color in colors.items():
-    print(color[1][0], ': ', color[1][1])
+# вывод соответствия номера - цвету
+for color in enumerate(colors):
+    print(color[0], ': ', color[1][0])
 
 # выбор цвета и проверка правильности ввода
-# TODO используем цикл while True тогда i = 1 не нужно
-i = 1
-while i == 1:
-    user_color = input('Введите желаемый цвет: ')
-    # TODO Сразу проверяем вхождение по ключу в условии, и если тру то берем этот ключ и нужные данные
-    for color in colors.items():
-        if user_color in color[1][0]:
-            color_draw = color[0]
-            i = 0
-            break
+while True:
+    user_color = int(input('Введите желаемый цвет: '))
+    if user_color >= 0 and user_color <= len(colors) - 1:
+        color_draw = colors[user_color][1]
+        break
     else:
         print('Вы ввели неправильный номер цвета!')
-# TODO ругается что данная переменная не объявлена
+
 figure_draw(color=color_draw)
+
 sd.pause()
