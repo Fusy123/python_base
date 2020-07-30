@@ -43,19 +43,24 @@ def figure_draw(color):
 
 
 # словарь цветов
-colors = (('Красный', sd.COLOR_RED), ('Оранжевый', sd.COLOR_ORANGE), ('Желтый', sd.COLOR_YELLOW),
-          ('Зеленый', sd.COLOR_GREEN), ('Голубой', sd.COLOR_CYAN), ('Синий', sd.COLOR_BLUE),
-          ('Фиолетовый', sd.COLOR_PURPLE))
+colors = {'1': ['Красный', sd.COLOR_RED],
+          '2': ['Оранжевый', sd.COLOR_ORANGE],
+          '3': ['Желтый', sd.COLOR_YELLOW],
+          '4': ['Зеленый', sd.COLOR_GREEN],
+          '5': ['Голубой', sd.COLOR_CYAN],
+          '6': ['Синий', sd.COLOR_BLUE],
+          '7': ['Фиолетовый', sd.COLOR_PURPLE]
+          }
 
 print('Выберите цвет: ')
 # вывод соответствия номера - цвету
-for color in enumerate(colors):
+for color in colors.items():
     print(color[0], ': ', color[1][0])
 
 # выбор цвета и проверка правильности ввода
 while True:
-    user_color = int(input('Введите желаемый цвет: '))
-    if 0 <= user_color <= len(colors) - 1:
+    user_color = input('Введите желаемый цвет: ')
+    if user_color in colors.keys():
         color_draw = colors[user_color][1]
         break
     else:
