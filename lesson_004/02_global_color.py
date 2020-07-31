@@ -17,7 +17,7 @@ sd.resolution = (1200, 600)
 # и константы COLOR_RED, COLOR_ORANGE, COLOR_YELLOW, COLOR_GREEN, COLOR_CYAN, COLOR_BLUE, COLOR_PURPLE
 # Результат решения см lesson_004/results/exercise_02_global_color.jpg
 
-
+# TODO добавить доработанный код от 01 урока
 # пишем функцию рисования фигур
 def figure_draw(color):
     length = 100
