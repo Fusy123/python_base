@@ -12,6 +12,7 @@ sd.resolution = (1200, 600)
 # Код функций из упр lesson_004/02_global_color.py скопировать сюда
 # Результат решения см lesson_004/results/exercise_03_shape_select.jpg
 
+# TODO добавить доработанный код от 01 урока
 # пишем функцию рисования фигур
 def figure_draw(**kwargs):
     # расчет переменных
