@@ -26,16 +26,16 @@ def figure_draw(**kwargs):
     angle1 = kwargs['angle']
     length1 = kwargs['length']
     width1 = kwargs['width']
-    color = kwargs['color']
+    color1 = kwargs['color']
     point2 = start_point_figure
     angle_start = angle1
     angle_step = round(360 / user_angle)
     angle_finish = 361 - angle_step
     for angle_draw in range(angle_start, angle_finish, angle_step):  # рисование фигур
         arm = sd.get_vector(start_point=point2, angle=angle_draw, length=length1, width=width1)
-        arm.draw(color=color)
+        arm.draw(color=color1)
         point2 = arm.end_point
-    sd.line(start_point=start_point_figure, end_point=point2, color=color, width=width1)
+    sd.line(start_point=start_point_figure, end_point=point2, color=color1, width=width1)
 
 
 def triangle(point, angle1, length1):
