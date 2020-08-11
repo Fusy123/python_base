@@ -19,27 +19,39 @@ sd.resolution = (1200, 600)
 
 # TODO добавить доработанный код от 01 урока
 # пишем функцию рисования фигур
-def figure_draw(color):
-    length = 100
-    width = 5
-    x = 300
-    y = 100
-    for vertex in range(3, 7, 1):  # расчет переменных
-        start_point_figure = sd.get_point(x, y)
-        point = start_point_figure
-        angle_start = 30
-        angle_step = round(360 / vertex)
-        angle_finish = 361 - angle_step
+def figure_draw(**kwargs):
+    # расчет переменных
+    start_point_figure = kwargs['start_point_figure']
+    user_angle = kwargs['user_angle']
+    angle1 = kwargs['angle']
+    length1 = kwargs['length']
+    width1 = kwargs['width']
+    color = kwargs['color']
+    point2 = start_point_figure
+    angle_start = angle1
+    angle_step = round(360 / user_angle)
+    angle_finish = 361 - angle_step
+    for angle_draw in range(angle_start, angle_finish, angle_step):  # рисование фигур
+        arm = sd.get_vector(start_point=point2, angle=angle_draw, length=length1, width=width1)
+        arm.draw(color=color)
+        point2 = arm.end_point
+    sd.line(start_point=start_point_figure, end_point=point2, color=color, width=width1)
 
-        for angle in range(angle_start, angle_finish, angle_step):  # рисование фигур
-            arm = sd.get_vector(start_point=point, angle=angle, length=length, width=width)
-            arm.draw(color=color)
-            point = arm.end_point
-        arm2 = sd.line(start_point=start_point_figure, end_point=point, color=color, width=width)
-        x += 500  # смещение координат для следующей фигуры
-        if x > 800:
-            x = 300
-            y = 300
+
+def triangle(point, angle1, length1):
+    figure_draw(start_point_figure=point, angle=angle1, length=length1, width=width, user_angle=3, color=color_draw)
+
+
+def squares(point, angle1, length1):
+    figure_draw(start_point_figure=point, angle=angle1, length=length1, width=width, user_angle=4, color=color_draw)
+
+
+def pentagon(point, angle1, length1):
+    figure_draw(start_point_figure=point, angle=angle1, length=length1, width=width, user_angle=5, color=color_draw)
+
+
+def hexagon(point, angle1, length1):
+    figure_draw(start_point_figure=point, angle=angle1, length=length1, width=width, user_angle=6, color=color_draw)
 
 
 # словарь цветов
@@ -66,6 +78,17 @@ while True:
     else:
         print('Вы ввели неправильный номер цвета!')
 
-figure_draw(color=color_draw)
+angle = 30
+length = 100
+width = 5
+start_point_triangle = sd.get_point(100, 100)
+start_point_squares = sd.get_point(600, 100)
+start_point_pentagon = sd.get_point(300, 300)
+start_point_hexagon = sd.get_point(700, 300)
+
+triangle(start_point_triangle, angle, length)
+squares(start_point_squares, angle, length)
+pentagon(start_point_pentagon, angle, length)
+hexagon(start_point_hexagon, angle, length)
 
 sd.pause()
