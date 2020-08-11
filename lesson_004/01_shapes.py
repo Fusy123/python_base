@@ -4,6 +4,7 @@ import simple_draw as sd
 
 sd.resolution = (1200, 600)
 
+
 # Часть 1.
 # Написать функции рисования равносторонних геометрических фигур:
 # - треугольника
@@ -100,64 +101,55 @@ sd.resolution = (1200, 600)
 #
 #
 # hexagon(point=start_point_hexagon, angle=angle, length=length)
-# ---------------------------------------------------------------------------------------------------------
-
-# TODO общая функция.
-# TODO параметры: количество углов, длина стороны, толщина линии, цвет, стартовая точка,
-# TODO расчет наклона в зависимости от количества углов
-
-# TODO Надо сформировать функцию, параметризированную в местах где была "небольшая правка".
-# TODO Это называется "Выделить общую часть алгоритма в отдельную функцию"
-# TODO Потом надо изменить функции рисования конкретных фигур - вызывать общую функцию вместо "почти" одинакового кода.
-
-# TODO В итоге должно получиться:
-# TODO  - одна общая функция со множеством параметров,
-# TODO  - все функции отрисовки треугольника/квадрата/етс берут 3 параметра и внутри себя ВЫЗЫВАЮТ общую функцию.
-
-# TODO в figure_draw вы вынесете то что часто менялось в коде выше, а потом напишите вот так:
-
-# TODO def triangle(point, angle, length):
-# TODO     figure_draw(point, angle, length, и еще нужные параметры для вызова)
-
-# TODO def squares(point, angle, length):
-# TODO     figure_draw(point, angle, length, и еще нужные параметры для вызова)
-
-# TODO у вас примерно что то похожее на общею функцию уже реализовано в 03, но нужно доработать
-
-length = 100
-width = 3
-x = 300
-y = 100
-angle = 30
-
-# TODO kwargs имелось ввиду именованные параметры которые вы туда передаете
-# TODO это: точка рисования, шаг, угол_наклона, длинну линий и все что еще нужно!
-
+# --------------------------------------------------------------------------------------------------------
 
 def figure_draw(**kwargs):
+    # расчет переменных
+    start_point_figure = kwargs['start_point_figure']
+    user_angle = kwargs['user_angle']
+    angle1 = kwargs['angle']
+    length1 = kwargs['length']
+    width1 = kwargs['width']
     color = sd.random_color()
-    x1 = x
-    y1 = y
-    for vertex in range(3, 7, 1):  # расчет переменных
-        start_point_figure1 = sd.get_point(x1, y1)
-        point1 = start_point_figure1
-        angle_start = angle
-        angle_step = round(360 / vertex)
-        angle_finish = 360 - angle_step
-
-        for angles in range(angle_start, angle_finish, angle_step):  # рисование фигур
-            arm = sd.get_vector(start_point=point1, angle=angles, length=length, width=width)
-            arm.draw(color=color)
-            point1 = arm.end_point
-        arm2 = sd.line(start_point=start_point_figure1, end_point=point1, color=color, width=width)
-        x1 += 500  # смещение координат для следующей фигуры
-        if x1 > 800:
-            x1 = 300
-            y1 = 300
+    point2 = start_point_figure
+    angle_start = angle1
+    angle_step = round(360 / user_angle)
+    angle_finish = 361 - angle_step
+    for angle_draw in range(angle_start, angle_finish, angle_step):  # рисование фигур
+        arm = sd.get_vector(start_point=point2, angle=angle_draw, length=length1, width=width1)
+        arm.draw(color=color)
+        point2 = arm.end_point
+    sd.line(start_point=start_point_figure, end_point=point2, color=color, width=width1)
 
 
-start_point_figure = sd.get_point(x, y)
-figure_draw(angle=angle, length=length, width=width)
+def triangle(point, angle1, length1):
+    figure_draw(start_point_figure=point, angle=angle1, length=length1, width=width, user_angle=3)
+
+
+def squares(point, angle1, length1):
+    figure_draw(start_point_figure=point, angle=angle1, length=length1, width=width, user_angle=4)
+
+
+def pentagon(point, angle1, length1):
+    figure_draw(start_point_figure=point, angle=angle1, length=length1, width=width, user_angle=5)
+
+
+def hexagon(point, angle1, length1):
+    figure_draw(start_point_figure=point, angle=angle1, length=length1, width=width, user_angle=6)
+
+
+angle = 30
+length = 100
+width = 5
+start_point_triangle = sd.get_point(100, 100)
+start_point_squares = sd.get_point(600, 100)
+start_point_pentagon = sd.get_point(300, 300)
+start_point_hexagon = sd.get_point(700, 300)
+
+triangle(start_point_triangle, angle, length)
+squares(start_point_squares, angle, length)
+pentagon(start_point_pentagon, angle, length)
+hexagon(start_point_hexagon, angle, length)
 
 sd.pause()
 # Часть 1-бис.
