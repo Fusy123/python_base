@@ -19,6 +19,7 @@ x = 600
 y = 150
 point = sd.get_point(x, y)
 
+
 # пишем функцию рисования фигур
 def figure_draw(**kwargs):
     # расчет переменных
@@ -54,6 +55,7 @@ def pentagon(point, angle1, length1):
 def hexagon(point, angle1, length1):
     figure_draw(start_point_figure=point, angle=angle1, length=length1, width=width, user_angle=6)
 
+
 # словарь фигур
 figures = ((3, 'Треугольник', triangle), (4, 'Квадрат', squares),
            (5, 'Пятиугольник', pentagon), (6, 'Шестиугольник', hexagon))
@@ -75,6 +77,4 @@ while True:
     else:
         print('Вы ввели неправильный номер фигуры!')
 
-
-
-
+# зачет!
