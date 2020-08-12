@@ -4,7 +4,6 @@ import simple_draw as sd
 
 sd.resolution = (1200, 600)
 
-
 # Запросить у пользователя желаемую фигуру посредством выбора из существующих
 #   вывести список всех фигур с номерами и ждать ввода номера желаемой фигуры.
 # и нарисовать эту фигуру в центре экрана
@@ -40,20 +39,20 @@ def figure_draw(**kwargs):
     sd.line(start_point=start_point_figure, end_point=point2, color=color, width=width1)
 
 
-def triangle(point, angle1, length1):
-    figure_draw(start_point_figure=point, angle=angle1, length=length1, width=width, user_angle=3)
+def triangle(point1, angle1, length1):
+    figure_draw(start_point_figure=point1, angle=angle1, length=length1, width=width, user_angle=3)
 
 
-def squares(point, angle1, length1):
-    figure_draw(start_point_figure=point, angle=angle1, length=length1, width=width, user_angle=4)
+def squares(point1, angle1, length1):
+    figure_draw(start_point_figure=point1, angle=angle1, length=length1, width=width, user_angle=4)
 
 
-def pentagon(point, angle1, length1):
-    figure_draw(start_point_figure=point, angle=angle1, length=length1, width=width, user_angle=5)
+def pentagon(point1, angle1, length1):
+    figure_draw(start_point_figure=point1, angle=angle1, length=length1, width=width, user_angle=5)
 
 
-def hexagon(point, angle1, length1):
-    figure_draw(start_point_figure=point, angle=angle1, length=length1, width=width, user_angle=6)
+def hexagon(point1, angle1, length1):
+    figure_draw(start_point_figure=point1, angle=angle1, length=length1, width=width, user_angle=6)
 
 
 # словарь фигур
