@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import simple_draw as sd
+
 sd.resolution = (1200, 600)
 
 # На основе кода из практической части реализовать снегопад:
@@ -17,42 +18,35 @@ N = 20
 # sd.random_number()
 # sd.user_want_exit()
 
-# TODO Это делаем автоматически и параметр X делаем рендомно, Y = 600 статика, добавим еще один параметр
-# TODO length = sd.random_number(10, 100), он будет третий
-snowflake_points = ([50, 600], [100, 500], [150, 600], [200, 500], [250, 550],
-                     [300, 600], [350, 550], [400, 500], [450, 600], [500, 550],
-                     [550, 500], [600, 600], [650, 550], [700, 500], [750, 600],
-                     [800, 550], [850, 500], [900, 600], [950, 550], [1000, 500])
+snowflake_points = []
+
+for i in range(N):
+    x = sd.random_number(0, 1200)
+    y = sd.random_number(450, 600)
+    length = sd.random_number(10, 100)
+    snowflake_points.append([x, y, length])
 
 while True:
     sd.clear_screen()
-    # TODO Заводим цикл по range(N), так нам будет проще изменять их данные по индексу
-    for x, y in snowflake_points:
-
-        # TODO Получаем по индексу x, y, length
-        # TODO изменяем x, y
-        # TODO Формируем точку
-        # TODO печатаем снежинку
-        # TODO по индексу в snowflake_points сохраняем  x, y
-
-        # TODO условие убираем вниз и там сравниваем если y < 10 то допустим не брейк, а параметр отвечающий за Y
-        # TODO в списке snowflake_points делаем по дефолту 600
-        if y > 10:
-            point = sd.get_point(x, y)
-            length = sd.random_number(10, 100)
-            sd.snowflake(center=point, length=length)
-            y -= 10
-            x = x + 10
-        else:
-            break
-
+    for i in range(N):
+        x = snowflake_points[i][0]
+        y = snowflake_points[i][1]
+        length = snowflake_points[i][2]
+        point = sd.get_point(x, y)
+        y -= 10
+        x += 10
+        if y < 10 or x > 1200:
+            x = sd.random_number(0, 1200)
+            y = 600
+        snowflake_points[i] = [x, y, length]
+        sd.snowflake(point, length)
     sd.sleep(0.2)
     if sd.user_want_exit():
         break
 
 sd.pause()
 
-#------------------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------------------
 # Примерный алгоритм отрисовки снежинок
 #   навсегда
 #     очистка экрана
@@ -99,4 +93,3 @@ sd.pause()
 # - сделать сугоб внизу экрана - если снежинка долетает до низа, оставлять её там,
 #   и добавлять новую снежинку
 # Результат решения см https://youtu.be/XBx0JtxHiLg
-
