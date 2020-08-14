@@ -3,7 +3,10 @@
 import simple_draw as sd
 
 sd.resolution = (1200, 600)
-sd.background_color = (240, 240, 240)
+
+
+# sd.background_color = (255, 0, 0)
+
 
 # 1) Написать функцию draw_branches, которая должна рисовать две ветви дерева из начальной точки
 # Функция должна принимать параметры:
@@ -29,41 +32,33 @@ sd.background_color = (240, 240, 240)
 
 # можно поиграть -шрифтами- цветами и углами отклонения
 # -------------------------------------------------------------------------------------
-x = 300
-y = 30
 
-root_point = sd.get_point(x, y)
-angle = 90
-lehght = 100
-delta = 20
-
-
-# TODO Пайчарм подчеркивает некоторые параметры потому что они определены выше
-def draw_branches(point, angle, length, delta, color):
-    if length < 10:
+def draw_branches(point1, angle1, length1, delta1, color1):
+    if length1 < 10:
         return
-    v1 = sd.get_vector(start_point=point, angle=angle, length=length, width=3)
+    v1 = sd.get_vector(start_point=point1, angle=angle1, length=length1, width=3)
     v1.draw(color)
-    # TODO дублирование кода, две переменные на один объект
     next_point_0 = v1.end_point
-    next_point_2 = v1.end_point
-    next_angle_0 = angle - (sd.random_number(delta * .6, delta * 1.4))
-    next_angle_2 = angle + (sd.random_number(delta * .6, delta * 1.4))
-    next_length_0 = length * ((sd.random_number(75 * .8, 75 * 1.2)) / 100)
-    next_length_2 = length * ((sd.random_number(75 * .8, 75 * 1.2)) / 100)
-    draw_branches(point=next_point_0, angle=next_angle_0, length=next_length_0, delta=delta, color=color)
-    draw_branches(point=next_point_2, angle=next_angle_2, length=next_length_2, delta=delta, color=color)
+    next_angle_0 = angle1 - (sd.random_number(delta1 * .8, delta1 * 1.4))
+    next_length_0 = length1 * ((sd.random_number(75 * .8, 75 * 1.2)) / 100)
+    draw_branches(next_point_0, next_angle_0, next_length_0, delta1, color1)
+    next_angle_0 = angle1 + (sd.random_number(delta1 * .8, delta1 * 1.4))
+    next_length_0 = length1 * ((sd.random_number(75 * .8, 75 * 1.2)) / 100)
+    draw_branches(next_point_0, next_angle_0, next_length_0, delta1, color1)
 
-for _ in range(3):
-    color = sd.random_color()
-    root_point =sd.get_point (x, y)
-    draw_branches(point=root_point, angle=angle, length=lehght, delta=delta, color=color)
-    x += 300
 
+x = 600
+y = 30
+root_point = sd.get_point(x, y)
+point = root_point
+angle = 90
+length = 150
+delta = 30
+color = sd.COLOR_YELLOW
+root_point = sd.get_point(x, y)
+draw_branches(root_point, angle, length, delta, color)
 
 sd.pause()
-
-# TODO Есть недочеты в форматировании по PEP8, используйте пункт меню в пайчарме
 
 # 4) Усложненное задание (делать по желанию)
 # - сделать рандомное отклонение угла ветвей в пределах 40% от 30-ти градусов
@@ -72,5 +67,3 @@ sd.pause()
 
 # Пригодятся функции
 # sd.random_number()
-
-
