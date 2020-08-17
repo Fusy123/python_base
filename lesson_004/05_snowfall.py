@@ -22,32 +22,32 @@ snowflake_points = []
 
 for i in range(N):
     x = sd.random_number(0, 1200)
-    y = sd.random_number(450, 600)
-    length = sd.random_number(10, 100)
+    y = sd.random_number(150, 600)
+    length = sd.random_number(10, 50)
     snowflake_points.append([x, y, length])
 
 while True:
-    sd.clear_screen()
+    sd.start_drawing()
     for i in range(N):
         x = snowflake_points[i][0]
         y = snowflake_points[i][1]
         length = snowflake_points[i][2]
         point = sd.get_point(x, y)
-        y -= 10
-        x += 10
-        # во второй части можно убрать проверку по Х
+        sd.snowflake(point, length, color=(0, 8, 98))
+        y -= sd.random_number(0, 15)
+        x += sd.random_number(-15, 15)
         if y < 10 or x > 1200:
             x = sd.random_number(0, 1200)
             y = 600
         snowflake_points[i] = [x, y, length]
+        point = sd.get_point(x, y)
         sd.snowflake(point, length)
+    sd.finish_drawing()
     sd.sleep(0.2)
     if sd.user_want_exit():
         break
 
 sd.pause()
-
-# TODO Хорошо, делаем вторую часть
 
 # ------------------------------------------------------------------------------------------
 # Примерный алгоритм отрисовки снежинок
