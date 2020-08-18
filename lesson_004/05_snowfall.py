@@ -24,8 +24,11 @@ snowflake_finish = []
 for i in range(N):
     x = sd.random_number(0, 1200)
     y = sd.random_number(150, 600)
-    length = sd.random_number(10, 50)
-    snowflake_points.append([x, y, length])
+    length = sd.random_number(10, 40)
+    factor_a = (sd.random_number(5, 8))/10
+    factor_b = (sd.random_number(30, 70))/100
+    factor_c = sd.random_number(0, 90)
+    snowflake_points.append([x, y, length, factor_a, factor_b, factor_c])
 
 while True:
     sd.start_drawing()
@@ -34,25 +37,34 @@ while True:
         y = snowflake_points[i][1]
         length = snowflake_points[i][2]
         point = sd.get_point(x, y)
-        sd.snowflake(point, length, color=(0, 8, 98))
+        factor_a = snowflake_points[i][3]
+        factor_b = snowflake_points[i][4]
+        factor_c = snowflake_points[i][5]
+        sd.snowflake(point, length, (0, 8, 98), factor_a=factor_a, factor_b=factor_b, factor_c=factor_c)
         y -= sd.random_number(0, 15)
         x += sd.random_number(-15, 15)
         if y < 10:
-            snowflake_finish.append([x, y, length])
+            snowflake_finish.append([x, y, length, factor_a, factor_b, factor_c])
             for m in range(len(snowflake_finish)):
                 x1 = snowflake_finish[m][0]
                 y1 = snowflake_finish[m][1]
                 length1 = snowflake_finish[m][2]
+                factor_a1 = snowflake_finish[m][3]
+                factor_b1 = snowflake_finish[m][4]
+                factor_c1 = snowflake_finish[m][5]
                 if 300 < x1 < 900:
-                    y1 = (snowflake_finish[m][1] / 2) + snowflake_finish[m][2]
+                    y1 = (snowflake_finish[m][1]/2) + snowflake_finish[m][2]
                 point1 = sd.get_point(x1, y1)
-                sd.snowflake(point1, length1)
+                sd.snowflake(point1, length1, factor_a=factor_a1, factor_b=factor_b1, factor_c=factor_c1)
             x = sd.random_number(0, 1200)
             y = sd.random_number(400, 600)
-            length = sd.random_number(10, 50)
-        snowflake_points[i] = [x, y, length]
+            length = sd.random_number(10, 40)
+            factor_a = (sd.random_number(3, 7)) / 10
+            factor_b = (sd.random_number(10, 99)) / 100
+            factor_c = sd.random_number(0, 90)
+        snowflake_points[i] = [x, y, length, factor_a, factor_b, factor_c]
         point = sd.get_point(x, y)
-        sd.snowflake(point, length)
+        sd.snowflake(point, length, factor_a=factor_a, factor_b=factor_b, factor_c=factor_c)
     sd.finish_drawing()
     sd.sleep(0.2)
     if sd.user_want_exit():
