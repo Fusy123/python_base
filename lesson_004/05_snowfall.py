@@ -19,6 +19,7 @@ N = 20
 # sd.user_want_exit()
 
 snowflake_points = []
+snowflake_finish = []
 
 for i in range(N):
     x = sd.random_number(0, 1200)
@@ -36,9 +37,19 @@ while True:
         sd.snowflake(point, length, color=(0, 8, 98))
         y -= sd.random_number(0, 15)
         x += sd.random_number(-15, 15)
-        if y < 10 or x > 1200:
+        if y < 10:
+            snowflake_finish.append([x, y, length])
+            for m in range(len(snowflake_finish)):
+                x1 = snowflake_finish[m][0]
+                y1 = snowflake_finish[m][1]
+                length1 = snowflake_finish[m][2]
+                if 300 < x1 < 900:
+                    y1 = (snowflake_finish[m][1] / 2) + snowflake_finish[m][2]
+                point1 = sd.get_point(x1, y1)
+                sd.snowflake(point1, length1)
             x = sd.random_number(0, 1200)
-            y = 600
+            y = sd.random_number(400, 600)
+            length = sd.random_number(10, 50)
         snowflake_points[i] = [x, y, length]
         point = sd.get_point(x, y)
         sd.snowflake(point, length)
