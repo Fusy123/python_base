@@ -5,8 +5,11 @@
 # подсказка: для вывода элементов списка через запятую можно использовать функцию строки .join()
 # https://docs.python.org/3/library/stdtypes.html#str.join
 import textwrap
+# TODO все импорты делаем в начале модуле перед основным кодом программы, пайчарм вам подсказывает об этом
+
 
 folks_list_district = []
+# TODO что есть переменная s ? Нейминг
 s = ', '
 import district.central_street.house1.room1 as room1
 
