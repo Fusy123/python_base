@@ -15,4 +15,24 @@
 # Создать рецепт своего бургера, по вашему вкусу.
 # Если не хватает инградиентов - создать соответствующие функции в модуле my_burger
 
-# TODO здесь ваш код
+import my_burger as mb
+
+print('Добрый день. Давайте приготовим ваш любимый бургер!')
+print('Выберите нужный компонент')
+
+# вывод соответствия номера - компоненту
+for ingredient in enumerate(mb.burger_list):
+    print(ingredient[0], ": ", ingredient[1][1])
+
+# выбор компонента и проверка правильности ввода
+user_burgers = []
+while True:
+    user_input = int(input('Что добавим? : '))
+    if 0 <= user_input <= 10:
+        user_burgers.append(mb.burger_list[user_input][1])
+        mb.burger_list[user_input][2]()
+    elif user_input == 11:
+        print("Ваш бургер: ", user_burgers)
+        break
+    else:
+        print('У нас нет такого продукта!')
