@@ -24,8 +24,7 @@ from the_country import sun
 from the_country import house
 from the_country import tree
 from the_country import smile
-
-
+from the_country import snowflake
 
 sd.resolution = (1200, 600)
 
@@ -36,14 +35,13 @@ sun.sun()
 house.house()
 tree.tree()
 smile.smile()
-
-
 sd.finish_drawing()
-sd.sleep(0.2)
+
+
+snowflake.snowflakes()
+
+
 sd.pause()
-
-
-
 
 # Усложненное задание (делать по желанию)
 # Анимировать картину.
