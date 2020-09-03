@@ -18,7 +18,30 @@
 # пример см. lesson_005/results/04_painting.jpg
 # Приправить своей фантазией по вкусу (коты? коровы? люди? трактор? что придумается)
 
-# TODO здесь ваш код
+import simple_draw as sd
+from the_country import rainbow
+from the_country import sun
+from the_country import tree
+from the_country import smile
+
+
+
+sd.resolution = (1200, 600)
+
+sd.start_drawing()
+
+rainbow.rainbow()
+sun.sun()
+tree.tree()
+smile.smile()
+
+
+sd.finish_drawing()
+sd.sleep(0.2)
+sd.pause()
+
+
+
 
 # Усложненное задание (делать по желанию)
 # Анимировать картину.
