@@ -26,3 +26,5 @@ folks_list_district.extend(room7.folks)
 folks_list_district.extend(room8.folks)
 
 print("На районе живут: ", textwrap.fill(', '.join(folks_list_district), width=85))
+
+# зачет!
