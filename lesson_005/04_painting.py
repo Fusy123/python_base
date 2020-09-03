@@ -21,6 +21,7 @@
 import simple_draw as sd
 from the_country import rainbow
 from the_country import sun
+from the_country import house
 from the_country import tree
 from the_country import smile
 
@@ -32,6 +33,7 @@ sd.start_drawing()
 
 rainbow.rainbow()
 sun.sun()
+house.house()
 tree.tree()
 smile.smile()
 

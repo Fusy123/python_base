@@ -5,7 +5,7 @@ def tree():
         if length1 < 5:
             return
         if length1 > 10:
-            v1 = sd.get_vector(start_point=point1, angle=angle1, length=length1, width=2)
+            v1 = sd.get_vector(start_point=point1, angle=angle1, length=length1, width=4)
             v1.draw(color)
             next_point_0 = v1.end_point
             next_angle_0 = angle1 - (sd.random_number(delta1 * .8, delta1 * 1.4))
@@ -28,7 +28,7 @@ def tree():
     x = 800
     y = 30
     angle = 90
-    length = 50
+    length = 100
     delta = 30
     color = (150, 75, 0)
     for i in range(3):
