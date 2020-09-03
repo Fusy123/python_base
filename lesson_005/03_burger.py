@@ -27,15 +27,16 @@ for ingredient in enumerate(mb.burger_list):
 # выбор компонента и проверка правильности ввода
 user_burgers = []
 while True:
-    # TODO а если пользователь ввел не число то код падает! Или просто пустой ввод
-    user_input = int(input('Что добавим? : '))
-    if 0 <= user_input <= 10:
-        user_burgers.append(mb.burger_list[user_input][1])
-        mb.burger_list[user_input][2]()
-    elif user_input == 11:
-        # TODO странный вывод получился печатает просто пустой список! Или тип список выводится тоже в скобках
-        # TODO Нужно преобразовать в строку!
-        print("Ваш бургер: ", user_burgers)
-        break
+    user_input = input('Что добавим? : ')
+    if user_input.isdigit():
+        user_input = int(user_input)
+        if 0 <= user_input <= 10:
+            user_burgers.append(mb.burger_list[user_input][1])
+            mb.burger_list[user_input][2]()
+        elif user_input == 11:
+            print("Ваш бургер: ", ', '.join(user_burgers))
+            break
+        else:
+            print('У нас нет такого продукта!')
     else:
-        print('У нас нет такого продукта!')
+        print('Введите корректное значение')
