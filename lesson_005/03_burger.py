@@ -21,7 +21,7 @@ print('Добрый день. Давайте приготовим ваш люб�
 print('Выберите нужный компонент')
 
 # вывод соответствия номера - компоненту
-for ingredient in enumerate(mb.burger_list):
+for ingredient in enumerate(mb.burger_lst):
     print(ingredient[0], ": ", ingredient[1][1])
 
 # выбор компонента и проверка правильности ввода
@@ -31,8 +31,8 @@ while True:
     if user_input.isdigit():
         user_input = int(user_input)
         if 0 <= user_input <= 10:
-            user_burgers.append(mb.burger_list[user_input][1])
-            mb.burger_list[user_input][2]()
+            user_burgers.append(mb.burger_lst[user_input][1])
+            mb.burger_lst[user_input][2]()
         elif user_input == 11:
             print("Ваш бургер: ", ', '.join(user_burgers))
             break
@@ -40,5 +40,3 @@ while True:
             print('У нас нет такого продукта!')
     else:
         print('Введите корректное значение')
-
-# TODO поправить модуль my_burger
