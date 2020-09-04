@@ -29,19 +29,23 @@ from the_country import snowflake
 sd.resolution = (1200, 600)
 
 sd.start_drawing()
-
-rainbow.rainbow()
-sun.sun()
 house.house()
 tree.tree()
-smile.smile()
-sd.finish_drawing()
+sd.take_background()
+
+while True:
+    sd.start_drawing()
+    sd.draw_background()
+    rainbow.rainbow()
+    sun.sun()
+    smile.smile()
+    snowflake.snowflakes()
+    sd.finish_drawing()
+    sd.sleep(0.2)
+    if sd.user_want_exit():
+        break
 
 
-snowflake.snowflakes()
-
-
-sd.pause()
 
 # TODO давайте анимируем картинку и там применим функции из библиотеки
 # TODO take_background и draw_background для того чтобы фон не затирался
