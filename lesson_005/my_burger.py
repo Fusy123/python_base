@@ -55,6 +55,6 @@ def onion():
     print('Несколько колечек сладкого лука')
 
 
-burger_lst = ((1, 'Булочка', burger_bun), (2, 'Котлета', hamburger), (3, 'Огурец', cucumber),
+components = ((1, 'Булочка', burger_bun), (2, 'Котлета', hamburger), (3, 'Огурец', cucumber),
               (4, 'Помидор', tomato), (5, 'Майонез', mayo), (6, 'Сыр', cheese), (7, 'Чесночный соус', garlic_sauce),
               (8, 'Салат', salad), (9, 'Горчица', mustard), (10, 'Кетчуп', ketchup), (11, 'Лук', onion), (99, 'Выход'))
