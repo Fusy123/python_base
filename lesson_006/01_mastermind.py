@@ -48,22 +48,25 @@
 from bulls_engine import gather_herd, check, input_number
 from termcolor import cprint
 
-cprint('Игра "Быки и коровы"', color='red')
-
-herd = gather_herd()
-print(herd)
-counter = 1
-cprint('Отгадывает игрок', color='green')
-
 while True:
-    user_input = input_number()
-    herds = check(user_input, herd)
-    cprint('Быков: {}'.format(herds[0]), color='yellow')
-    cprint('Коров: {}'.format(herds[1]), color='yellow')
-    if herds[0] == 4:
-        break
+    cprint('Игра "Быки и коровы"', color='red')
+    herd = gather_herd()
+    print(herd)
+    counter = 1
+    cprint('Отгадывает игрок', color='green')
+    while True:
+        user_input = input_number()
+        herds = check(user_input, herd)
+        cprint('Быков: {}'.format(herds[0]), color='yellow')
+        cprint('Коров: {}'.format(herds[1]), color='yellow')
+        if herds[0] == 4:
+            break
+        else:
+            counter += 1
+    cprint('Загаданное число {}'.format(herd), color='red')
+    cprint('Сделано попыток {}'.format(counter), color='red')
+    repeat = int(input('Хотите еще партию? Нажми 1, если да. Если нет то нажми 0: '))
+    if repeat == 1:
+        continue
     else:
-        counter += 1
-
-cprint('Загаданное число {}'.format(herd), color='red')
-cprint('Сделано попыток {}'.format(counter), color='red')
+        break
