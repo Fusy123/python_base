@@ -3,6 +3,7 @@ from random import randint
 _herd = []
 user_input = []
 
+
 def gather_herd():
     """загадываем число"""
     global _herd
@@ -16,7 +17,7 @@ def gather_herd():
             _herd.append(tmp)
         if len(set(_herd)) == 4:
             break
-    print(_herd)
+    return _herd
 
 
 def input_number():
@@ -32,25 +33,13 @@ def input_number():
     return user_input
 
 
-def check(user_input, _herd):
+def check(number, herd):
     """сравнение чисел"""
     bulls, cows = 0, 0
-    for i, num in enumerate(user_input):
-        if num in _herd:
-            if user_input[i] == _herd[i]:
+    for i, num in enumerate(number):
+        if num in herd:
+            if number[i] == herd[i]:
                 bulls += 1
             else:
                 cows += 1
-    print(bulls, cows)
     return bulls, cows
-
-
-
-def del_bad_answer():
-    """удаление неподходящих вариантов"""
-    pass
-
-
-gather_herd()
-input_number()
-check(user_input, _herd)
