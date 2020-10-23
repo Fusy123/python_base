@@ -9,7 +9,7 @@ def random_int():
     number = '0'
     while '0' in number[0] or len(set(number)) < 4 or number.isdigit() is False:
         number = str(random.randint(1000, 10000))
-    print(number)
+    # print(number)
     return number
 
 
