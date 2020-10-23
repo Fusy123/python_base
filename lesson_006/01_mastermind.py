@@ -58,7 +58,7 @@ def play_game():
 
     while eng.check_int(user_number) is False:
         user_number = input(colored('Введите четырехзначное число (число не должно начинаться с нуля и содержать '
-                            'повторяющихся цифр): ', color='red'))
+                                    'повторяющихся цифр): ', color='red'))
 
     eng.convert(first_number=comp_number, second_number=user_number)
 
@@ -66,7 +66,7 @@ def play_game():
 
     while total['bulls'] != 4:
         print(colored('Текущий счет игры: Быки -', color='red'), colored(total['bulls'], color='yellow'),
-              colored('Коровы -', color='red'), colored(total['cows'],color='yellow'), end='.\n')
+              colored('Коровы -', color='red'), colored(total['cows'], color='yellow'), end='.\n')
         user_number = input('Вы не угадали. Попробуйте еще раз: ')
         while eng.check_int(user_number) is False:
             user_number = input('Вы не угадали. Попробуйте еще раз: ')
@@ -79,7 +79,8 @@ def play_game():
               colored('Коровы -', color='red'), colored(total['cows'], color='yellow'), end='.\n')
         cprint('Поздравляем! Вы угадали число!', color='green', attrs=['bold'])
         print(colored('Вы угадали за', color='green', attrs=['bold']), colored(count_games, color='green',
-                     attrs=['bold']), colored('попыток', color='green', attrs=['bold']))
+                                                                               attrs=['bold']),
+              colored('попыток', color='green', attrs=['bold']))
 
     question = input('Хотите сыграть еще одну партию? (y/n)')
     if question.lower() == 'y' or question == '':
