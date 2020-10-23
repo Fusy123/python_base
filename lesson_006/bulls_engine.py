@@ -1,53 +1,43 @@
-from random import randint
+import random
 
-_herd = []
-user_input = []
-
-
-def gather_herd():
-    """загадываем число"""
-    # TODO Можно упростить заводим бесконечный цикл
-    # TODO final_result присваиваем строку в которой randint(1000, 9999)
-    # TODO Потом проверяем если set этой строки без дублей, (и прочекать длину)
-    # TODO то выходим из цикла
-    # TODO и возвращаем нужный нам результат
-    global _herd
-    tmp = randint(1, 9)
-    _herd.append(tmp)
-    while True:
-        for i in range(3):
-            tmp = randint(0, 9)
-            while _herd[i] == tmp:
-                tmp = randint(0, 9)
-            _herd.append(tmp)
-        if len(set(_herd)) == 4:
-            break
-    return _herd
-
-# TODO нет проверки на первый 0 у числа у пользователя!
-
-# TODO эту функцию разбиваем на две части та которая выводит инпут мы описываем в главном модуле.
-# TODO ту часть которая отвечает за логику проверки оставляем тут! По скольку принты тут не должны быть!
-def input_number():
-    """ввод числа пользователем"""
-    global user_input
-    while True:
-        user_input = input('Введите 4 неповторяющиеся цифры: ')
-        if len(user_input) != 4 or not user_input.isdigit():
-            continue
-        user_input = list(map(int, user_input))
-        if len(set(user_input)) == 4:
-            break
-    return user_input
+comp_position = {}
+user_position = {}
 
 
-def check(number, herd):
-    """сравнение чисел"""
-    bulls, cows = 0, 0
-    for i, num in enumerate(number):
-        if num in herd:
-            if number[i] == herd[i]:
+def random_int():
+    """Генерируем четырехзначное число без ноля в первой позиции и повторяющихся цыфр,"""
+    number = '0'
+    while '0' in number[0] or len(set(number)) < 4 or number.isdigit() is False:
+        number = str(random.randint(1000, 10000))
+    print(number)
+    return number
+
+
+def check_int(number):
+    """Проверка четырехзначного числа на наличие ноля в первой позиции и повторяющихся цифр.
+    Возвращает False, если проверка не пройдена."""
+    if '0' in number[0] or len(set(number)) < 4 or number.isdigit() is False:
+        return False
+    else:
+        return True
+
+
+def convert(first_number, second_number):
+    """Конвертирует числа компьютера и пользователя в списки"""
+    comp_number = list(map(int, first_number))
+    user_number = list(map(int, second_number))
+    return comp_number, user_number
+
+
+def check_bulls_cows(comp, user):
+    """Сравнивает числа компьютера и пользователя"""
+    bulls = 0
+    cows = 0
+
+    for i, num in enumerate(comp):
+        if num in user:
+            if comp[i] == user[i]:
                 bulls += 1
             else:
                 cows += 1
-    return bulls, cows
+    return {'bulls': bulls, 'cows': cows}

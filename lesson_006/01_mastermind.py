@@ -44,46 +44,49 @@
 # Это пример применения SOLID принципа (см https://goo.gl/GFMoaI) в архитектуре программ.
 # Точнее, в этом случае важен принцип единственной ответственности - https://goo.gl/rYb3hT
 
+import bulls_engine as eng
+from termcolor import cprint, colored
+import sys
 
-from bulls_engine import gather_herd, check, input_number
-from termcolor import cprint
 
-# TODO в главном цикле мы только вызываем нужные нам функции!
-# TODO Алгоритм примерно такой:
+def play_game():
+    comp_number = eng.random_int()
+    user_number = '0'
+    count_games = 0
 
-# TODO просим_ввести_число_корректное()
-# TODO получаем данные из функции, которая чекает число на результат и возвращает словарь
-# TODO печатаем этот результат
-# TODO увеличиваем число ходов
-# TODO условие на победу и новую иру в виде двух функций:
-# TODO Если выиграли_игру():
-# TODO    новая_игра()
+    cprint('Игра "Быки и коровы"', color='yellow')
 
-# TODO важно функции которые ведут диалог с пользователем в API быть не должно, там только логика и вычисления
-# TODO объявляем их тут
+    while eng.check_int(user_number) is False:
+        user_number = input(colored('Введите четырехзначное число (число не должно начинаться с нуля и содержать '
+                            'повторяющихся цифр): ', color='red'))
 
-# TODO пример алгоритма как в 02 задании, там только функции в цикле
+    eng.convert(first_number=comp_number, second_number=user_number)
 
-while True:
-    cprint('Игра "Быки и коровы"', color='red')
-    herd = gather_herd()
-    print(herd)
-    counter = 1
-    cprint('Отгадывает игрок', color='green')
-    while True:
-        user_input = input_number()
-        herds = check(user_input, herd)
-        cprint('Быков: {}'.format(herds[0]), color='yellow')
-        cprint('Коров: {}'.format(herds[1]), color='yellow')
-        if herds[0] == 4:
-            break
-        else:
-            counter += 1
-    cprint('Загаданное число {}'.format(herd), color='red')
-    cprint('Сделано попыток {}'.format(counter), color='red')
-    repeat = int(input('Хотите еще партию? Нажми 1, если да. Если нет то нажми 0: '))
-    # TODO ничего не происходит!?
-    if repeat == 1:
-        continue
+    total = eng.check_bulls_cows(comp=comp_number, user=user_number)
+
+    while total['bulls'] != 4:
+        print(colored('Текущий счет игры: Быки -', color='red'), colored(total['bulls'], color='yellow'),
+              colored('Коровы -', color='red'), colored(total['cows'],color='yellow'), end='.\n')
+        user_number = input('Вы не угадали. Попробуйте еще раз: ')
+        while eng.check_int(user_number) is False:
+            user_number = input('Вы не угадали. Попробуйте еще раз: ')
+        count_games += 1
+        total = eng.check_bulls_cows(comp=comp_number, user=user_number)
+
+    if total['bulls'] == 4:
+        count_games += 1
+        print(colored('Текущий счет игры: Быки -', color='green'), colored(total['bulls'], color='yellow'),
+              colored('Коровы -', color='red'), colored(total['cows'], color='yellow'), end='.\n')
+        cprint('Поздравляем! Вы угадали число!', color='green', attrs=['bold'])
+        print(colored('Вы угадали за', color='green', attrs=['bold']), colored(count_games, color='green',
+                     attrs=['bold']), colored('попыток', color='green', attrs=['bold']))
+
+    question = input('Хотите сыграть еще одну партию? (y/n)')
+    if question.lower() == 'y' or question == '':
+        play_game()
     else:
-        break
+        print('Игра окончена. Удачи!')
+        sys.exit()
+
+
+play_game()
