@@ -5,6 +5,11 @@ user_position = {}
 
 
 def random_int():
+    # TODO Можно упростить заводим бесконечный цикл
+    # TODO final_result присваиваем строку в которой randint(1000, 9999)
+    # TODO Потом проверяем если set этой строки без дублей, (и прочекать длину)
+    # TODO то выходим из цикла
+    # TODO и возвращаем нужный нам результат
     """Генерируем четырехзначное число без ноля в первой позиции и повторяющихся цыфр,"""
     number = '0'
     while '0' in number[0] or len(set(number)) < 4 or number.isdigit() is False:
@@ -16,6 +21,7 @@ def random_int():
 def check_int(number):
     """Проверка четырехзначного числа на наличие ноля в первой позиции и повторяющихся цифр.
     Возвращает False, если проверка не пройдена."""
+    # TODO нехватает проверки на длину
     if '0' in number[0] or len(set(number)) < 4 or number.isdigit() is False:
         return False
     else:
