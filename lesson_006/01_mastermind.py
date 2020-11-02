@@ -46,7 +46,6 @@
 
 import bulls_engine as eng
 from termcolor import cprint, colored
-import sys
 
 
 def play_game():
@@ -83,13 +82,11 @@ def play_game():
               colored('попыток', color='green', attrs=['bold']))
 
     question = input('Хотите сыграть еще одну партию? (y/n)')
-    if question.lower() == 'y' or question == '':
-        # TODO это явная рекурсия такого быть не должно!
+    if question.lower() == 'y':
         play_game()
     else:
         print('Игра окончена. Удачи!')
-        # TODO Придумать иной способ как выйти из игры! Этот способ жестко завершает скрипт, а нам нужно логическое
-        sys.exit()
+        exit()
 
 
 play_game()
