@@ -49,37 +49,13 @@ from termcolor import cprint, colored
 
 
 def play_game():
-    comp_number = eng.random_int()
-    user_number = '0'
-    count_games = 0
-
     cprint('Игра "Быки и коровы"', color='yellow')
+    count_games = 0
+    comp_number = eng.random_int()  # генератор случайного числа
+    user_number = eng.user_input()  # ввод числа пользователем
+    eng.check_bulls_cows(comp_number, user_number, count_games)
+    eng.finish(total, count_games)
 
-    while eng.check_int(user_number) is False:
-        user_number = input(colored('Введите четырехзначное число (число не должно начинаться с нуля и содержать '
-                                    'повторяющихся цифр): ', color='red'))
-
-    eng.convert(first_number=comp_number, second_number=user_number)
-
-    total = eng.check_bulls_cows(comp=comp_number, user=user_number)
-
-    while total['bulls'] != 4:
-        print(colored('Текущий счет игры: Быки -', color='red'), colored(total['bulls'], color='yellow'),
-              colored('Коровы -', color='red'), colored(total['cows'], color='yellow'), end='.\n')
-        user_number = input('Вы не угадали. Попробуйте еще раз: ')
-        while eng.check_int(user_number) is False:
-            user_number = input('Вы не угадали. Попробуйте еще раз: ')
-        count_games += 1
-        total = eng.check_bulls_cows(comp=comp_number, user=user_number)
-
-    if total['bulls'] == 4:
-        count_games += 1
-        print(colored('Текущий счет игры: Быки -', color='green'), colored(total['bulls'], color='yellow'),
-              colored('Коровы -', color='red'), colored(total['cows'], color='yellow'), end='.\n')
-        cprint('Поздравляем! Вы угадали число!', color='green', attrs=['bold'])
-        print(colored('Вы угадали за', color='green', attrs=['bold']), colored(count_games, color='green',
-                                                                               attrs=['bold']),
-              colored('попыток', color='green', attrs=['bold']))
 
     question = input('Хотите сыграть еще одну партию? (y/n)')
     if question.lower() == 'y':
