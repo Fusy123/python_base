@@ -45,8 +45,26 @@ def check_bulls_cows(comp_number, user_number):
     return bulls, cows
 
 
-def games(bulls, cows):
-    if bulls != 4:
-        print(colored('Текущий счет игры: Быки -', color='red'), colored(bulls, color='yellow'),
-              colored('Коровы -', color='red'), colored(cows, color='yellow'), end='.\n')
-        print('Вы не угадали. Попробуйте еще раз: ')
+# TODO так как эта функция на прямую общается с пользователем то ей тут не место, переместить ее в главный модуль
+# TODO и разбить на две части, первая функция будет просить ввести число, проверять его, и если все хорошо, то
+# TODO пропускаем дальше,
+# TODO вторая функция, это та которая будет проверять на выигрыш если выиграли то печатаем результат и
+# TODO и просим пользователя хочет ли он новой игры!
+def games(comp_number):
+    count_games = 1
+    while True:
+        user_number = user_input()  # ввод числа пользователем
+        bulls, cows = check_bulls_cows(comp_number, user_number)
+        if bulls != 4:
+            print(colored('Текущий счет игры: Быки -', color='red'), colored(bulls, color='yellow'),
+                  colored('Коровы -', color='red'), colored(cows, color='yellow'), end='.\n')
+            print('Вы не угадали. Попробуйте еще раз: ')
+            count_games += 1
+        else:
+            print(colored('Текущий счет игры: Быки -', color='green'), colored(bulls, color='yellow'),
+                  colored('Коровы -', color='red'), colored(cows, color='yellow'), end='.\n')
+            cprint('Поздравляем! Вы угадали число!', color='green', attrs=['bold'])
+            print(colored('Вы угадали за', color='green', attrs=['bold']),
+                  colored(count_games, color='green', attrs=['bold']),
+                  colored('попыток', color='green', attrs=['bold']))
+            break
