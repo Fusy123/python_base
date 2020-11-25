@@ -49,34 +49,27 @@ from termcolor import cprint, colored
 
 
 def play_game():
-    cprint('Игра "Быки и коровы"', color='yellow')
-    comp_number = eng.random_int()  # генератор случайного числа
-    count_games = 0
     while True:
-        user_number = eng.user_input()  # ввод числа пользователем
-        bulls, cows = eng.check_bulls_cows(comp_number, user_number)
-        count_games += 1
-        if bulls != 4:
+        cprint('Игра "Быки и коровы"', color='yellow')
+        comp_number = eng.random_int()  # генератор случайного числа
+        count_games = 0
+        bulls = 0
+        while bulls != 4:
+            user_number = eng.user_input()  # ввод числа пользователем
+            bulls, cows = eng.check_bulls_cows(comp_number, user_number)
+            count_games += 1
             eng.games(bulls, cows)
-        else:
-            print(colored('Текущий счет игры: Быки -', color='green'), colored(bulls, color='yellow'),
-                  colored('Коровы -', color='red'), colored(cows, color='yellow'), end='.\n')
-            cprint('Поздравляем! Вы угадали число!', color='green', attrs=['bold'])
-            print(colored('Вы угадали за', color='green', attrs=['bold']),
-                  colored(count_games, color='green', attrs=['bold']),
-                  colored('попыток', color='green', attrs=['bold']))
-            break
 
-    question = input('Хотите сыграть еще одну партию? (y/n)')
-    if question.lower() == 'y':
-        # TODO тут у вас рекурсия на лицо что очень плохо, использовать ее не рекомендуется!
-        play_game()
-    else:
-        print('Игра окончена. Удачи!')
-        # TODO пробуем реализовать выход логически из цикла(функции) без явного exit()
-        exit()
+        print(colored('Текущий счет игры: Быки -', color='green'), colored(bulls, color='yellow'),
+              colored('Коровы -', color='red'), colored(cows, color='yellow'), end='.\n')
+        cprint('Поздравляем! Вы угадали число!', color='green', attrs=['bold'])
+        print(colored('Вы угадали за', color='green', attrs=['bold']),
+              colored(count_games, color='green', attrs=['bold']),
+              colored('попыток', color='green', attrs=['bold']))
+        question = input('Хотите сыграть еще одну партию? (y/n)')
+        if question.lower() == 'n':
+            print('Игра окончена. Удачи!')
+            break
 
 
 play_game()
-
-# TODO вам нужно обратиться к прошлым моим рекомендациям, там есть алгоритм который вам нужно реализовать
