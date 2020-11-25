@@ -51,7 +51,22 @@ from termcolor import cprint, colored
 def play_game():
     cprint('Игра "Быки и коровы"', color='yellow')
     comp_number = eng.random_int()  # генератор случайного числа
-    eng.games(comp_number)
+    count_games = 0
+    while True:
+        user_number = eng.user_input()  # ввод числа пользователем
+        bulls, cows = eng.check_bulls_cows(comp_number, user_number)
+        count_games += 1
+        if bulls != 4:
+            eng.games(bulls, cows)
+        else:
+            print(colored('Текущий счет игры: Быки -', color='green'), colored(bulls, color='yellow'),
+                  colored('Коровы -', color='red'), colored(cows, color='yellow'), end='.\n')
+            cprint('Поздравляем! Вы угадали число!', color='green', attrs=['bold'])
+            print(colored('Вы угадали за', color='green', attrs=['bold']),
+                  colored(count_games, color='green', attrs=['bold']),
+                  colored('попыток', color='green', attrs=['bold']))
+            break
+
     question = input('Хотите сыграть еще одну партию? (y/n)')
     if question.lower() == 'y':
         play_game()
