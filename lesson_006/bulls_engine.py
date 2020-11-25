@@ -10,7 +10,7 @@ def random_int():
     while True:
         comp_number = str(random.randint(1000, 9999))
         if len(comp_number) == len(set(comp_number)):
-            print(comp_number)
+            # print(comp_number)
             break
     return comp_number
 
