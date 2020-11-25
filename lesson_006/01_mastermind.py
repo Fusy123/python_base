@@ -53,7 +53,7 @@ def play_game():
         cprint('Игра "Быки и коровы"', color='yellow')
         comp_number = eng.random_int()  # генератор случайного числа
         count_games = 0
-        bulls = 0
+        bulls, cows = 0, 0
         while bulls != 4:
             user_number = eng.user_input()  # ввод числа пользователем
             bulls, cows = eng.check_bulls_cows(comp_number, user_number)
