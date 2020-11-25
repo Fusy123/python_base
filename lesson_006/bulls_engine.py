@@ -45,6 +45,10 @@ def check_bulls_cows(comp_number, user_number):
     return bulls, cows
 
 
+# TODO принтов тут быть не должно, есл ивы хотите написать функцию которая проверяет только на выигрыш
+# TODO то можно написать так
+# TODO return bulls == 4
+# TODO все принты должны быть в главном модуле.
 def games(bulls, cows):
     if bulls != 4:
         print(colored('Текущий счет игры: Быки -', color='red'), colored(bulls, color='yellow'),
