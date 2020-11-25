@@ -50,13 +50,8 @@ from termcolor import cprint, colored
 
 def play_game():
     cprint('Игра "Быки и коровы"', color='yellow')
-    count_games = 0
     comp_number = eng.random_int()  # генератор случайного числа
-    user_number = eng.user_input()  # ввод числа пользователем
-    eng.check_bulls_cows(comp_number, user_number, count_games)
-    eng.finish(total, count_games)
-
-
+    eng.games(comp_number)
     question = input('Хотите сыграть еще одну партию? (y/n)')
     if question.lower() == 'y':
         play_game()
@@ -66,17 +61,3 @@ def play_game():
 
 
 play_game()
-
-# TODO функция play_game очень Большая ее нужно разбить на мелкие функции! Каждая функция будет отвечать за что то одно!
-
-# TODO Как и писал ранее вот алгоритм: Всего 4 +\- функции в главном алгоритме!
-
-# TODO просим_ввести_число_корректное() - это функция
-# TODO получаем данные из функции, которая чекает число на результат и возвращает словарь
-# TODO печатаем этот результат, тут что то result = check_bulls_cows()
-# TODO увеличиваем число ходов
-# TODO условие на победу и новую иру в виде двух функций:
-# TODO Если выиграли_игру():
-# TODO    новая_игра()
-
-# TODO Все доп функции объявляем в этом модуле!
