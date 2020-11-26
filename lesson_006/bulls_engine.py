@@ -1,5 +1,4 @@
 import random
-from termcolor import cprint, colored
 
 
 def random_int():
@@ -12,26 +11,15 @@ def random_int():
     return comp_number
 
 
-# TODO Смысл чтобы оставить логику\вычисления тут, а взаимодействие с пользователем в главном модуле.
-# TODO Тут пишем функцию проверки на валидность числа, функция checking_number_correct - допустим
-#  будет возвращать TRUE если число валидно,
-# TODO никаких принтов и инпутов тут не должно быть.
-
-def user_input():
+def user_input(user_number):
     """Ввод числа пользователем и проверка четырехзначного числа на наличие ноля в первой позиции
     и повторяющихся цифр"""
-    while True:
-        user_number = input(colored('Введите четырехзначное число (число не должно начинаться с нуля и содержать '
-                                    'повторяющихся цифр): ', color='red'))
-        if (len(list(user_number)) != 4) or (user_number.isdigit() is False):
-            cprint('Вы ввели неправильное число!', color='yellow')
-            continue
-        elif set(user_number[0]) == set('0') or len(user_number) != len(set(user_number)):
-            cprint('Вы ввели неправильное число!', color='yellow')
-            continue
-        else:
-            break
-    return user_number
+    if (len(list(user_number)) != 4) or (user_number.isdigit() is False):
+        return False
+    elif set(user_number[0]) == set('0') or len(user_number) != len(set(user_number)):
+        return False
+    # else:
+    #     return True
 
 
 def check_bulls_cows(comp_number, user_number):
@@ -49,3 +37,22 @@ def check_bulls_cows(comp_number, user_number):
                 cows += 1
     return bulls, cows
 
+
+# def games(bulls, cows):
+#     count_games = 1
+#     if bulls != 4:
+#         print(colored('Текущий счет игры: Быки -', color='red'), colored(bulls, color='yellow'),
+#               colored('Коровы -', color='red'), colored(cows, color='yellow'), end='.\n')
+#         print('Вы не угадали. Попробуйте еще раз: ')
+#         count_games += 1
+#         user_input()
+#         check_bulls_cows(comp_number, user_number)
+#     else:
+#         print(colored('Текущий счет игры: Быки -', color='green'), colored(bulls, color='yellow'),
+#               colored('Коровы -', color='red'), colored(cows, color='yellow'), end='.\n')
+#         print(colored('Поздравляем! Вы угадали за', color='green', attrs=['bold']),
+#               colored(count_games, color='green', attrs=['bold']),
+#               colored('попыток', color='green', attrs=['bold']))
+#         question = input('Хотите сыграть еще одну партию? (y/n)')
+#         if question.lower() == 'n':
+#             print('Игра окончена. Удачи!')
