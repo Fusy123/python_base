@@ -51,13 +51,33 @@ from termcolor import cprint, colored
 
 
 def play_game():
+    cprint('Игра "Быки и коровы"', color='yellow')
+    comp_number = eng.random_int()  # генератор случайного числа
     while True:
-        cprint('Игра "Быки и коровы"', color='yellow')
-        comp_number = eng.random_int()  # генератор случайного числа
-        user_number = eng.user_input()  # ввод числа пользователем
+        eng.user_input(user_number)  # ввод числа пользователем
         bulls, cows = eng.check_bulls_cows(comp_number, user_number)
         eng.games(bulls, cows)
 
+
+# def games(bulls, cows):
+#     count_games = 1
+#     if bulls != 4:
+#         print(colored('Текущий счет игры: Быки -', color='red'), colored(bulls, color='yellow'),
+#               colored('Коровы -', color='red'), colored(cows, color='yellow'), end='.\n')
+#         print('Вы не угадали. Попробуйте еще раз: ')
+#         count_games += 1
+#         user_input()
+#         check_bulls_cows(comp_number, user_number)
+#     else:
+#         print(colored('Текущий счет игры: Быки -', color='green'), colored(bulls, color='yellow'),
+#               colored('Коровы -', color='red'), colored(cows, color='yellow'), end='.\n')
+#         print(colored('Поздравляем! Вы угадали за', color='green', attrs=['bold']),
+#               colored(count_games, color='green', attrs=['bold']),
+#               colored('попыток', color='green', attrs=['bold']))
+#         question = input('Хотите сыграть еще одну партию? (y/n)')
+#         if question.lower() == 'n':
+#             print('Игра окончена. Удачи!')
+#
 
 play_game()
 
