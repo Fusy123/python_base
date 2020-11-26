@@ -49,7 +49,3 @@ def check_bulls_cows(comp_number, user_number):
                 cows += 1
     return bulls, cows
 
-
-# TODO Переносим данную функцию в главный модуль! Потом будем ее дорабатывать и возможно
-#  часть из нее перенесем обратно в движок
-
