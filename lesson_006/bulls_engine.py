@@ -19,19 +19,21 @@ def random_int():
 #  TODO чтобы перенести принты в другую функцию? и как тогда вынести принты при вводе неправильного числа? получается
 # TODO что вся эта проверка переезжает в главный модуль.
 
-def user_input(user_number):
+def user_input():
     """Ввод числа пользователем и проверка четырехзначного числа на наличие ноля в первой позиции
     и повторяющихся цифр"""
-    user_number = input(colored('Введите четырехзначное число (число не должно начинаться с нуля и содержать '
-                                'повторяющихся цифр): ', color='red'))
-    if (len(list(user_number)) != 4) or (user_number.isdigit() is False):
-        cprint('Вы ввели неправильное число!', color='yellow')
-        return False
-    elif set(user_number[0]) == set('0') or len(user_number) != len(set(user_number)):
-        cprint('Вы ввели неправильное число!', color='yellow')
-        return False
-    else:
-        return user_number
+    while True:
+        user_number = input(colored('Введите четырехзначное число (число не должно начинаться с нуля и содержать '
+                                    'повторяющихся цифр): ', color='red'))
+        if (len(list(user_number)) != 4) or (user_number.isdigit() is False):
+            cprint('Вы ввели неправильное число!', color='yellow')
+            continue
+        elif set(user_number[0]) == set('0') or len(user_number) != len(set(user_number)):
+            cprint('Вы ввели неправильное число!', color='yellow')
+            continue
+        else:
+            break
+    return user_number
 
 
 def check_bulls_cows(comp_number, user_number):
