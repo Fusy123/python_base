@@ -61,36 +61,32 @@ from termcolor import cprint, colored
 def play_game():
     cprint('Игра "Быки и коровы"', color='yellow')
     comp_number = eng.random_int()  # генератор случайного числа
+    count_games = 1
     while True:
-        user_number = eng.user_input(input(colored('Введите четырехзначное число (число не должно начинаться с нуля и содержать '
-                                    'повторяющихся цифр): ', color='red')))
+        user_number = eng.user_input(
+            input(colored('Введите четырехзначное число (число не должно начинаться с нуля и содержать '
+                          'повторяющихся цифр): ', color='red')))
         if user_number is False:
             cprint('Вы ввели неправильное число!', color='yellow')
             continue
         else:
-            break
-
-    bulls, cows = eng.check_bulls_cows(comp_number, user_number)
-    # eng.games(bulls, cows)
-
-    # def games(bulls, cows):
-    count_games = 1
-    if bulls != 4:
-        print(colored('Текущий счет игры: Быки -', color='red'), colored(bulls, color='yellow'),
-              colored('Коровы -', color='red'), colored(cows, color='yellow'), end='.\n')
-        print('Вы не угадали. Попробуйте еще раз: ')
-        count_games += 1
-        eng.user_input()
-        check_bulls_cows(comp_number, user_number)
-    else:
-        print(colored('Текущий счет игры: Быки -', color='green'), colored(bulls, color='yellow'),
-              colored('Коровы -', color='red'), colored(cows, color='yellow'), end='.\n')
-        print(colored('Поздравляем! Вы угадали за', color='green', attrs=['bold']),
-              colored(count_games, color='green', attrs=['bold']),
-              colored('попыток', color='green', attrs=['bold']))
+            bulls, cows = eng.check_bulls_cows(comp_number, user_number)
+            if bulls != 4:
+                print(colored('Текущий счет игры: Быки -', color='red'), colored(bulls, color='yellow'),
+                      colored('Коровы -', color='red'), colored(cows, color='yellow'), end='.\n')
+                print('Вы не угадали. Попробуйте еще раз: ')
+                count_games += 1
+                continue
+            else:
+                print(colored('Текущий счет игры: Быки -', color='green'), colored(bulls, color='yellow'),
+                      colored('Коровы -', color='red'), colored(cows, color='yellow'), end='.\n')
+                print(colored('Поздравляем! Вы угадали за', color='green', attrs=['bold']),
+                      colored(count_games, color='green', attrs=['bold']),
+                      colored('попыток', color='green', attrs=['bold']))
         question = input('Хотите сыграть еще одну партию? (y/n)')
         if question.lower() == 'n':
             print('Игра окончена. Удачи!')
+            break
 
 
 play_game()

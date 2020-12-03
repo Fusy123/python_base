@@ -18,8 +18,8 @@ def user_input(user_number):
         return False
     elif set(user_number[0]) == set('0') or len(user_number) != len(set(user_number)):
         return False
-    # else:
-    #     return True
+    else:
+        return user_number
 
 
 def check_bulls_cows(comp_number, user_number):
