@@ -37,5 +37,3 @@ def check_bulls_cows(user_number):
             else:
                 cows += 1
     return bulls, cows
-
-
