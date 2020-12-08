@@ -50,40 +50,41 @@ from termcolor import cprint, colored
 
 def play_game():
     cprint('Игра "Быки и коровы"', color='yellow')
-    comp_number = eng.random_int()  # генератор случайного числа
+    eng.random_int()  # генератор случайного числа
     count_games = 1
-
-    # TODO  функция проверки числа есть, но вы сказали что в функциях
-    #  не должно быть принтов и инпутов. соответсвенно я это вынес в главный модуль.
-
     while True:
-        # запрашиваем ввод, функция eng.user_input проверяет корректность и возвращает либо false либо введенное число
-        user_number = eng.user_input(
-            input(colored('Введите четырехзначное число (число не должно начинаться с нуля и содержать '
-                          'повторяющихся цифр): ', color='red')))
-        if user_number is False:
+        user_number = input(colored('Введите четырехзначное число (число не должно начинаться с нуля и содержать '
+                          'повторяющихся цифр): ', color='red'))
+        if eng.user_input(user_number) is False:
             cprint('Вы ввели неправильное число!', color='yellow')
             continue
+        bulls, cows = eng.check_bulls_cows(user_number)
+        if bulls != 4:
+            print(colored('Текущий счет игры: Быки -', color='red'), colored(bulls, color='yellow'),
+                      colored('Коровы -', color='red'), colored(cows, color='yellow'), end='.\n')
+            print('Вы не угадали. Попробуйте еще раз: ')
+            count_games += 1
+            continue
         else:
-            # если число корректное, то запускается функция подсчета быков коров
-            bulls, cows = eng.check_bulls_cows(comp_number, user_number)
-            # опять же вы говорили что в функциях не должно быть принтов соответственно проверка вынесена в основной модуль
-            if bulls != 4:
-                print(colored('Текущий счет игры: Быки -', color='red'), colored(bulls, color='yellow'),
+            print(colored('Текущий счет игры: Быки -', color='green'), colored(bulls, color='yellow'),
                       colored('Коровы -', color='red'), colored(cows, color='yellow'), end='.\n')
-                print('Вы не угадали. Попробуйте еще раз: ')
-                count_games += 1
-                continue
-            else:
-                print(colored('Текущий счет игры: Быки -', color='green'), colored(bulls, color='yellow'),
-                      colored('Коровы -', color='red'), colored(cows, color='yellow'), end='.\n')
-                print(colored('Поздравляем! Вы угадали за', color='green', attrs=['bold']),
+            print(colored('Поздравляем! Вы угадали за', color='green', attrs=['bold']),
                       colored(count_games, color='green', attrs=['bold']),
                       colored('попыток', color='green', attrs=['bold']))
-        question = input('Хотите сыграть еще одну партию? (y/n)')
-        if question.lower() == 'n':
-            print('Игра окончена. Удачи!')
             break
 
-
 play_game()
+
+question = input('Хотите сыграть еще одну партию? (y/n)')
+if question.lower() == 'n':
+    print('Игра окончена. Удачи!')
+else:
+    print('=='*15)
+    play_game()
+
+
+
+
+
+
+
