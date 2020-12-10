@@ -48,34 +48,35 @@ import bulls_engine as eng
 from termcolor import cprint, colored
 
 
+def user_input():
+    """Ввод числа пользователем и проверка четырехзначного числа на наличие ноля в первой позиции
+    и повторяющихся цифр"""
+    while True:
+        user_number = input(colored('Введите четырехзначное число (число не должно начинаться с нуля и содержать '
+                                    'повторяющихся цифр): ', color='red'))
+        if (len(list(user_number)) != 4) or (user_number.isdigit() is False):
+            cprint('Вы ввели неправильное число!', color='yellow')
+            continue
+        elif set(user_number[0]) == set('0') or len(user_number) != len(set(user_number)):
+            cprint('Вы ввели неправильное число!', color='yellow')
+            continue
+        else:
+            break
+    return user_number
+
+
 def play_game():
     cprint('Игра "Быки и коровы"', color='yellow')
     eng.random_int()  # генератор случайного числа
-    count_games = 1
-    # TODO давай те попробуем еще раз, код который у вас в цикле, просил разбить на логические
-    # TODO блоки(функции) и вынести(объявить) их в этом модуле выше функции play_game
+    count_games = 0
     while True:
-        # TODO функция 1 - начало
-        # TODO в отдельной функции мы пишем тоже цикл и выпускать будем из него когда будет
-        # TODO введено валидное число.
-        user_number = input(colored('Введите четырехзначное число (число не должно начинаться с нуля и содержать '
-                                    'повторяющихся цифр): ', color='red'))
-        # TODO обычно используют приставку not, так старайтесь не писать is False
-        if eng.user_input(user_number) is False:
-            cprint('Вы ввели неправильное число!', color='yellow')
-            continue
-        # TODO функция 1 - конец
+        user_number = user_input()
+        count_games += 1
         bulls, cows = eng.check_bulls_cows(user_number)
         if bulls != 4:
-            # TODO этот код тоже можно вынести в отдельную функции а тут ее только вызвать.
-            # TODO условие bulls != 4 можно проработать так чтобы не было else с принтами, но возможно
-            # TODO уйти от else не получить при перезапуске игры.
-            # TODO Тогда тут появиться возможность запускать функцию перезапуска игры, ее нужно будет
-            # TODO объявить тоже в этом модуле! Движок пока что не трогаем.
             print(colored('Текущий счет игры: Быки -', color='red'), colored(bulls, color='yellow'),
                   colored('Коровы -', color='red'), colored(cows, color='yellow'), end='.\n')
             print('Вы не угадали. Попробуйте еще раз: ')
-            count_games += 1
             continue
         else:
             print(colored('Текущий счет игры: Быки -', color='green'), colored(bulls, color='yellow'),
@@ -83,15 +84,14 @@ def play_game():
             print(colored('Поздравляем! Вы угадали за', color='green', attrs=['bold']),
                   colored(count_games, color='green', attrs=['bold']),
                   colored('попыток', color='green', attrs=['bold']))
+        question = input('Хотите сыграть еще одну партию? (y/n)')
+        if question.lower() == 'n':
+            print('Игра окончена. Удачи!')
             break
+        else:
+            print('==' * 15)
+            eng.random_int()  # генератор случайного числа
+            count_games = 0
 
 
 play_game()
-
-question = input('Хотите сыграть еще одну партию? (y/n)')
-if question.lower() == 'n':
-    print('Игра окончена. Удачи!')
-else:
-    print('==' * 15)
-    # TODO а если мы в третий раз будем играть ?
-    play_game()
