@@ -65,6 +65,21 @@ def user_input():
     return user_number
 
 
+def new_game(bulls, cows, count_games):
+    if bulls != 4:
+        print(colored('Текущий счет игры: Быки -', color='red'), colored(bulls, color='yellow'),
+              colored('Коровы -', color='red'), colored(cows, color='yellow'), end='.\n')
+        print('Вы не угадали. Попробуйте еще раз: ')
+        return False
+    print(colored('Текущий счет игры: Быки -', color='green'), colored(bulls, color='yellow'),
+          colored('Коровы -', color='red'), colored(cows, color='yellow'), end='.\n')
+    print(colored('Поздравляем! Вы угадали за', color='green', attrs=['bold']),
+          colored(count_games, color='green', attrs=['bold']),
+          colored('попыток', color='green', attrs=['bold']))
+    return True
+
+
+
 def play_game():
     cprint('Игра "Быки и коровы"', color='yellow')
     eng.random_int()  # генератор случайного числа
@@ -73,17 +88,8 @@ def play_game():
         user_number = user_input()
         count_games += 1
         bulls, cows = eng.check_bulls_cows(user_number)
-        if bulls != 4:
-            print(colored('Текущий счет игры: Быки -', color='red'), colored(bulls, color='yellow'),
-                  colored('Коровы -', color='red'), colored(cows, color='yellow'), end='.\n')
-            print('Вы не угадали. Попробуйте еще раз: ')
+        if new_game(bulls, cows, count_games) == False:
             continue
-        else:
-            print(colored('Текущий счет игры: Быки -', color='green'), colored(bulls, color='yellow'),
-                  colored('Коровы -', color='red'), colored(cows, color='yellow'), end='.\n')
-            print(colored('Поздравляем! Вы угадали за', color='green', attrs=['bold']),
-                  colored(count_games, color='green', attrs=['bold']),
-                  colored('попыток', color='green', attrs=['bold']))
         question = input('Хотите сыграть еще одну партию? (y/n)')
         if question.lower() == 'n':
             print('Игра окончена. Удачи!')
@@ -92,6 +98,7 @@ def play_game():
             print('==' * 15)
             eng.random_int()  # генератор случайного числа
             count_games = 0
+            continue
 
 
 play_game()
