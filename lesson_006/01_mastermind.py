@@ -47,27 +47,13 @@
 import bulls_engine as eng
 from termcolor import cprint, colored
 
-# TODO сейчас будем дорабатывать только эту функцию user_input!
-# TODO назовем ее немного иначе, допустим ввод_валидного_числа.
-def user_input():
-    """Ввод числа пользователем и проверка четырехзначного числа на наличие ноля в первой позиции
-    и повторяющихся цифр"""
-    while True:
-        # TODO логика проверки числа:
-        # TODO бесконечный цикл
-        # TODO если функция_проверки(число):
-        # TODO     принт вы ввели верное число
-        # TODO     выходим из цикла!
-        # TODO иначе
-        # TODO     вы ввели не корректное число!
 
+def user_input():
+    """Ввод числа пользователем и вызов функции проверки введенного числа """
+    while True:
         user_number = input(colored('Введите четырехзначное число (число не должно начинаться с нуля и содержать '
                                     'повторяющихся цифр): ', color='red'))
-        # TODO логику проверки переносим в движок там где она и была, тут только вызываем функцию в условии
-        if (len(list(user_number)) != 4) or (user_number.isdigit() is False):
-            cprint('Вы ввели неправильное число!', color='yellow')
-            continue
-        elif set(user_number[0]) == set('0') or len(user_number) != len(set(user_number)):
+        if eng.user_valid_number(user_number) is False:
             cprint('Вы ввели неправильное число!', color='yellow')
             continue
         else:
@@ -87,7 +73,6 @@ def new_game(bulls, cows, count_games):
           colored(count_games, color='green', attrs=['bold']),
           colored('попыток', color='green', attrs=['bold']))
     return True
-
 
 
 def play_game():
