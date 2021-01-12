@@ -83,6 +83,8 @@ def play_game():
         user_number = user_input()
         count_games += 1
         bulls, cows = eng.check_bulls_cows(user_number)
+        # TODO обычно используют приставку not
+        # TODO if not new_game(bulls, cows, count_games): - означает если не True то верно.
         if new_game(bulls, cows, count_games) == False:
             continue
         question = input('Хотите сыграть еще одну партию? (y/n)')

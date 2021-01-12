@@ -15,6 +15,7 @@ def random_int():
 def user_valid_number(user_number):
     """Проверка четырехзначного числа на наличие ноля в первой позиции
     и повторяющихся цифр"""
+    # TODO попробуйте создать список из булевых проверок и использовать функцию any()
     if (len(list(user_number)) != 4) or (user_number.isdigit() is False):
         return False
     elif set(user_number[0]) == set('0') or len(user_number) != len(set(user_number)):
