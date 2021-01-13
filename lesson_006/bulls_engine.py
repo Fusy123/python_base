@@ -15,10 +15,13 @@ def random_int():
 def user_valid_number(user_number):
     """Проверка четырехзначного числа на наличие ноля в первой позиции
     и повторяющихся цифр"""
-    valid_params = [(len(list(user_number)) != 4), (user_number.isdigit() is False), (set(user_number[0]) == set('0')),
-                    (len(user_number) != len(set(user_number)))]
-    if any(valid_param for valid_param in valid_params):
-        return False
+    # вот так будет вернее
+    valid_params = [user_number.isdigit(),
+                    len(set(user_number)) == 4,
+                    str(user_number[0]) != '0',
+                    len(user_number) == 4]
+    if all(valid_params):
+        return True
 
 
 def check_bulls_cows(user_number):
