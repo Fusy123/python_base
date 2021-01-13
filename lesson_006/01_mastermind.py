@@ -53,11 +53,11 @@ def user_input():
     while True:
         user_number = input(colored('Введите четырехзначное число (число не должно начинаться с нуля и содержать '
                                     'повторяющихся цифр): ', color='red'))
-        if eng.user_valid_number(user_number) is False:
-            cprint('Вы ввели неправильное число!', color='yellow')
-            continue
-        else:
+        if eng.user_valid_number(user_number):
+            cprint(f'Вы ввели число {user_number}!', color='yellow')
             break
+        else:
+            cprint('Вы ввели неправильное число!', color='yellow')
     return user_number
 
 
@@ -97,3 +97,5 @@ def play_game():
 
 
 play_game()
+
+# зачет!
