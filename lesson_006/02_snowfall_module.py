@@ -21,20 +21,30 @@ sd.resolution = (1200, 600)
 # создать_снежинки(N)
 
 N = int(input('Сколько снежинок вы хотите создать? :'))
+colors = {'1': ['Красный', sd.COLOR_RED],
+          '2': ['Оранжевый', sd.COLOR_ORANGE],
+          '3': ['Желтый', sd.COLOR_YELLOW],
+          '4': ['Зеленый', sd.COLOR_GREEN],
+          '5': ['Голубой', sd.COLOR_CYAN],
+          '6': ['Синий', sd.COLOR_BLUE],
+          '7': ['Фиолетовый', sd.COLOR_PURPLE]
+          }
 
 print('Выберите цвет: ')
     # вывод соответствия номера - цвету
-for color in se.colors.items():
+for color in colors.items():
     print(color[0], ': ', color[1][0])
 
     # выбор цвета и проверка правильности ввода
 while True:
     user_color = input('Введите желаемый цвет: ')
-    if se.user_valid_color(user_color):
-        break
-    else:
+    if se.user_valid_color(user_color, colors) is False:
         print('Вы ввели неправильный номер цвета!')
+    else:
+        break
 
+
+se.figure_snowflake(N, se.user_valid_color(user_color, colors))
 
 while True:
     #  нарисовать_снежинки_цветом(color=sd.background_color)
@@ -44,11 +54,8 @@ while True:
     #       удалить_снежинки(номера)
     #       создать_снежинки(count)
     # словарь цветов
-    se.figure_snowflake(N)
-    sd.start_drawing()
-    se.snowflakes(N)
-    sd.finish_drawing()
 
+    se.snowflakes(N)
     sd.sleep(0.1)
     if sd.user_want_exit():
         break
