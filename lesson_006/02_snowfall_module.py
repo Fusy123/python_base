@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 
 import simple_draw as sd
+import snowfall_engine as se
+
+sd.resolution = (1200, 600)
+
 
 # На основе кода из lesson_004/05_snowfall.py
 # сделать модуль snowfall.py в котором реализовать следующие функции
@@ -15,6 +19,23 @@ import simple_draw as sd
 # обращаясь ТОЛЬКО к функциям модуля snowfall
 
 # создать_снежинки(N)
+
+N = int(input('Сколько снежинок вы хотите создать? :'))
+
+print('Выберите цвет: ')
+    # вывод соответствия номера - цвету
+for color in se.colors.items():
+    print(color[0], ': ', color[1][0])
+
+    # выбор цвета и проверка правильности ввода
+while True:
+    user_color = input('Введите желаемый цвет: ')
+    if se.user_valid_color(user_color):
+        break
+    else:
+        print('Вы ввели неправильный номер цвета!')
+
+
 while True:
     #  нарисовать_снежинки_цветом(color=sd.background_color)
     #  сдвинуть_снежинки()
@@ -22,6 +43,12 @@ while True:
     #  если есть номера_достигших_низа_экрана() то
     #       удалить_снежинки(номера)
     #       создать_снежинки(count)
+    # словарь цветов
+    se.figure_snowflake(N)
+    sd.start_drawing()
+    se.snowflakes(N)
+    sd.finish_drawing()
+
     sd.sleep(0.1)
     if sd.user_want_exit():
         break

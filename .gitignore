@@ -1,5 +1,5 @@
 # Created by .ignore support plugin (hsz.mobi)
-test.py
+test*.py
 grok/*.*
 **probe.py
 
@@ -219,3 +219,4 @@ fabric.properties
 /grok/def_sort.py
 /grok/
 /grok/
+/test2.py
