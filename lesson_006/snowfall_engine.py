@@ -1,8 +1,4 @@
-from typing import Dict, List, Union, Tuple
-
 import simple_draw as sd
-
-
 
 
 def user_valid_color(user_color, colors):
@@ -29,11 +25,11 @@ def figure_snowflake(snow, color_draw):
     return snowflake_points
 
 
-def snowflakes(N):
+def snowflakes(snow):
     global snowflake_finish
     snowflake_finish = []
     sd.start_drawing()
-    for i in range(N):
+    for i in range(snow):
         x = snowflake_points[i][0]
         y = snowflake_points[i][1]
         color = snowflake_points[i][2]
@@ -51,4 +47,3 @@ def snowflakes(N):
         if y <= -50:
             snowflake_points[i][1] = sd.random_number(400, 600)
         sd.finish_drawing()
-

@@ -5,7 +5,6 @@ import snowfall_engine as se
 
 sd.resolution = (1200, 600)
 
-
 # На основе кода из lesson_004/05_snowfall.py
 # сделать модуль snowfall.py в котором реализовать следующие функции
 #  создать_снежинки(N) - создает N снежинок
@@ -31,18 +30,17 @@ colors = {'1': ['Красный', sd.COLOR_RED],
           }
 
 print('Выберите цвет: ')
-    # вывод соответствия номера - цвету
+# вывод соответствия номера - цвету
 for color in colors.items():
     print(color[0], ': ', color[1][0])
 
-    # выбор цвета и проверка правильности ввода
+# выбор цвета и проверка правильности ввода
 while True:
     user_color = input('Введите желаемый цвет: ')
     if se.user_valid_color(user_color, colors) is False:
         print('Вы ввели неправильный номер цвета!')
     else:
         break
-
 
 se.figure_snowflake(N, se.user_valid_color(user_color, colors))
 
