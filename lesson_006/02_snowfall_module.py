@@ -25,8 +25,8 @@ colors = {'1': ['Красный', sd.COLOR_RED],
           '2': ['Оранжевый', sd.COLOR_ORANGE],
           '3': ['Желтый', sd.COLOR_YELLOW],
           '4': ['Зеленый', sd.COLOR_GREEN],
-          '5': ['Голубой', sd.COLOR_CYAN],
-          '6': ['Синий', sd.COLOR_BLUE],
+          '5': ['Белый', sd.COLOR_WHITE],
+          '6': ['Темно-Зеленый', sd.COLOR_DARK_GREEN],
           '7': ['Фиолетовый', sd.COLOR_PURPLE]
           }
 
