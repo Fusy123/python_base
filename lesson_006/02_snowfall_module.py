@@ -3,7 +3,11 @@
 import simple_draw as sd
 import snowfall_engine as se
 
+global snowflake_points
+global snowflake_finish
+
 sd.resolution = (1200, 600)
+
 
 # На основе кода из lesson_004/05_snowfall.py
 # сделать модуль snowfall.py в котором реализовать следующие функции
@@ -55,8 +59,11 @@ while True:
     #       удалить_снежинки(номера)
     #       создать_снежинки(count)
     # словарь цветов
-
-    se.snowflakes(N)
+    sd.start_drawing()
+    se.snowflakes_background(N)
+    se.snowflakes_drop(N)
+    se.snowflakes_color(N)
+    sd.finish_drawing()
     sd.sleep(0.1)
     if sd.user_want_exit():
         break
