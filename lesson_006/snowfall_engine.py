@@ -10,6 +10,7 @@ def user_valid_color(user_color, colors):
 
 
 def figure_snowflake(snow, color_draw):
+    # TODO если она глобальная ее нужно определить в глобальной области
     global snowflake_points
     snowflake_points = []
 
@@ -26,6 +27,7 @@ def figure_snowflake(snow, color_draw):
 
 
 def snowflakes(snow):
+    # TODO аналогично
     global snowflake_finish
     snowflake_finish = []
     sd.start_drawing()

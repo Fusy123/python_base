@@ -45,6 +45,9 @@ while True:
 se.figure_snowflake(N, se.user_valid_color(user_color, colors))
 
 while True:
+    # TODO поробуйте придерживаться данного алгоритма и разбить код в движке на
+    # TODO на 5-6 функций описанные ниже.
+    # TODO и запустить из в том же порядке.
     #  нарисовать_снежинки_цветом(color=sd.background_color)
     #  сдвинуть_снежинки()
     #  нарисовать_снежинки_цветом(color)
