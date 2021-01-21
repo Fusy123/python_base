@@ -15,7 +15,6 @@ def random_int():
 def user_valid_number(user_number):
     """Проверка четырехзначного числа на наличие ноля в первой позиции
     и повторяющихся цифр"""
-    # вот так будет вернее
     valid_params = [user_number.isdigit(),
                     len(set(user_number)) == 4,
                     str(user_number[0]) != '0',
