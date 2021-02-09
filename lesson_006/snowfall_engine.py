@@ -1,9 +1,6 @@
 import simple_draw as sd
 
-# global snowflake_points
-# global snowflake_finish
-snowflake_points = []
-snowflake_finish = []
+snowflakes = []
 
 
 def user_valid_color(user_color, colors):
@@ -14,51 +11,47 @@ def user_valid_color(user_color, colors):
         return False
 
 
-def figure_snowflake(snow, color_draw):
-    for i in range(snow):
+def create_snowflake(numers):
+    global snowflakes
+    for _ in range(numers):
         x = sd.random_number(0, 1200)
-        y = sd.random_number(400, 600)
-        color = color_draw
+        y = sd.random_number(150, 600)
+        # point = sd.get_point(x, y)
         length = sd.random_number(10, 40)
         factor_a = (sd.random_number(5, 8)) / 10
-        factor_b = (sd.random_number(30, 40)) / 100
-        factor_c = sd.random_number(1, 50)
-        snowflake_points.append([x, y, color, length, factor_a, factor_b, factor_c])
-    return snowflake_points
+        # factor_b = (sd.random_number(30, 70)) / 100
+        # factor_c = sd.random_number(1, 150)
+        snowflakes.append((x, y, length, factor_a))
 
 
-def snowflakes_background(snow):
-    for i in range(snow):
-        x = snowflake_points[i][0]
-        y = snowflake_points[i][1]
-        point = sd.get_point(x, y)
-        length = snowflake_points[i][3]
-        factor_a = snowflake_points[i][4]
-        factor_b = snowflake_points[i][5]
-        factor_c = snowflake_points[i][6]
-        sd.snowflake(point, length, color=sd.background_color, factor_a=factor_a, factor_b=factor_b, factor_c=factor_c)
+#  нарисовать_снежинки_цветом(color) - отрисовывает все снежинки цветом color
+def draw_snowflake_color(color):
+    global snowflakes
+    for snowflake in snowflakes:
+        point = sd.get_point(snowflake[0], snowflake[1])
+        sd.snowflake(center=point, length=snowflake[2], color=color, factor_a=snowflake[3])
 
 
-def snowflakes_drop(snow):
-    for i in range(snow):
-        x = snowflake_points[i][0]
-        y = snowflake_points[i][1]
-        y -= sd.random_number(0, 30)
-        x += sd.random_number(-15, 15)
-        snowflake_points.insert(x, y)
+#  сдвинуть_снежинки() - сдвигает снежинки на один шаг
+def move_snowflakes():
+    global snowflakes
+    for i, snowflake in enumerate(snowflakes):
+        snowflakes[i] = (snowflake[0] + sd.random_number(-30, 30), snowflake[1] - sd.random_number(5, 50))
 
 
+#  номера_достигших_низа_экрана() - выдает список номеров снежинок, которые вышли за границу экрана
+def numbers_falls():
+    global snowflakes
+    numbers_fallen_snowflakes = []  # Другая переменная на случай, если потребуется перерисовка сугроба
+    for i, snowflake in enumerate(snowflakes):
+        if snowflake[1] < 0:
+            numbers_fallen_snowflakes.append(i)
+    return numbers_fallen_snowflakes
 
-def snowflakes_color(snow):
-    for i in range(snow):
-        x = snowflake_points[i][0]
-        y = snowflake_points[i][1]
-        point = sd.get_point(x, y)
-        color = snowflake_points[i][2]
-        length = snowflake_points[i][3]
-        factor_a = snowflake_points[i][4]
-        factor_b = snowflake_points[i][5]
-        factor_c = snowflake_points[i][6]
-        sd.snowflake(point, length, color, factor_a=factor_a, factor_b=factor_b, factor_c=factor_c)
-        if y <= -50:
-            snowflake_points[i][1] = sd.random_number(400, 600)
+
+#  удалить_снежинки(номера) - удаляет снежинки с номерами из списка
+def delete_snowfalls(numbers):
+    global snowflakes
+    numbers.reverse()
+    for i in numbers:
+        del snowflakes[i]
