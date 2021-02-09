@@ -42,20 +42,9 @@ while True:
         color_draw = se.user_valid_color(user_color, colors)
         break
 
-
 se.create_snowflake(N)
 
 while True:
-    # TODO поробуйте придерживаться данного алгоритма и разбить код в движке на
-    # TODO на 5-6 функций описанные ниже.
-    # TODO и запустить из в том же порядке.
-    #  нарисовать_снежинки_цветом(color=sd.background_color)
-    #  сдвинуть_снежинки()
-    #  нарисовать_снежинки_цветом(color)
-    #  если есть номера_достигших_низа_экрана() то
-    #       удалить_снежинки(номера)
-    #       создать_снежинки(count)
-
     #  нарисовать_снежинки_цветом(color=sd.background_color)
     se.draw_snowflake_color(sd.background_color)
     #  сдвинуть_снежинки() - сдвигает снежинки на один шаг
