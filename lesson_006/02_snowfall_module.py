@@ -19,7 +19,7 @@ sd.resolution = (1200, 600)
 
 # создать_снежинки(N)
 N = int(input('Сколько снежинок вы хотите создать? :'))
-colors = {'1': ['Красный', 'COLOR_RED'],
+colors = {'1': ['Красный', sd.COLOR_RED],
           '2': ['Оранжевый', sd.COLOR_ORANGE],
           '3': ['Желтый', sd.COLOR_YELLOW],
           '4': ['Зеленый', sd.COLOR_GREEN],
@@ -39,8 +39,7 @@ while True:
     if se.user_valid_color(user_color, colors) is False:
         print('Вы ввели неправильный номер цвета!')
     else:
-        color_draw = 'sd.' + se.user_valid_color(user_color, colors)
-        print(color_draw)
+        color_draw = se.user_valid_color(user_color, colors)
         break
 
 
@@ -62,7 +61,7 @@ while True:
     #  сдвинуть_снежинки() - сдвигает снежинки на один шаг
     se.move_snowflakes()
     #  нарисовать_снежинки_цветом(color) - отрисовывает все снежинки цветом color
-    se.draw_snowflake_color(sd.COLOR_RED)
+    se.draw_snowflake_color(color_draw)
     #  номера_достигших_низа_экрана() - выдает список номеров снежинок, которые вышли за границу экрана
     numbers_falls = se.numbers_falls()
     counts_fallen = len(numbers_falls)
