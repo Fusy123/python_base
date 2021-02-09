@@ -2,7 +2,7 @@ import simple_draw as sd
 
 snowflakes = []
 
-
+#проверка цвета
 def user_valid_color(user_color, colors):
     if user_color in colors.keys():
         color_draw = colors[user_color][1]
@@ -10,7 +10,7 @@ def user_valid_color(user_color, colors):
     else:
         return False
 
-
+#создаем снежинки
 def create_snowflake(numbers):
     global snowflakes
     for _ in range(numbers):
@@ -24,7 +24,7 @@ def create_snowflake(numbers):
         snowflakes.append((x, y, length, factor_a, factor_b, factor_c))
 
 
-#  нарисовать_снежинки_цветом(color) - отрисовывает все снежинки цветом color
+# нарисовать_снежинки_цветом(color) - отрисовывает все снежинки цветом color
 def draw_snowflake_color(color=sd.background_color):
     global snowflakes
     for snowflake in snowflakes:
@@ -44,7 +44,7 @@ def move_snowflakes():
 #  номера_достигших_низа_экрана() - выдает список номеров снежинок, которые вышли за границу экрана
 def numbers_falls():
     global snowflakes
-    numbers_fallen_snowflakes = []  # Другая переменная на случай, если потребуется перерисовка сугроба
+    numbers_fallen_snowflakes = []  # если потребуется перерисовка сугроба
     for i, snowflake in enumerate(snowflakes):
         if snowflake[1] < 0:
             numbers_fallen_snowflakes.append(i)
