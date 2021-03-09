@@ -15,7 +15,7 @@ class Snowflake:
 
     def __init__(self):
         self.x = sd.random_number(0, 1200)
-        self.y = sd.random_number(350, 600)
+        self.y = sd.random_number(450, 600)
         self.length = sd.random_number(10, 40)
         self.factor_a = (sd.random_number(5, 8)) / 10
         self.factor_b = (sd.random_number(30, 70)) / 100
@@ -40,7 +40,12 @@ class Snowflake:
         if self.y > -40:
             return True
         else:
-            return False
+            self.x = sd.random_number(0, 1200)
+            self.y = sd.random_number(450, 600)
+            self.length = sd.random_number(10, 40)
+            self.factor_a = (sd.random_number(5, 8)) / 10
+            self.factor_b = (sd.random_number(30, 70)) / 100
+            self.factor_c = sd.random_number(1, 150)
 
 
 flake = Snowflake()
