@@ -26,23 +26,25 @@ class Snowflake:
         snowflakes.append((x, y, length, factor_a, factor_b, factor_c))
 
     def move(self):
-        self.x += sd.random_number(-30, 30)
-        self.y -= sd.random_number(5, 50)
-
+        if self.y > -50:
+            self.x += sd.random_number(-30, 30)
+            self.y -= sd.random_number(5, 50)
+        else:
+            self.x = sd.random_number(0, 1200)
+            self.y = sd.random_number(350, 600)
 
     def draw(self):
         point = sd.get_point(self.x, self.y)
         sd.snowflake(center=point, length=self.length, color=sd.COLOR_WHITE, factor_a=self.factor_a,
                      factor_b=self.factor_b, factor_c=self.factor_c)
 
-    def clear_previous_picture(self):
+    def clear_previous_picture(self, color=sd.background_color):
         point = sd.get_point(self.x, self.y)
-        sd.snowflake(center=point, length=self.length, color=self.color, factor_a=self.factor_a,
+        sd.snowflake(center=point, length=self.length, color=color, factor_a=self.factor_a,
                      factor_b=self.factor_b, factor_c=self.factor_c)
 
     def can_fall(self):
         pass
-
 
 
 flake = Snowflake()
@@ -51,8 +53,8 @@ while True:
     flake.clear_previous_picture()
     flake.move()
     flake.draw()
-    if not flake.can_fall():
-        break
+    # if not flake.can_fall():
+    #     break
     sd.sleep(0.1)
     if sd.user_want_exit():
         break
