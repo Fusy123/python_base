@@ -22,16 +22,9 @@ class Snowflake:
         self.factor_c = sd.random_number(1, 150)
         self.color = sd.background_color
 
-    def append_snow(self):
-        snowflakes.append((x, y, length, factor_a, factor_b, factor_c))
-
     def move(self):
-        if self.y > -50:
-            self.x += sd.random_number(-30, 30)
-            self.y -= sd.random_number(5, 50)
-        else:
-            self.x = sd.random_number(0, 1200)
-            self.y = sd.random_number(350, 600)
+        self.x += sd.random_number(-30, 30)
+        self.y -= sd.random_number(5, 50)
 
     def draw(self):
         point = sd.get_point(self.x, self.y)
@@ -44,7 +37,10 @@ class Snowflake:
                      factor_b=self.factor_b, factor_c=self.factor_c)
 
     def can_fall(self):
-        pass
+        if self.y > -40:
+            return True
+        else:
+            return False
 
 
 flake = Snowflake()
@@ -53,8 +49,8 @@ while True:
     flake.clear_previous_picture()
     flake.move()
     flake.draw()
-    # if not flake.can_fall():
-    #     break
+    if flake.can_fall() == False:
+        break
     sd.sleep(0.1)
     if sd.user_want_exit():
         break
