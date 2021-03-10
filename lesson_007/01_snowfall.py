@@ -39,7 +39,19 @@ class Snowflake:
                      factor_b=self.factor_b, factor_c=self.factor_c)
 
     def can_fall(self):
-        if self.y < -10:
+        numbers_fallen_snowflakes = []  # если потребуется перерисовка сугроба
+        if self.y <= -10:
+            numbers_fallen_snowflakes.append(self)
+        return numbers_fallen_snowflakes
+
+
+
+
+def get_flakes(number):
+    for i in range(number):
+        flake = Snowflake(color=color_draw)
+        flakes.append(flake)
+    return flakes
 
 
 # создать_снежинки(N)
@@ -68,20 +80,17 @@ while True:
         print('Вы ввели неправильный номер цвета!')
 
 flakes = []
-
-for i in range(N):
-    flake = Snowflake(color=color_draw)
-    flakes.append(flake)
+fallen_snow = []
+get_flakes(N)
 
 while True:
     for flake in flakes:
         flake.clear_previous_picture()
         flake.move()
         flake.draw()
-        flake.can_fall()
-        if flake.can_fall():
-            flake = Snowflake(color=color_draw)
-            flakes.append(flake)
+        fallen_flakes = flake.can_fall()
+        if len(fallen_flakes) > 0:
+            get_flakes(len(fallen_flakes))
         sd.sleep(0.1)
         if sd.user_want_exit():
             break
