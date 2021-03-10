@@ -192,40 +192,37 @@ class Lightning:
 print('-' * 25 + ' Игра Алхимия ' + '-' * 25)
 print('')
 
-composition = [['1', 'Вода'],
-               ['2', 'Воздух'],
-               ['3', 'Огонь'],
-               ['4', 'Земля'],
-               ['5', 'Ведьма']
-               ]
+elements = {'1': [Water()], '2': [Air()], '3': [Fire()], '4': [Earth()], '5': [Witch()]}
 
-water = Water()
-air = Air()
-fire = Fire()
-earth = Earth()
-witch = Witch()
+# water = Water()
+# air = Air()
+# fire = Fire()
+# earth = Earth()
+# witch = Witch()
 
 print(' У нас есть следующие элементы: ')
-# for elements in composition:
-print(water, air)
+for element in elements:
+    print(element[0][0], element[1][0])
 print('')
-# while True:
-#     first_element = (input('Введите первый элемент: '))
-#     if first_element in composition.keys():
-#         first_user_element = composition[first_element][0]
-#     else:
-#         print('Вы ввели неправильный номер элемента!')
-#         continue
-#     second_element = (input('Введите второй элемент: '))
-#     if second_element in composition.keys():
-#         second_user_element = composition[second_element][0]
-#         break
-#     else:
-#         print('Вы ввели неправильный номер элемента!')
 
+while True:
+    first_element = (input('Введите первый элемент: '))
+    if first_element in elements[0]:
+        first_user_element = elements[1]()
+    else:
+        print('Вы ввели неправильный номер элемента!')
+        continue
+    second_element = (input('Введите второй элемент: '))
+    if second_element in elements[0]:
+        second_user_element = elements[1]()
+        break
+    else:
+        print('Вы ввели неправильный номер элемента!')
 
-print(Water(), '+', Air(), '=', Water() + Air())
-print(Witch(), '+', Witch(), '=', Witch() + Witch())
+print(first_user_element, second_user_element)
+
+# print(Water(), '+', Air(), '=', Water() + Air())
+# print(Witch(), '+', Witch(), '=', Witch() + Witch())
 
 # Усложненное задание (делать по желанию)
 # Добавить еще элемент в игру.
