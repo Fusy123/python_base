@@ -19,12 +19,11 @@
 #   print(Water(), '+', Air(), '=', Water() + Air())
 #   print(Fire(), '+', Air(), '=', Fire() + Air())
 
-
 class Water:
-    def __init__(self):
-        self.name = 'Вода'
+    def __str__(self):
+        return 'Вода'
 
-    def add(self, other):
+    def __add__(self, other):
         if isinstance(other, Water):
             return Overflow()  # наводнение = Вода + Вода
         elif isinstance(other, Air):
@@ -38,15 +37,12 @@ class Water:
         else:
             return None
 
-    def __str__(self):
-        return 'Вода'
-
 
 class Air:
-    def __init__(self):
-        self.name = 'Воздух'
+    def __str__(self):
+        return 'Воздух'
 
-    def add(self, other):
+    def __add__(self, other):
         if isinstance(other, Water):
             return Storm()  # шторм = Вода + Воздух
         elif isinstance(other, Air):
@@ -60,15 +56,12 @@ class Air:
         else:
             return None
 
-    def __str__(self):
-        return 'Воздух'
-
 
 class Fire:
-    def __init__(self):
-        self.name = 'Огонь'
+    def __str__(self):
+        return 'Огонь'
 
-    def add(self, other):
+    def __add__(self, other):
         if isinstance(other, Water):
             return Steam()  # пар = Вода + Огонь
         elif isinstance(other, Air):
@@ -82,15 +75,12 @@ class Fire:
         else:
             return None
 
-    def __str__(self):
-        return 'Огонь'
-
 
 class Earth:
-    def __init__(self):
-        self.name = 'Земля'
+    def __str__(self):
+        return 'Земля'
 
-    def add(self, other):
+    def __add__(self, other):
         if isinstance(other, Water):
             return Mud()  # грязь = Вода + Земля
         elif isinstance(other, Air):
@@ -104,60 +94,112 @@ class Earth:
         else:
             return None
 
-    def __str__(self):
-        return 'Земля'
-
 
 class Witch:
-    def __init__(self):
-        self.name = 'Ведьма'
-
-    def add(self, other):
-        if isinstance(other, Water):
-            return WetWitch()  # мокрая ведьма = Ведьма + Вода
-        elif isinstance(other, Air):
-            return Bastinda()  # Бастинда = Ведьма + Воздух
-        elif isinstance(other, Fire):
-            return Inquisition()  # Inquisition = Ведьма + Огонь
-        elif isinstance(other, Earth):
-            return DirtyGirl()  # грязная девчонка = Ведьма + Земля
-        elif isinstance(other, Witch):
-            return WomenMudFights()  # женские бои в грязи = Ведьма + Ведьма
-        else:
-            return None
-
     def __str__(self):
         return 'Ведьма'
 
 
+def __add__(self, other):
+    if isinstance(other, Water):
+        return WetWitch()  # мокрая ведьма = Ведьма + Вода
+    elif isinstance(other, Air):
+        return Bastinda()  # Бастинда = Ведьма + Воздух
+    elif isinstance(other, Fire):
+        return Inquisition()  # Inquisition = Ведьма + Огонь
+    elif isinstance(other, Earth):
+        return DirtyGirl()  # грязная девчонка = Ведьма + Земля
+    elif isinstance(other, Witch):
+        return WomenMudFights()  # женские бои в грязи = Ведьма + Ведьма
+    else:
+        return None
+
+
+class Hurricane(object):
+    def __str__(self):
+        return 'Ураган'
+
+
 class Storm:
-    def __init__(self):
-        self.name = 'Шторм'
-
-
-    def _str__(self):
-        return print(self.name)
+    def __str__(self):
+        return 'Шторм'
 
 
 class Overflow:
-    def _str__(self):
-        return print('Наводнение')
+    def __str__(self):
+        return 'Наводнение'
 
 
-# class Experiences:
+class Steam(object):
+    def __str__(self):
+        return 'Пар'
 
+
+class Mud(object):
+    def __str__(self):
+        return 'Грязь'
+
+
+class WetWitch(object):
+    def __str__(self):
+        return 'Мокрая ведьма'
+
+
+class Bastinda(object):
+    def __str__(self):
+        return 'Бастинда раздавленная домиком Элли'
+
+
+class Inquisition(object):
+    def __str__(self):
+        return 'Святые Костры Инквизиции'
+
+
+class DirtyGirl(object):
+    def __str__(self):
+        return 'Грязная девчонка'
+
+
+class WomenMudFights(object):
+    def __str__(self):
+        return 'Женские бои в грязи'
+
+
+class Earthquake(object):
+    def __str__(self):
+        return 'Землятрясение'
+
+
+class Lava(object):
+    def __str__(self):
+        return 'Лава'
+
+
+class Dust(object):
+    def __str__(self):
+        return 'Пыль'
+
+
+class Salute(object):
+    def __str__(self):
+        return 'Салют'
+
+
+class Lightning(object):
+    def __str__(self):
+        return 'Молния'
 
 
 print('-' * 25 + ' Игра Алхимия ' + '-' * 25)
 print('')
-#
-# composition = {'1': [Water(name='Вода')],
-#                '2': [Air(name='Воздух')],
-#                '3': [Fire(name='Огонь')],
-#                '4': [Earth(name='Земля')],
-#                '5': [Witch(name='Ведьма')]
-#                }
-#
+
+composition = [['1', 'Вода'],
+               ['2', 'Воздух'],
+               ['3', 'Огонь'],
+               ['4', 'Земля'],
+               ['5', 'Ведьма']
+               ]
+
 water = Water()
 air = Air()
 fire = Fire()
@@ -166,7 +208,7 @@ witch = Witch()
 
 print(' У нас есть следующие элементы: ')
 # for elements in composition:
-print(water.name, air.name)
+print(water, air)
 print('')
 # while True:
 #     first_element = (input('Введите первый элемент: '))
@@ -183,10 +225,8 @@ print('')
 #         print('Вы ввели неправильный номер элемента!')
 
 
-# experiences = water + air
-# print(experiences)
-print(water.name, '+', air.name, '=', Water.add(self=water, other=air))
-
+print(Water(), '+', Air(), '=', Water() + Air())
+print(Fire(), '+', Air(), '=', Fire() + Air())
 
 # Усложненное задание (делать по желанию)
 # Добавить еще элемент в игру.
