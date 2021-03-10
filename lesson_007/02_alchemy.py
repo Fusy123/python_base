@@ -219,6 +219,7 @@ while True:
     else:
         print('Вы ввели неправильный номер элемента!')
 
+# TODO переменные не определены в этом скоупе, пайчарм вам подсказывает
 print(first_user_element, second_user_element)
 
 # print(Water(), '+', Air(), '=', Water() + Air())
