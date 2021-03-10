@@ -41,10 +41,6 @@ class Snowflake:
     def can_fall(self):
         if self.y < -10:
 
-    def __del__(self):
-        if self.y < -10:
-            self.count += 1
-
 
 # создать_снежинки(N)
 N = int(input('Сколько снежинок вы хотите создать? :'))
@@ -84,7 +80,6 @@ while True:
         flake.draw()
         flake.can_fall()
         if flake.can_fall():
-            flake.__del__()
             flake = Snowflake(color=color_draw)
             flakes.append(flake)
         sd.sleep(0.1)
