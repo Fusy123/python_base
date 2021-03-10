@@ -99,23 +99,22 @@ class Witch:
     def __str__(self):
         return 'Ведьма'
 
+    def __add__(self, other):
+        if isinstance(other, Water):
+            return WetWitch()  # мокрая ведьма = Ведьма + Вода
+        elif isinstance(other, Air):
+            return Bastinda()  # Бастинда = Ведьма + Воздух
+        elif isinstance(other, Fire):
+            return Inquisition()  # Inquisition = Ведьма + Огонь
+        elif isinstance(other, Earth):
+            return DirtyGirl()  # грязная девчонка = Ведьма + Земля
+        elif isinstance(other, Witch):
+            return WomenMudFights()  # женские бои в грязи = Ведьма + Ведьма
+        else:
+            return None
 
-def __add__(self, other):
-    if isinstance(other, Water):
-        return WetWitch()  # мокрая ведьма = Ведьма + Вода
-    elif isinstance(other, Air):
-        return Bastinda()  # Бастинда = Ведьма + Воздух
-    elif isinstance(other, Fire):
-        return Inquisition()  # Inquisition = Ведьма + Огонь
-    elif isinstance(other, Earth):
-        return DirtyGirl()  # грязная девчонка = Ведьма + Земля
-    elif isinstance(other, Witch):
-        return WomenMudFights()  # женские бои в грязи = Ведьма + Ведьма
-    else:
-        return None
 
-
-class Hurricane(object):
+class Hurricane:
     def __str__(self):
         return 'Ураган'
 
@@ -130,62 +129,62 @@ class Overflow:
         return 'Наводнение'
 
 
-class Steam(object):
+class Steam:
     def __str__(self):
         return 'Пар'
 
 
-class Mud(object):
+class Mud:
     def __str__(self):
         return 'Грязь'
 
 
-class WetWitch(object):
+class WetWitch:
     def __str__(self):
         return 'Мокрая ведьма'
 
 
-class Bastinda(object):
+class Bastinda:
     def __str__(self):
         return 'Бастинда раздавленная домиком Элли'
 
 
-class Inquisition(object):
+class Inquisition:
     def __str__(self):
         return 'Святые Костры Инквизиции'
 
 
-class DirtyGirl(object):
+class DirtyGirl:
     def __str__(self):
         return 'Грязная девчонка'
 
 
-class WomenMudFights(object):
+class WomenMudFights:
     def __str__(self):
         return 'Женские бои в грязи'
 
 
-class Earthquake(object):
+class Earthquake:
     def __str__(self):
         return 'Землятрясение'
 
 
-class Lava(object):
+class Lava:
     def __str__(self):
         return 'Лава'
 
 
-class Dust(object):
+class Dust:
     def __str__(self):
         return 'Пыль'
 
 
-class Salute(object):
+class Salute:
     def __str__(self):
         return 'Салют'
 
 
-class Lightning(object):
+class Lightning:
     def __str__(self):
         return 'Молния'
 
@@ -226,7 +225,7 @@ print('')
 
 
 print(Water(), '+', Air(), '=', Water() + Air())
-print(Fire(), '+', Air(), '=', Fire() + Air())
+print(Witch(), '+', Witch(), '=', Witch() + Witch())
 
 # Усложненное задание (делать по желанию)
 # Добавить еще элемент в игру.
