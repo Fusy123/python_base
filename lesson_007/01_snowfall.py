@@ -13,6 +13,7 @@ sd.resolution = (1200, 600)
 
 class Snowflake:
 
+    # TODO параметр color пересекается с глобальной переменной
     def __init__(self, color=sd.background_color):
         self.count = 0
         self.x = sd.random_number(0, 1200)
@@ -25,6 +26,7 @@ class Snowflake:
             self.color = color
 
     def move(self):
+        # TODO тут у нас должно быть условие используем can_fall если может падать то двигаем
         self.x += sd.random_number(-30, 30)
         self.y -= sd.random_number(5, 50)
 
@@ -38,6 +40,9 @@ class Snowflake:
         sd.snowflake(center=point, length=self.length, color=color, factor_a=self.factor_a,
                      factor_b=self.factor_b, factor_c=self.factor_c)
 
+    # TODO метод отвечает лишь за то что может ли дальше падать снежинка или нет
+    # TODO вот что должно быть return self.y >= -10
+    # TODO если снежинка по У больше -10 то может падать
     def can_fall(self):
         numbers_fallen_snowflakes = []  # если потребуется перерисовка сугроба
         if self.y <= -10:
@@ -48,11 +53,17 @@ class Snowflake:
 
 
 def get_flakes(number):
+    # TODO мы должны объявить внутренний список и его вернуть
+    # TODO если i в цикле не используется далее нужно ее заменить на _
     for i in range(number):
+        # TODO если мы используем в коде color_draw то функция ее должна принять в качестве параметра
         flake = Snowflake(color=color_draw)
         flakes.append(flake)
     return flakes
 
+# TODO еще нужно объявить 2 функции
+# get_fallen_flakes
+# append_flakes
 
 # создать_снежинки(N)
 N = int(input('Сколько снежинок вы хотите создать? :'))
@@ -81,6 +92,7 @@ while True:
 
 flakes = []
 fallen_snow = []
+# TODO flakes = get_flakes(count=N)  # создать список снежинок
 get_flakes(N)
 
 while True:
@@ -110,3 +122,5 @@ while True:
 #         break
 
 sd.pause()
+
+# TODO оформляем код так чтобы ничего не подчеркивалось и не выделялось по PEP8
