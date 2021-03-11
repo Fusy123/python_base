@@ -10,11 +10,10 @@ sd.resolution = (1200, 600)
 #  - отработку изменений координат
 #  - отрисовку
 
-
+# класс снежинок
 class Snowflake:
-
-    # TODO параметр color пересекается с глобальной переменной
-    def __init__(self, color=sd.background_color):
+    # задаем первоначальные параметры
+    def __init__(self, snowcolor=sd.background_color):
         self.count = 0
         self.x = sd.random_number(0, 1200)
         self.y = sd.random_number(450, 600)
@@ -22,51 +21,66 @@ class Snowflake:
         self.factor_a = (sd.random_number(5, 8)) / 10
         self.factor_b = (sd.random_number(30, 70)) / 100
         self.factor_c = sd.random_number(1, 150)
-        if color:
-            self.color = color
+        if snowcolor:
+            self.snowcolor = snowcolor
 
+    # модуль движения снежинок. если в пределах экрана то делаем смещение
     def move(self):
-        # TODO тут у нас должно быть условие используем can_fall если может падать то двигаем
-        self.x += sd.random_number(-30, 30)
-        self.y -= sd.random_number(5, 50)
+        if Snowflake.can_fall:
+            self.x += sd.random_number(-30, 30)
+            self.y -= sd.random_number(5, 50)
+        else:
+            self.count += 1
+            return self.count
 
+    # модуль отрисовки снежинки
     def draw(self):
         point = sd.get_point(self.x, self.y)
-        sd.snowflake(center=point, length=self.length, color=self.color, factor_a=self.factor_a,
+        sd.snowflake(center=point, length=self.length, color=self.snowcolor, factor_a=self.factor_a,
                      factor_b=self.factor_b, factor_c=self.factor_c)
 
-    def clear_previous_picture(self, color=sd.background_color):
+    # модуль отрисовки снежинки цветом фона. эффект мультипликации
+    def clear_previous_picture(self, snowcolor=sd.background_color):
         point = sd.get_point(self.x, self.y)
-        sd.snowflake(center=point, length=self.length, color=color, factor_a=self.factor_a,
+        sd.snowflake(center=point, length=self.length, color=snowcolor, factor_a=self.factor_a,
                      factor_b=self.factor_b, factor_c=self.factor_c)
 
-    # TODO метод отвечает лишь за то что может ли дальше падать снежинка или нет
-    # TODO вот что должно быть return self.y >= -10
-    # TODO если снежинка по У больше -10 то может падать
+    # модуль проверки снежинки за пределами экрана
     def can_fall(self):
-        numbers_fallen_snowflakes = []  # если потребуется перерисовка сугроба
         if self.y <= -10:
-            numbers_fallen_snowflakes.append(self)
-        return numbers_fallen_snowflakes
+            return False
+        else:
+            return True
 
 
+# модуль формирования первоначального списка снежинок
+def get_flakes(number, snowcolor):
+    snowflakes = []
+    for _ in range(number):
+        snowflake = Snowflake(snowcolor=snowcolor)
+        snowflakes.append(snowflake)
+    return snowflakes
 
-
-def get_flakes(number):
-    # TODO мы должны объявить внутренний список и его вернуть
-    # TODO если i в цикле не используется далее нужно ее заменить на _
-    for i in range(number):
-        # TODO если мы используем в коде color_draw то функция ее должна принять в качестве параметра
-        flake = Snowflake(color=color_draw)
-        flakes.append(flake)
-    return flakes
 
 # TODO еще нужно объявить 2 функции
-# get_fallen_flakes
-# append_flakes
+def get_fallen_flakes(numbers):
+    numbers.reverse()
+    for i in numbers:
+        del flakes[i]
+
+
+def append_flakes(numbers):
+    numbers_fallen_snowflakes = []  # если потребуется перерисовка сугроба
+    for i, snowflake in enumerate(numbers):
+        if  > 0:
+            numbers_fallen_snowflakes.append(i)
+    return numbers_fallen_snowflakes
+
 
 # создать_снежинки(N)
 N = int(input('Сколько снежинок вы хотите создать? :'))
+
+# список возможных цветов для рисования
 colors = {'1': ['Красный', sd.COLOR_RED],
           '2': ['Оранжевый', sd.COLOR_ORANGE],
           '3': ['Желтый', sd.COLOR_YELLOW],
@@ -77,6 +91,7 @@ colors = {'1': ['Красный', sd.COLOR_RED],
           }
 
 print('Выберите цвет: ')
+
 # вывод соответствия номера - цвету
 for color in colors.items():
     print(color[0], ': ', color[1][0])
@@ -90,19 +105,19 @@ while True:
     else:
         print('Вы ввели неправильный номер цвета!')
 
-flakes = []
 fallen_snow = []
-# TODO flakes = get_flakes(count=N)  # создать список снежинок
-get_flakes(N)
+flakes = get_flakes(number=N, snowcolor=color_draw)
 
+# основной цикл отрисовки снежинок
 while True:
     for flake in flakes:
         flake.clear_previous_picture()
-        flake.move()
+        flake.move
         flake.draw()
-        fallen_flakes = flake.can_fall()
+        flake.can_fall()
+        fallen_flakes = append_flakes(flakes)
         if len(fallen_flakes) > 0:
-            get_flakes(len(fallen_flakes))
+            get_fallen_flakes(len(fallen_flakes))
         sd.sleep(0.1)
         if sd.user_want_exit():
             break
