@@ -2,6 +2,8 @@
 
 import simple_draw as sd
 
+from snowfall_engine import snowflakes
+
 sd.resolution = (1200, 600)
 
 
@@ -14,7 +16,6 @@ sd.resolution = (1200, 600)
 class Snowflake:
     # задаем первоначальные параметры
     def __init__(self, snowcolor=sd.background_color):
-        self.count = 0
         self.x = sd.random_number(0, 1200)
         self.y = sd.random_number(450, 600)
         self.length = sd.random_number(10, 40)
@@ -29,9 +30,6 @@ class Snowflake:
         if Snowflake.can_fall:
             self.x += sd.random_number(-30, 30)
             self.y -= sd.random_number(5, 50)
-        else:
-            self.count += 1
-            return self.count
 
     # модуль отрисовки снежинки
     def draw(self):
@@ -47,34 +45,36 @@ class Snowflake:
 
     # модуль проверки снежинки за пределами экрана
     def can_fall(self):
+        count = 0
         if self.y <= -10:
-            return False
+            count += 1
+            return count
         else:
             return True
 
 
 # модуль формирования первоначального списка снежинок
 def get_flakes(number, snowcolor):
-    snowflakes = []
+    snowflakes1 = []
     for _ in range(number):
         snowflake = Snowflake(snowcolor=snowcolor)
+        snowflakes1.append(snowflake)
+    return snowflakes1
+
+
+def get_fallen_flakes(flakes1):
+    fallen_snow = []
+    for snowflake in flakes1:
+        if snowflake.y < 0:
+            fallen_snow.append(snowflake)
+    return fallen_snow
+
+
+def append_flakes(count):
+    for i in range(count):
+        snowflake = Snowflake(snowcolor=color_draw)
         snowflakes.append(snowflake)
     return snowflakes
-
-
-# TODO еще нужно объявить 2 функции
-def get_fallen_flakes(numbers):
-    numbers.reverse()
-    for i in numbers:
-        del flakes[i]
-
-
-def append_flakes(numbers):
-    numbers_fallen_snowflakes = []  # если потребуется перерисовка сугроба
-    for i, snowflake in enumerate(numbers):
-        if  > 0:
-            numbers_fallen_snowflakes.append(i)
-    return numbers_fallen_snowflakes
 
 
 # создать_снежинки(N)
@@ -105,23 +105,23 @@ while True:
     else:
         print('Вы ввели неправильный номер цвета!')
 
-fallen_snow = []
 flakes = get_flakes(number=N, snowcolor=color_draw)
 
 # основной цикл отрисовки снежинок
 while True:
     for flake in flakes:
         flake.clear_previous_picture()
-        flake.move
+        flake.move()
         flake.draw()
-        flake.can_fall()
-        fallen_flakes = append_flakes(flakes)
-        if len(fallen_flakes) > 0:
-            get_fallen_flakes(len(fallen_flakes))
-        sd.sleep(0.1)
-        if sd.user_want_exit():
-            break
+        counts = flake.can_fall()
+    fallen_flakes = get_fallen_flakes(flakes)
+    if counts > 0:
+        flakes = append_flakes(counts)
+    sd.sleep(0.1)
+    if sd.user_want_exit():
+        break
 
+sd.pause()
 # шаг 2: создать снегопад - список объектов Снежинка в отдельном списке, обработку примерно так:
 # flakes = get_flakes(count=N)  # создать список снежинок
 # while True:
@@ -135,7 +135,3 @@ while True:
 #     sd.sleep(0.1)
 #     if sd.user_want_exit():
 #         break
-
-sd.pause()
-
-# TODO оформляем код так чтобы ничего не подчеркивалось и не выделялось по PEP8
