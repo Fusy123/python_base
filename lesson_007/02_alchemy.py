@@ -201,26 +201,26 @@ elements = {'1': [Water()], '2': [Air()], '3': [Fire()], '4': [Earth()], '5': [W
 # witch = Witch()
 
 print(' У нас есть следующие элементы: ')
-for element in elements:
-    print(element[0][0], element[1][0])
-print('')
+for element in elements.items():
+    print(element[0], ': ', element[1][0])
+
+print(' ')
 
 while True:
     first_element = (input('Введите первый элемент: '))
-    if first_element in elements[0]:
-        first_user_element = elements[1]()
+    if first_element in elements.keys():
+        first_user_element = elements[first_element][0]
     else:
         print('Вы ввели неправильный номер элемента!')
         continue
     second_element = (input('Введите второй элемент: '))
-    if second_element in elements[0]:
-        second_user_element = elements[1]()
+    if second_element in elements.keys():
+        second_user_element = elements[second_element][0]
         break
     else:
         print('Вы ввели неправильный номер элемента!')
 
-# TODO переменные не определены в этом скоупе, пайчарм вам подсказывает
-print(first_user_element, second_user_element)
+print(first_user_element, '+',  second_user_element, '=', first_user_element + second_user_element)
 
 # print(Water(), '+', Air(), '=', Water() + Air())
 # print(Witch(), '+', Witch(), '=', Witch() + Witch())
