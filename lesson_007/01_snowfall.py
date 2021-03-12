@@ -27,6 +27,7 @@ class Snowflake:
 
     # модуль движения снежинок. если в пределах экрана то делаем смещение
     def move(self):
+        # TODO вызываем метод self.can_fall():
         if Snowflake.can_fall:
             self.x += sd.random_number(-30, 30)
             self.y -= sd.random_number(5, 50)
@@ -43,6 +44,9 @@ class Snowflake:
         sd.snowflake(center=point, length=self.length, color=snowcolor, factor_a=self.factor_a,
                      factor_b=self.factor_b, factor_c=self.factor_c)
 
+    # TODO как правило некоторые действия или проверки выносят в отдельные методы
+    # TODO в нашем случае данный метод отвечает за то что проверяет может ли дальше падать и более тут логики писать
+    # TODO не нужно!
     # модуль проверки снежинки за пределами экрана
     def can_fall(self):
         count = 0
@@ -65,12 +69,14 @@ def get_flakes(number, snowcolor):
 def get_fallen_flakes(flakes1):
     fallen_snow = []
     for snowflake in flakes1:
+        # TODO используем метод проверки у экземпляра can_fall
         if snowflake.y < 0:
             fallen_snow.append(snowflake)
     return fallen_snow
 
 
 def append_flakes(count):
+    # TODO переменная i не используется
     for i in range(count):
         snowflake = Snowflake(snowcolor=color_draw)
         snowflakes.append(snowflake)
@@ -113,8 +119,10 @@ while True:
         flake.clear_previous_picture()
         flake.move()
         flake.draw()
+        # TODO эту строку убрать
         counts = flake.can_fall()
     fallen_flakes = get_fallen_flakes(flakes)
+    # TODO тут проверяем fallen_flakes
     if counts > 0:
         flakes = append_flakes(counts)
     sd.sleep(0.1)
