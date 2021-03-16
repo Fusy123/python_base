@@ -193,12 +193,8 @@ print('-' * 25 + ' Игра Алхимия ' + '-' * 25)
 print('')
 
 elements = {'1': [Water()], '2': [Air()], '3': [Fire()], '4': [Earth()], '5': [Witch()]}
-
-# water = Water()
-# air = Air()
-# fire = Fire()
-# earth = Earth()
-# witch = Witch()
+first_user_element = 0
+second_user_element = 0
 
 print(' У нас есть следующие элементы: ')
 for element in elements.items():
@@ -219,10 +215,8 @@ while True:
         break
     else:
         print('Вы ввели неправильный номер элемента!')
-# TODO у меня данные переменные выделены потому что они у вас не объявлены в глобальном скопе
-# TODO их нужно по дефолту объявить вне цикла
-# TODO условие может и не выполниться и переменная не создаться
-print(first_user_element, '+',  second_user_element, '=', first_user_element + second_user_element)
+
+print(first_user_element, '+', second_user_element, '=', first_user_element + second_user_element)
 
 # print(Water(), '+', Air(), '=', Water() + Air())
 # print(Witch(), '+', Witch(), '=', Witch() + Witch())
