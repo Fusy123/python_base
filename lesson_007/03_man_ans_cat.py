@@ -3,6 +3,7 @@
 from random import randint
 from termcolor import cprint
 
+
 # Доработать практическую часть урока lesson_007/python_snippets/08_practice.py
 
 # Необходимо создать класс кота. У кота есть аттрибуты - сытость и дом (в котором он живет).
@@ -88,8 +89,49 @@ class Man:
             self.play_sega()
 
 
-class House:
+class Cat:
 
+    def __init__(self, name):
+        self.name = name
+        self.fullness = 50
+        self.cathouse = None
+
+    def __str__(self):
+        return 'Я - {}, сытость {}'.format(
+            self.name, self.fullness,
+        )
+
+    def eat(self):
+        if self.cathouse.food >= 10:
+            cprint('{} поел'.format(self.name), color='yellow')
+            self.fullness += 20
+            self.cathouse.food -= 10
+        else:
+            cprint('{} нет еды'.format(self.name), color='red')
+
+    def play_wallpapper(self):
+        cprint('{} драл обои целый день'.format(self.name), color='green')
+        self.fullness -= 10
+        self.cathouse.mud += 5
+
+    def sleep(self):
+        cprint('{} спал целый день'.format(self.name), color='green')
+        self.fullness -= 10
+
+    def act(self):
+        if self.fullness <= 0:
+            cprint('{} умер...'.format(self.name), color='red')
+            return
+        dice = randint(1, 4)
+        if self.fullness < 20:
+            self.eat()
+        elif dice == 2:
+            self.play_wallpapper()
+        else:
+            self.sleep()
+
+
+class House:
     def __init__(self):
         self.food = 50
         self.money = 0
@@ -100,6 +142,15 @@ class House:
         )
 
 
+class CatHouse:
+    def __init__(self):
+        self.catfood = 0
+        self.mud = 0
+
+    def __str__(self):
+        return 'В доме осталось кошачей еды {}, уровень грязи {}'.format(
+            self.catfood, self.mud,
+        )
 
 
 citizens = [Man(name='Человек')]
@@ -109,12 +160,12 @@ for citisen in citizens:
 
 for day in range(1, 366):
     print('================ день {} =================='.format(day))
-    for citisen in citizens:
-        citisen.act()
-    print('--- в конце дня ---')
-    for citisen in citizens:
-        print(citisen)
-    print(my_sweet_home)
+for citisen in citizens:
+    citisen.act()
+print('--- в конце дня ---')
+for citisen in citizens:
+    print(citisen)
+print(my_sweet_home)
 
 # Усложненное задание (делать по желанию)
 # Создать несколько (2-3) котов и подселить их в дом к человеку.
