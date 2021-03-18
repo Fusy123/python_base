@@ -47,6 +47,7 @@ class Man:
             self.house.food -= 10
         else:
             cprint('{} нет еды'.format(self.name), color='red')
+            # TODO дополнительные методы в методах не вызываем, так у нас будет два действия за место одного
             self.shopping()
 
     def work(self):
@@ -67,12 +68,14 @@ class Man:
             cprint('{} деньги кончились!'.format(self.name), color='red')
 
     def cat_food_shopping(self):
+        # TODO На каждый if пишем else
         if cat_house.catfood < len(cats) * 10 and self.house.money >= 50:
             cprint('{} сходил(а) в магазин за едой для кота'.format(self.name), color='magenta')
             cat_house.catfood += 50
             self.house.money -= 50
 
     def clean_house(self):
+        # TODO пишем else говорим что еще чисто в доме
         if cat_house.mud >= 100:
             cprint('{} Прибрался дома'.format(self.name), color='blue')
             cat_house.mud -= 100
@@ -84,6 +87,7 @@ class Man:
         cprint('{} Въехал(а) в дом'.format(self.name), color='cyan')
 
     def act(self):
+        # TODO Выносим в отдельный метод и будем запускать в цикле
         if self.fullness <= 0:
             cprint('{} умер(ла)...'.format(self.name), color='red')
             return
@@ -111,6 +115,7 @@ class Cat:
     def __init__(self, name):
         self.name = name
         self.fullness = 50
+        # TODO переменные пишем в стиле snake_case
         self.cathouse = None
 
     def __str__(self):
@@ -126,6 +131,7 @@ class Cat:
         else:
             self.fullness -= 10
             cprint('{} нет еды'.format(self.name), color='red')
+            # TODO Аналогично ТУДУ выше
             citisen.cat_food_shopping()
 
     def play_wallpapper(self):
@@ -137,12 +143,14 @@ class Cat:
         cprint('{} спал целый день'.format(self.name), color='green')
         self.fullness -= 10
 
+    # TODO у кота не может быть этого метода его должен заселять человек
     def go_to_the_cathouse(self, house):
         self.cathouse = house
         self.fullness -= 10
         cprint('{} Въехал в дом'.format(self.name), color='cyan')
 
     def act(self):
+        # TODO Аналогично
         if self.fullness <= 0:
             cprint('{} умер...'.format(self.name), color='red')
             return
@@ -170,6 +178,7 @@ class House:
         )
 
 
+# TODO у человека и кота должен быть одна крыша над головой
 class CatHouse:
     def __init__(self):
         self.catfood = 0
@@ -216,6 +225,7 @@ for day in range(1, 366):
         print(cat)
     print(my_sweet_home)
     print(cat_house)
+    # TODO в конце цикла чекаем людей и животных на жизнь
 
 # Усложненное задание (делать по желанию)
 # Создать несколько (2-3) котов и подселить их в дом к человеку.
