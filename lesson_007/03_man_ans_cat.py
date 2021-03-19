@@ -156,7 +156,7 @@ def man_act(self):
         Man.total_man -= 1
         citizens.remove(self)
         return
-    dice = randint(1, 10)
+    dice = randint(1, 50)
     if self.fullness <= 20:
         self.eat()
     elif self.house.money <= 50:
@@ -171,7 +171,7 @@ def man_act(self):
         self.work()
     elif dice == 2:
         self.eat()
-    elif dice == 5:
+    elif dice == 28:
         self.go_to_the_cat_house()
     else:
         self.play_sega()
