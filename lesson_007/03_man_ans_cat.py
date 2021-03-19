@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from random import randint
+from random import randint, choice
 from termcolor import cprint
 
 
@@ -29,6 +29,8 @@ from termcolor import cprint
 
 
 class Man:
+    total_man = 0
+    dead_man = 0
 
     def __init__(self, name):
         self.name = name
@@ -47,8 +49,6 @@ class Man:
             self.house.food -= 10
         else:
             cprint('{} нет еды'.format(self.name), color='red')
-            # TODO дополнительные методы в методах не вызываем, так у нас будет два действия за место одного
-            self.shopping()
 
     def work(self):
         cprint('{} сходил(а) на работу'.format(self.name), color='blue')
@@ -68,55 +68,45 @@ class Man:
             cprint('{} деньги кончились!'.format(self.name), color='red')
 
     def cat_food_shopping(self):
-        # TODO На каждый if пишем else
-        if cat_house.catfood < len(cats) * 10 and self.house.money >= 50:
+        if self.house.cat_food < Cat.total_cat * 10 and self.house.money >= 50:
             cprint('{} сходил(а) в магазин за едой для кота'.format(self.name), color='magenta')
-            cat_house.catfood += 50
+            self.house.cat_food += 50
             self.house.money -= 50
+        else:
+            cprint('{} деньги кончились!'.format(self.name), color='red')
 
     def clean_house(self):
-        # TODO пишем else говорим что еще чисто в доме
-        if cat_house.mud >= 100:
+        if self.house.mud >= 100:
             cprint('{} Прибрался дома'.format(self.name), color='blue')
-            cat_house.mud -= 100
+            self.house.mud -= 100
             self.fullness -= 20
+        else:
+            cprint('{} в доме чисто.'.format(self.name), color='blue')
 
     def go_to_the_house(self, house):
+        Man.total_man += 1
         self.house = house
         self.fullness -= 10
         cprint('{} Въехал(а) в дом'.format(self.name), color='cyan')
 
-    def act(self):
-        # TODO Выносим в отдельный метод и будем запускать в цикле
-        if self.fullness <= 0:
-            cprint('{} умер(ла)...'.format(self.name), color='red')
-            return
-        dice = randint(1, 6)
-        if self.fullness <= 20:
-            self.eat()
-        elif self.house.money <= 50:
-            self.work()
-        elif cat_house.catfood <= len(cats) * 10:
-            self.cat_food_shopping()
-        elif self.house.food <= 20:
-            self.shopping()
-        elif cat_house.mud >= 100:
-            self.clean_house()
-        elif dice == 1:
-            self.work()
-        elif dice == 2:
-            self.eat()
-        else:
-            self.play_sega()
+    def go_to_the_cat_house(self):
+        cat = Cat()
+        cats.append(cat)
+        Cat.total_cat += 1
+        self.fullness -= 10
+        cprint('{} Взяли'.format(cat.name), color='cyan')
 
 
 class Cat:
+    names = ['Кот', 'Пушистик', 'Киска', 'Мохнатый ублюдок', 'Облезлый', 'Длинный хвост',
+             'ДИАВОЛ', 'Васька']
+    total_cat = 0
+    dead_cat = 0
 
-    def __init__(self, name):
-        self.name = name
+    def __init__(self):
+        self.name = choice(Cat.names)
         self.fullness = 50
-        # TODO переменные пишем в стиле snake_case
-        self.cathouse = None
+        self.house = citisen.house
 
     def __str__(self):
         return 'Я - {}, сытость {}'.format(
@@ -124,108 +114,115 @@ class Cat:
         )
 
     def eat(self):
-        if cat_house.catfood >= 10:
+        if self.house.cat_food >= 10:
             cprint('{} поел'.format(self.name), color='yellow')
             self.fullness += 20
-            cat_house.catfood -= 10
+            self.house.cat_food -= 10
         else:
             self.fullness -= 10
             cprint('{} нет еды'.format(self.name), color='red')
-            # TODO Аналогично ТУДУ выше
-            citisen.cat_food_shopping()
 
     def play_wallpapper(self):
         cprint('{} драл обои целый день'.format(self.name), color='green')
         self.fullness -= 10
-        self.cathouse.mud += 5
+        self.house.mud += 5
 
     def sleep(self):
         cprint('{} спал целый день'.format(self.name), color='green')
         self.fullness -= 10
-
-    # TODO у кота не может быть этого метода его должен заселять человек
-    def go_to_the_cathouse(self, house):
-        self.cathouse = house
-        self.fullness -= 10
-        cprint('{} Въехал в дом'.format(self.name), color='cyan')
-
-    def act(self):
-        # TODO Аналогично
-        if self.fullness <= 0:
-            cprint('{} умер...'.format(self.name), color='red')
-            return
-        dice = randint(1, 4)
-        if self.fullness < 20:
-            self.eat()
-        elif self.fullness >= 30:
-            self.play_wallpapper()
-        elif dice == 1:
-            self.eat()
-        elif dice == 2:
-            self.play_wallpapper()
-        else:
-            self.sleep()
 
 
 class House:
     def __init__(self):
         self.food = 50
         self.money = 100
-
-    def __str__(self):
-        return 'В доме еды осталось {}, денег осталось {}'.format(
-            self.food, self.money,
-        )
-
-
-# TODO у человека и кота должен быть одна крыша над головой
-class CatHouse:
-    def __init__(self):
-        self.catfood = 0
+        self.cat_food = 0
         self.mud = 0
 
     def __str__(self):
-        return 'В доме осталось кошачей еды {}, уровень грязи {}'.format(
-            self.catfood, self.mud,
-        )
+        if Cat.total_cat == 0:
+            return 'В доме еды осталось {}, денег осталось {}'.format(
+                self.food, self.money)
+        else:
+            return 'В доме еды осталось {}, денег осталось {}. \n' \
+                   'В доме осталось кошачей еды {}, уровень ' \
+                   'грязи {}'.format(self.food, self.money, self.cat_food, self.mud)
+
+
+def man_act(self):
+    if self.fullness <= 0:
+        cprint('{} умер(ла)...'.format(self.name), color='red')
+        Man.dead_man += 1
+        Man.total_man -= 1
+        citizens.remove(self)
+        return
+    dice = randint(1, 10)
+    if self.fullness <= 20:
+        self.eat()
+    elif self.house.money <= 50:
+        self.work()
+    elif Cat.total_cat > 0 and self.house.cat_food <= 10:
+        self.cat_food_shopping()
+    elif self.house.food <= 20:
+        self.shopping()
+    elif self.house.mud >= 100:
+        self.clean_house()
+    elif dice == 1:
+        self.work()
+    elif dice == 2:
+        self.eat()
+    elif dice == 5:
+        self.go_to_the_cat_house()
+    else:
+        self.play_sega()
+
+
+def cat_act(self):
+    if self.fullness <= 0:
+        cprint('{} умер...'.format(self.name), color='red')
+        Cat.dead_cat += 1
+        Cat.total_cat -= 1
+        cats.remove(self)
+        return
+    dice = randint(1, 4)
+    if self.fullness < 20:
+        self.eat()
+    elif self.fullness >= 30:
+        self.play_wallpapper()
+    elif dice == 1:
+        self.eat()
+    elif dice == 2:
+        self.play_wallpapper()
+    else:
+        self.sleep()
 
 
 citizens = [Man(name='Муж'),
             Man(name='Жена')
             ]
-cats = [Cat(name='Кот'),
-        Cat(name='Пушистик'),
-        Cat(name='Киска'),
-        Cat(name='Мохнатый ублюдок'),
-        Cat(name='Облезлый'),
-        Cat(name='Длинный хвост'),
-        Cat(name='ДИАВОЛ'),
-        Cat(name='Васька')
-        ]
+
+cats = []
 
 my_sweet_home = House()
-cat_house = CatHouse()
 
 for citisen in citizens:
     citisen.go_to_the_house(house=my_sweet_home)
 
-for cat in cats:
-    cat.go_to_the_cathouse(house=cat_house)
-
 for day in range(1, 366):
     print('================ день {} =================='.format(day))
     for citisen in citizens:
-        citisen.act()
+        man_act(citisen)
     for cat in cats:
-        cat.act()
+        cat_act(cat)
     print('--- в конце дня ---')
     for citisen in citizens:
         print(citisen)
-    for cat in cats:
-        print(cat)
     print(my_sweet_home)
-    print(cat_house)
-    # TODO в конце цикла чекаем людей и животных на жизнь
+
+print('')
+print('За 1 год в доме живых людей - {}\n Умерло людей - {}\n Живых котов - {}\n Умерло котов - {}'
+      ''.format(Man.total_man, Man.dead_man, Cat.total_cat, Cat.dead_cat))
+
 
 # Усложненное задание (делать по желанию)
 # Создать несколько (2-3) котов и подселить их в дом к человеку.
