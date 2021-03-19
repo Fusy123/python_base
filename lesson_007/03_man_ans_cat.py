@@ -196,6 +196,8 @@ citizens = [Man(name='Муж'),
             ]
 
 cats = []
+dead = []
+life = []
 
 my_sweet_home = House()
 
@@ -212,19 +214,22 @@ for day in range(1, 366):
     for citisen in citizens:
         print(citisen)
     print(my_sweet_home)
-    print('')
-    print('В доме живут: ', end='')
-    for citisen in citizens:
-        if citisen.life == 1:
-            print(citisen.name, end=',')
-        else:
-            continue
-    for cat in cats:
-        if cat.life == 1:
-            print(cat.name, end=',')
-        else:
-            continue
-    print('')
+print('')
+for citisen in citizens:
+    if citisen.life == 1:
+        life.append(citisen.name)
+    else:
+        dead.append(citisen.name)
+for cat in cats:
+    if cat.life == 1:
+        life.append(cat.name)
+    else:
+        dead.append(cat.name)
+
+print('Живут в доме: ', end='')
+print(', '.join(map(str, life)))
+print('')
+print('Умер:', ', '.join(map(str, dead)))
 
 
 
