@@ -97,6 +97,7 @@ class Man:
 
 
 class Cat:
+    # TODO при лучших временах с 3мя то не совсем уживаются
     names = ['Кот', 'Пушистик', 'Киска', 'Мохнатый ублюдок', 'Облезлый', 'Длинный хвост',
              'ДИАВОЛ', 'Васька', 'Мурзик', 'Рыжий', 'Одноухий', 'Ушлепок', 'Боксер', 'Р2Д2', 'Мячик']
 
@@ -142,16 +143,22 @@ class House:
             return 'В доме еды осталось {}, денег осталось {}'.format(
                 self.food, self.money)
         else:
+            # TODO знак для переноса стараемся в коде не использовать \
             return 'В доме еды осталось {}, денег осталось {}. \n' \
                    'В доме осталось кошачей еды {}, уровень ' \
                    'грязи {}'.format(self.food, self.money, self.cat_food, self.mud)
 
 
+# TODO метод - это функция класса
+
+# TODO это должно быть методом класса
 def man_act(self):
+    # TODO эта проверка должна быть тоже методом класса для кота поправить
     if self.fullness <= 0:
         cprint('{} умер(ла)...'.format(self.name), color='red')
         self.life = 0
         return
+    # TODO от 1 до 6
     dice = randint(1, 100)
     if self.fullness <= 20:
         self.eat()
@@ -194,7 +201,7 @@ def cat_act(self):
 citizens = [Man(name='Муж'),
             Man(name='Жена')
             ]
-
+# TODO экземпляры классов котов создаем тут
 cats = []
 dead = []
 life = []
@@ -214,6 +221,7 @@ for day in range(1, 366):
     for citisen in citizens:
         print(citisen)
     print(my_sweet_home)
+    # TODO проверки на жизнь делать тут в первом цикле основном, доп внешних циклов не создавать, вложенные можно
 print('')
 for citisen in citizens:
     if citisen.life == 1:
