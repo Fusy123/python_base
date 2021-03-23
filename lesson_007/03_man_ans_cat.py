@@ -86,23 +86,48 @@ class Man:
         self.house = house
         self.life = 1
         self.fullness -= 10
+        life.append(citisen.name)
         cprint('{} Въехал(а) в дом'.format(self.name), color='cyan')
 
     def go_to_the_cat_house(self):
-        cat = Cat()
-        cats.append(cat)
-        cat.life = 1
-        self.fullness -= 10
-        cprint('{} Взяли'.format(cat.name), color='cyan')
+        if len(dead) == 0:
+            cat = Cat()
+            cats.append(cat)
+            cat.life = 1
+            life.append(cat.name)
+            self.fullness -= 10
+            cprint('{} Взяли'.format(cat.name), color='cyan')
+
+    def man_act(self):
+        if self.fullness <= 0:
+            cprint('{} умер(ла)...'.format(self.name), color='red')
+            self.life = 0
+            return
+        dice = randint(1, 6)
+        if self.fullness <= 20:
+            self.eat()
+        elif self.house.money <= 50:
+            self.work()
+        elif len(cats) > 0 and self.house.cat_food <= 10:
+            self.cat_food_shopping()
+        elif self.house.food <= 20:
+            self.shopping()
+        elif self.house.mud >= 100:
+            self.clean_house()
+        elif dice == 1:
+            self.work()
+        elif dice == 2:
+            self.eat()
+        elif dice == 3:
+            self.go_to_the_cat_house()
+        else:
+            self.play_sega()
 
 
 class Cat:
-    # TODO при лучших временах с 3мя то не совсем уживаются
-    names = ['Кот', 'Пушистик', 'Киска', 'Мохнатый ублюдок', 'Облезлый', 'Длинный хвост',
-             'ДИАВОЛ', 'Васька', 'Мурзик', 'Рыжий', 'Одноухий', 'Ушлепок', 'Боксер', 'Р2Д2', 'Мячик']
 
     def __init__(self):
-        self.name = choice(Cat.names)
+        self.name = choice(cat_names)
         self.fullness = 50
         self.house = citisen.house
         self.life = None
@@ -130,6 +155,23 @@ class Cat:
         cprint('{} спал целый день'.format(self.name), color='green')
         self.fullness -= 10
 
+    def cat_act(self):
+        if self.fullness <= 0:
+            cprint('{} умер...'.format(self.name), color='red')
+            cat.life = 0
+            return
+        dice = randint(1, 4)
+        if self.fullness < 20:
+            self.eat()
+        elif self.fullness >= 30:
+            self.play_wallpapper()
+        elif dice == 1:
+            self.eat()
+        elif dice == 2:
+            self.play_wallpapper()
+        else:
+            self.sleep()
+
 
 class House:
     def __init__(self):
@@ -143,65 +185,17 @@ class House:
             return 'В доме еды осталось {}, денег осталось {}'.format(
                 self.food, self.money)
         else:
-            # TODO знак для переноса стараемся в коде не использовать \
-            return 'В доме еды осталось {}, денег осталось {}. \n' \
-                   'В доме осталось кошачей еды {}, уровень ' \
-                   'грязи {}'.format(self.food, self.money, self.cat_food, self.mud)
-
-
-# TODO метод - это функция класса
-
-# TODO это должно быть методом класса
-def man_act(self):
-    # TODO эта проверка должна быть тоже методом класса для кота поправить
-    if self.fullness <= 0:
-        cprint('{} умер(ла)...'.format(self.name), color='red')
-        self.life = 0
-        return
-    # TODO от 1 до 6
-    dice = randint(1, 100)
-    if self.fullness <= 20:
-        self.eat()
-    elif self.house.money <= 50:
-        self.work()
-    elif len(cats) > 0 and self.house.cat_food <= 10:
-        self.cat_food_shopping()
-    elif self.house.food <= 20:
-        self.shopping()
-    elif self.house.mud >= 100:
-        self.clean_house()
-    elif dice == 1:
-        self.work()
-    elif dice == 2:
-        self.eat()
-    elif dice == 75:
-        self.go_to_the_cat_house()
-    else:
-        self.play_sega()
-
-
-def cat_act(self):
-    if self.fullness <= 0:
-        cprint('{} умер...'.format(self.name), color='red')
-        cat.life = 0
-        return
-    dice = randint(1, 4)
-    if self.fullness < 20:
-        self.eat()
-    elif self.fullness >= 30:
-        self.play_wallpapper()
-    elif dice == 1:
-        self.eat()
-    elif dice == 2:
-        self.play_wallpapper()
-    else:
-        self.sleep()
+            return 'В доме еды осталось {}, денег осталось {}.\nВ доме осталось кошачей еды {}, уровень грязи {}'.format(
+                self.food, self.money, self.cat_food, self.mud)
 
 
 citizens = [Man(name='Муж'),
             Man(name='Жена')
             ]
-# TODO экземпляры классов котов создаем тут
+
+cat_names = ['Кот', 'Пушистик', 'Киска', 'Мохнатый ублюдок', 'Облезлый', 'Длинный хвост',
+             'ДИАВОЛ', 'Васька', 'Мурзик', 'Рыжий', 'Одноухий', 'Ушлепок', 'Боксер', 'Р2Д2', 'Мячик']
+
 cats = []
 dead = []
 life = []
@@ -214,33 +208,36 @@ for citisen in citizens:
 for day in range(1, 366):
     print('================ день {} =================='.format(day))
     for citisen in citizens:
-        man_act(citisen)
+        citisen.man_act()
+        if citisen.life == 0:
+            dead.append(citisen.name)
+            life.remove(citisen.name)
+            citizens.remove(citisen)
+        else:
+            continue
+
     for cat in cats:
-        cat_act(cat)
+        cat.cat_act()
+        if cat.life == 0:
+            if cat.name is not dead:
+                dead.append(cat.name)
+            life.remove(cat.name)
+            cats.remove(cat)
+        else:
+            continue
     print('--- в конце дня ---')
     for citisen in citizens:
         print(citisen)
+    for cat in cats:
+        print(cat)
     print(my_sweet_home)
-    # TODO проверки на жизнь делать тут в первом цикле основном, доп внешних циклов не создавать, вложенные можно
-print('')
-for citisen in citizens:
-    if citisen.life == 1:
-        life.append(citisen.name)
-    else:
-        dead.append(citisen.name)
-for cat in cats:
-    if cat.life == 1:
-        life.append(cat.name)
-    else:
-        dead.append(cat.name)
+    print('')
 
+print('')
 print('Живут в доме: ', end='')
 print(', '.join(map(str, life)))
 print('')
 print('Умер:', ', '.join(map(str, dead)))
-
-
-
 
 # Усложненное задание (делать по желанию)
 # Создать несколько (2-3) котов и подселить их в дом к человеку.
