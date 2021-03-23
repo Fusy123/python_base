@@ -47,6 +47,7 @@ class Man:
             self.fullness += 10
             self.house.food -= 10
         else:
+            # TODO уменьшаем сытость
             cprint('{} нет еды'.format(self.name), color='red')
 
     def work(self):
@@ -84,12 +85,15 @@ class Man:
 
     def go_to_the_house(self, house):
         self.house = house
+        # TODO что за параметр ?
         self.life = 1
         self.fullness -= 10
+        # TODO что за параметр ?
         life.append(citisen.name)
         cprint('{} Въехал(а) в дом'.format(self.name), color='cyan')
 
     def go_to_the_cat_house(self):
+        # TODO что тут происходит опишите каждую строку
         if len(dead) == 0:
             cat = Cat()
             cats.append(cat)
@@ -99,6 +103,7 @@ class Man:
             cprint('{} Взяли'.format(cat.name), color='cyan')
 
     def man_act(self):
+        # TODO проверку на жизнь выносим в отдельный метод
         if self.fullness <= 0:
             cprint('{} умер(ла)...'.format(self.name), color='red')
             self.life = 0
@@ -156,10 +161,12 @@ class Cat:
         self.fullness -= 10
 
     def cat_act(self):
+        # TODO проверку на жизнь выносим в отдельный метод
         if self.fullness <= 0:
             cprint('{} умер...'.format(self.name), color='red')
             cat.life = 0
             return
+
         dice = randint(1, 4)
         if self.fullness < 20:
             self.eat()
@@ -205,6 +212,7 @@ my_sweet_home = House()
 for citisen in citizens:
     citisen.go_to_the_house(house=my_sweet_home)
 
+# TODO опишите логику вашего цикла по блокам и подробней
 for day in range(1, 366):
     print('================ день {} =================='.format(day))
     for citisen in citizens:
