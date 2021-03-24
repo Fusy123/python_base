@@ -29,6 +29,7 @@ from termcolor import cprint
 
 
 class Man:
+    '''класс человек. задаем основные параметры и методы'''
 
     def __init__(self, name):
         self.name = name
@@ -42,24 +43,28 @@ class Man:
         )
 
     def eat(self):
+        '''метод поел'''
         if self.house.food >= 10:
             cprint('{} поел(а)'.format(self.name), color='yellow')
             self.fullness += 10
             self.house.food -= 10
         else:
-            # TODO уменьшаем сытость
+            self.fullness -= 10
             cprint('{} нет еды'.format(self.name), color='red')
 
     def work(self):
+        ''' метод работа'''
         cprint('{} сходил(а) на работу'.format(self.name), color='blue')
         self.house.money += 150
         self.fullness -= 10
 
     def play_sega(self):
+        ''' метод отдых'''
         cprint('{} играл(а) на приставке целый день'.format(self.name), color='green')
         self.fullness -= 10
 
     def shopping(self):
+        ''' метод поход в магазин'''
         if self.house.money >= 100:
             cprint('{} сходил(а) в магазин за едой'.format(self.name), color='magenta')
             self.house.money -= 50
@@ -68,6 +73,7 @@ class Man:
             cprint('{} деньги кончились!'.format(self.name), color='red')
 
     def cat_food_shopping(self):
+        ''' метод поход в магазин за едой для кота'''
         if self.house.cat_food < len(cats) * 10 and self.house.money >= 50:
             cprint('{} сходил(а) в магазин за едой для кота'.format(self.name), color='magenta')
             self.house.cat_food += 50
@@ -76,6 +82,7 @@ class Man:
             cprint('{} деньги кончились!'.format(self.name), color='red')
 
     def clean_house(self):
+        ''' метод уборка в доме'''
         if self.house.mud >= 100:
             cprint('{} Прибрался дома'.format(self.name), color='blue')
             self.house.mud -= 100
@@ -84,30 +91,25 @@ class Man:
             cprint('{} в доме чисто.'.format(self.name), color='blue')
 
     def go_to_the_house(self, house):
+        ''' метод заселение в дом '''
         self.house = house
-        # TODO что за параметр ?
-        self.life = 1
+        self.life = 1  # переменная показывающая живой человек в доме (1) или мертвый (0)
         self.fullness -= 10
-        # TODO что за параметр ?
-        life.append(citisen.name)
+        life.append(citisen.name)  # список живых жителей, сделал для вывода в конце года.
         cprint('{} Въехал(а) в дом'.format(self.name), color='cyan')
 
     def go_to_the_cat_house(self):
-        # TODO что тут происходит опишите каждую строку
-        if len(dead) == 0:
-            cat = Cat()
-            cats.append(cat)
-            cat.life = 1
-            life.append(cat.name)
-            self.fullness -= 10
-            cprint('{} Взяли'.format(cat.name), color='cyan')
+        ''' метод добавления кота в дом'''
+        if len(dead) == 0:  # если список мертвых равен 0, то добавляем кота в дом
+            cat = Cat()  # создаем обьект из класса сат
+            cats.append(cat)  # добавляем обьект в список котов
+            cat.life = 1  # обьекту кот ставим метку живой (1) мертвый (0)
+            life.append(cat.name)  # добавляем имя кота в список живых
+            self.fullness -= 10  # убавляем сытость человека
+            cprint('{} Взяли'.format(cat.name), color='cyan')  # вывод
 
     def man_act(self):
-        # TODO проверку на жизнь выносим в отдельный метод
-        if self.fullness <= 0:
-            cprint('{} умер(ла)...'.format(self.name), color='red')
-            self.life = 0
-            return
+        '''метод активности человека'''
         dice = randint(1, 6)
         if self.fullness <= 20:
             self.eat()
@@ -125,11 +127,23 @@ class Man:
             self.eat()
         elif dice == 3:
             self.go_to_the_cat_house()
+        elif dice == 4:
+            self.clean_house()
         else:
             self.play_sega()
 
+    def live_dead(self):
+        ''' метод проверки на живой мертвый'''
+        if self.fullness < 0:
+            cprint('{} умер(ла)...'.format(self.name), color='red')
+            dead.append(self.name)
+            life.remove(self.name)
+            citizens.remove(self)
+            return
+
 
 class Cat:
+    '''класс кот. основные параметры и методы'''
 
     def __init__(self):
         self.name = choice(cat_names)
@@ -143,6 +157,7 @@ class Cat:
         )
 
     def eat(self):
+        ''' метод еда кота'''
         if self.house.cat_food >= 10:
             cprint('{} поел'.format(self.name), color='yellow')
             self.fullness += 20
@@ -152,21 +167,18 @@ class Cat:
             cprint('{} нет еды'.format(self.name), color='red')
 
     def play_wallpapper(self):
+        ''' метод кот играет '''
         cprint('{} драл обои целый день'.format(self.name), color='green')
         self.fullness -= 10
         self.house.mud += 5
 
     def sleep(self):
+        ''' метод кот спит '''
         cprint('{} спал целый день'.format(self.name), color='green')
         self.fullness -= 10
 
     def cat_act(self):
-        # TODO проверку на жизнь выносим в отдельный метод
-        if self.fullness <= 0:
-            cprint('{} умер...'.format(self.name), color='red')
-            cat.life = 0
-            return
-
+        ''' метод выбора активностей кота'''
         dice = randint(1, 4)
         if self.fullness < 20:
             self.eat()
@@ -178,6 +190,16 @@ class Cat:
             self.play_wallpapper()
         else:
             self.sleep()
+
+    def live_dead(self):
+        '''метод проверки жив или нет'''
+        if self.fullness < 0:
+            cprint('{} умер...'.format(self.name), color='red')
+            cat.life = 0
+            dead.append(self.name)
+            life.remove(self.name)
+            cats.remove(self)
+            return
 
 
 class House:
@@ -212,31 +234,19 @@ my_sweet_home = House()
 for citisen in citizens:
     citisen.go_to_the_house(house=my_sweet_home)
 
-# TODO опишите логику вашего цикла по блокам и подробней
-for day in range(1, 366):
+for day in range(1, 366):  # берем день начиная с 1 по 365 с шагом 1
     print('================ день {} =================='.format(day))
-    for citisen in citizens:
-        citisen.man_act()
-        if citisen.life == 0:
-            dead.append(citisen.name)
-            life.remove(citisen.name)
-            citizens.remove(citisen)
-        else:
-            continue
+    for citisen in citizens:  # после чего берем жителя из списка жителей
+        citisen.man_act()  # производим активность жителя
+        citisen.live_dead()  # проверяем жив он или мертв после активности
+    for cat in cats:  # берем кота из списка котов
+        cat.cat_act()  # производим активность кота
+        cat.live_dead()  # проверяем жив или мертв после активности
 
-    for cat in cats:
-        cat.cat_act()
-        if cat.life == 0:
-            if cat.name is not dead:
-                dead.append(cat.name)
-            life.remove(cat.name)
-            cats.remove(cat)
-        else:
-            continue
     print('--- в конце дня ---')
-    for citisen in citizens:
+    for citisen in citizens:  # вывод показателей жителя
         print(citisen)
-    for cat in cats:
+    for cat in cats:  # вывод показателей кота
         print(cat)
     print(my_sweet_home)
     print('')
