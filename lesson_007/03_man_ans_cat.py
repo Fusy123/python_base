@@ -221,9 +221,6 @@ cats = [Cat(name='Пушистик'),
         Cat(name='Ушлепок'),
         Cat(name='Мурзик')
         ]
-#
-# dead = []
-# life = []
 
 my_sweet_home = House()
 
@@ -249,7 +246,7 @@ for day in range(1, 366):  # берем день начиная с 1 по 365 с
     print('')
     for citisen in citizens:
         if live_dead(citisen) is True:
-            cprint('{} умер'.format(citisen.name), color='red' )
+            cprint('{} умер'.format(citisen.name), color='red')
             break
     for cat in cats:
         if live_dead(cat) is True:
