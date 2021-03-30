@@ -51,6 +51,7 @@ class House:
         cprint('В доме живут: ', color="green", end='')
         cprint(', '.join(self.life), color='green')
 
+
 class Man:
     """класс человек. задаем основные параметры и методы"""
 
