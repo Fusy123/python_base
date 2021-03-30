@@ -188,7 +188,10 @@ class Cat:
         else:
             self.sleep()
 
+    # TODO метод добавления кота должен быть у человека
+    # TODO метод должен принимать экземпляр класса кот а не создавать его в нутри класса
     def go_to_the_cat_house(self):
+        # TODO по всему коду поправить на """ """
         ''' метод добавления кота в дом'''
         if citisen.house == my_sweet_home:
             cat = Cat(name=choice(cats))  # создаем обьект из класса сат
@@ -197,7 +200,7 @@ class Cat:
             citisen.fullness -= 10  # убавляем сытость человека
             cprint('Взяли {}'.format(self.name), color='cyan')  # вывод
 
-
+# TODO это должно быть методом класса у кота и у человека
 def live_dead(self):
     ''' метод проверки на живой мертвый'''
     if self.fullness < 0:
@@ -227,6 +230,7 @@ my_sweet_home = House()
 for citisen in citizens:
     citisen.go_to_the_house(house=my_sweet_home)
 
+# TODO коты не могут добавлять себя в дом это делает один человек
 for cat in cats:
     cat.go_to_the_cat_house()
 
@@ -245,8 +249,12 @@ for day in range(1, 366):  # берем день начиная с 1 по 365 с
     print(my_sweet_home)
     print('')
     for citisen in citizens:
+        # TODO тут можно записать так if live_dead(citisen):
         if live_dead(citisen) is True:
+            # TODO принты должны быть в методе live_dead
             cprint('{} умер'.format(citisen.name), color='red')
+            # TODO при такой реализации мы выйдем только из первого цикла на пути а нам нужно из главного
+            # TODO подумайте как это сделать
             break
     for cat in cats:
         if live_dead(cat) is True:
