@@ -29,6 +29,8 @@ from termcolor import cprint
 
 
 class House:
+    """ класс дом. основные параметры"""
+
     def __init__(self):
         self.life = []
         self.food = 50
@@ -46,11 +48,11 @@ class House:
 
     def inspect(self):
         """ кто живет в доме """
-        return 'В доме живут: ', ', '.join(self.life)
-
+        cprint('В доме живут: ', color="green", end='')
+        cprint(', '.join(self.life), color='green')
 
 class Man:
-    '''класс человек. задаем основные параметры и методы'''
+    """класс человек. задаем основные параметры и методы"""
 
     def __init__(self, name):
         self.name = name
@@ -63,7 +65,7 @@ class Man:
         )
 
     def eat(self):
-        '''метод поел'''
+        """метод поел"""
         if self.house.food >= 10:
             cprint('{} поел(а)'.format(self.name), color='yellow')
             self.fullness += 10
@@ -73,18 +75,18 @@ class Man:
             cprint('{} нет еды'.format(self.name), color='red')
 
     def work(self):
-        ''' метод работа'''
+        """ метод работа"""
         cprint('{} сходил(а) на работу'.format(self.name), color='blue')
         self.house.money += 150
         self.fullness -= 10
 
     def play_sega(self):
-        ''' метод отдых'''
+        """ метод отдых"""
         cprint('{} играл(а) на приставке целый день'.format(self.name), color='green')
         self.fullness -= 10
 
     def shopping(self):
-        ''' метод поход в магазин'''
+        """ метод поход в магазин"""
         if self.house.money >= 100:
             cprint('{} сходил(а) в магазин за едой'.format(self.name), color='magenta')
             self.house.money -= 50
@@ -93,8 +95,8 @@ class Man:
             cprint('{} деньги кончились!'.format(self.name), color='red')
 
     def cat_food_shopping(self):
-        ''' метод поход в магазин за едой для кота'''
-        if self.house.cat_food < len(cats) * 10 and self.house.money >= 50:
+        """ метод поход в магазин за едой для кота"""
+        if self.house.money >= 50:
             cprint('{} сходил(а) в магазин за едой для кота'.format(self.name), color='magenta')
             self.house.cat_food += 50
             self.house.money -= 50
@@ -102,7 +104,7 @@ class Man:
             cprint('{} деньги кончились!'.format(self.name), color='red')
 
     def clean_house(self):
-        ''' метод уборка в доме'''
+        """ метод уборка в доме"""
         if self.house.mud >= 100:
             cprint('{} Прибрался дома'.format(self.name), color='blue')
             self.house.mud -= 100
@@ -111,20 +113,20 @@ class Man:
             cprint('{} в доме чисто.'.format(self.name), color='blue')
 
     def go_to_the_house(self, house):
-        ''' метод заселение в дом '''
+        """ метод заселение в дом """
         self.house = house
         house.life.append(self.name)
         self.fullness -= 10
         cprint('{} Въехал(а) в дом'.format(self.name), color='cyan')
 
     def man_act(self):
-        '''метод активности человека'''
+        """метод активности человека"""
         dice = randint(1, 6)
         if self.fullness <= 20:
             self.eat()
         elif self.house.money <= 50:
             self.work()
-        elif len(cats) > 0 and self.house.cat_food <= 10:
+        elif len(cats) > 0 and self.house.cat_food <= len(cats) * 10:
             self.cat_food_shopping()
         elif self.house.food <= 20:
             self.shopping()
@@ -134,16 +136,32 @@ class Man:
             self.work()
         elif dice == 2:
             self.eat()
-        # elif dice == 3:
-        #     cat.go_to_the_cat_house()
         elif dice == 4:
             self.clean_house()
         else:
             self.play_sega()
 
+    def live_dead(self):
+        """ метод проверки на живой мертвый"""
+        if self.fullness < 0:
+            cprint('{} умер(ла)...'.format(self.name), color='red')
+            my_sweet_home.life.remove(citisen.name)
+            return True
+        else:
+            return False
+
+    def go_to_the_cat_house(self, name):
+        """" метод добавления кота в дом"""
+        if citisen.house == my_sweet_home:
+            name.house = my_sweet_home
+            cats.append(name)
+            my_sweet_home.life.append(cat.name)
+            citisen.fullness -= 10  # убавляем сытость человека
+            cprint('Взяли {}'.format(cat.name), color='cyan')  # вывод
+
 
 class Cat:
-    '''класс кот. основные параметры и методы'''
+    """класс кот. основные параметры и методы"""
 
     def __init__(self, name):
         self.name = name
@@ -154,7 +172,7 @@ class Cat:
         return 'Я - {}, сытость {}'.format(self.name, self.fullness)
 
     def eat(self):
-        ''' метод еда кота'''
+        """ метод еда кота"""
         if citisen.house.cat_food >= 10:
             cprint('{} поел'.format(self.name), color='yellow')
             self.fullness += 20
@@ -164,18 +182,18 @@ class Cat:
             cprint('{} нет еды'.format(self.name), color='red')
 
     def play_wallpapper(self):
-        ''' метод кот играет '''
+        """ метод кот играет """
         cprint('{} драл обои целый день'.format(self.name), color='green')
         self.fullness -= 10
         citisen.house.mud += 5
 
     def sleep(self):
-        ''' метод кот спит '''
+        """ метод кот спит """
         cprint('{} спал целый день'.format(self.name), color='green')
         self.fullness -= 10
 
     def cat_act(self):
-        ''' метод выбора активностей кота'''
+        """ метод выбора активностей кота"""
         dice = randint(1, 4)
         if self.fullness < 20:
             self.eat()
@@ -188,52 +206,37 @@ class Cat:
         else:
             self.sleep()
 
-    # TODO метод добавления кота должен быть у человека
-    # TODO метод должен принимать экземпляр класса кот а не создавать его в нутри класса
-    def go_to_the_cat_house(self):
-        # TODO по всему коду поправить на """ """
-        ''' метод добавления кота в дом'''
-        if citisen.house == my_sweet_home:
-            cat = Cat(name=choice(cats))  # создаем обьект из класса сат
-            cat.house = my_sweet_home
-            my_sweet_home.life.append(self.name)
-            citisen.fullness -= 10  # убавляем сытость человека
-            cprint('Взяли {}'.format(self.name), color='cyan')  # вывод
-
-# TODO это должно быть методом класса у кота и у человека
-def live_dead(self):
-    ''' метод проверки на живой мертвый'''
-    if self.fullness < 0:
-        cprint('{} умер(ла)...'.format(self.name), color='red')
-        return True
-    else:
-        return False
+    def live_dead(self):
+        """ метод проверки на живой мертвый"""
+        if self.fullness < 0:
+            cprint('{} умер(ла)...'.format(self.name), color='red')
+            my_sweet_home.life.remove(cat.name)
+            return True
+        else:
+            return False
 
 
 citizens = [Man(name='Муж'),
             Man(name='Жена')
             ]
 
-# cat_names = ['Кот', 'Пушистик', 'Киска', 'Мохнатый ублюдок', 'Облезлый', 'Длинный хвост',
-#              'ДИАВОЛ', 'Васька', 'Мурзик', 'Рыжий', 'Одноухий', 'Ушлепок', 'Боксер', 'Р2Д2', 'Мячик']
+cat_names = ['Кот', 'Пушистик', 'Киска', 'Мохнатый ублюдок', 'Облезлый', 'Длинный хвост',
+             'ДИАВОЛ', 'Васька', 'Мурзик', 'Рыжий', 'Одноухий', 'Ушлепок', 'Боксер', 'Р2Д2', 'Мячик']
 
-cats = [Cat(name='Пушистик'),
-        Cat(name='Мохнатый ублюдок'),
-        Cat(name='Облезлый'),
-        Cat(name='Рыжий'),
-        Cat(name='Ушлепок'),
-        Cat(name='Мурзик')
-        ]
+cats = []
 
 my_sweet_home = House()
 
 for citisen in citizens:
     citisen.go_to_the_house(house=my_sweet_home)
 
-# TODO коты не могут добавлять себя в дом это делает один человек
-for cat in cats:
-    cat.go_to_the_cat_house()
+for name in cat_names:
+    cat = Cat(name=name)  # создаем обьект из класса сат
+    citisen.go_to_the_cat_house(cat)
+    if citisen.fullness == 0:
+        break
 
+live = False
 for day in range(1, 366):  # берем день начиная с 1 по 365 с шагом 1
     print('================ день {} =================='.format(day))
     for citisen in citizens:  # после чего берем жителя из списка жителей
@@ -248,25 +251,20 @@ for day in range(1, 366):  # берем день начиная с 1 по 365 с
         print(cat)
     print(my_sweet_home)
     print('')
+
     for citisen in citizens:
-        # TODO тут можно записать так if live_dead(citisen):
-        if live_dead(citisen) is True:
-            # TODO принты должны быть в методе live_dead
-            cprint('{} умер'.format(citisen.name), color='red')
-            # TODO при такой реализации мы выйдем только из первого цикла на пути а нам нужно из главного
-            # TODO подумайте как это сделать
+        if citisen.live_dead():
+            live = True
             break
     for cat in cats:
-        if live_dead(cat) is True:
-            cprint('{} умер'.format(cat.name), color='red')
+        if cat.live_dead():
+            live = True
             break
+    if live:
+        break
 
 print('')
-# print('Живут в доме: ', end='')
-# print(', '.join(map(str, life)))
-# print('')
-# print('Умер:', ', '.join(map(str, dead)))
-print(my_sweet_home.inspect())
+my_sweet_home.inspect()
 
 # Усложненное задание (делать по желанию)
 # Создать несколько (2-3) котов и подселить их в дом к человеку.
