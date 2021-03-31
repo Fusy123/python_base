@@ -142,27 +142,18 @@ class Man:
         else:
             self.play_sega()
 
-    # TODO только проверка никого не удаляем
     def live_dead(self):
         """ метод проверки на живой мертвый"""
         if self.fullness < 0:
             cprint('{} умер(ла)...'.format(self.name), color='red')
-            my_sweet_home.life.remove(citisen.name)
             return True
         else:
             return False
 
-    # TODO метод должен только с теми параметрами которые принял на вход.
-    # TODO мы не знаем что такое  cats my_sweet_home cat это все внешние параметры
-
-    # TODO принимаем экземпляр класса кот
     def go_to_the_cat_house(self, name):
         """" метод добавления кота в дом"""
-        # TODO если у человека есть дом то, как это проверить
-        # TODO if self.house:
-        if citisen.house == my_sweet_home:
-            # TODO тогда мы этому экземпляру который приняли на вход равняем дом человека
-            name.house = my_sweet_home
+        if self.house:
+            name.house = self.house
             cats.append(name)
             my_sweet_home.life.append(cat.name)
             citisen.fullness -= 10  # убавляем сытость человека
@@ -215,12 +206,11 @@ class Cat:
         else:
             self.sleep()
 
-    # TODO метод только для проверки никого не удаляем
+
     def live_dead(self):
         """ метод проверки на живой мертвый"""
         if self.fullness < 0:
             cprint('{} умер(ла)...'.format(self.name), color='red')
-            my_sweet_home.life.remove(cat.name)
             return True
         else:
             return False
@@ -230,9 +220,8 @@ citizens = [Man(name='Муж'),
             Man(name='Жена')
             ]
 
-# TODO уменьшить до 3х 4х возможно в этом количестве уже будут проблемы
-cat_names = ['Кот', 'Пушистик', 'Киска', 'Мохнатый ублюдок', 'Облезлый', 'Длинный хвост',
-             'ДИАВОЛ', 'Васька', 'Мурзик', 'Рыжий', 'Одноухий', 'Ушлепок', 'Боксер', 'Р2Д2', 'Мячик']
+cat_names = ['Кот', 'Пушистик', 'Киска', 'Мохнатый ублюдок', 'Облезлый']  # , 'Длинный хвост',
+#             'ДИАВОЛ', 'Васька', 'Мурзик', 'Рыжий', 'Одноухий', 'Ушлепок', 'Боксер', 'Р2Д2', 'Мячик']
 
 cats = []
 
@@ -243,10 +232,9 @@ for citisen in citizens:
 
 for name in cat_names:
     cat = Cat(name=name)  # создаем обьект из класса сат
-    # TODO интерпритатор не знает о citisen, возьмите 0 элемент из списка citizens
-    citisen.go_to_the_cat_house(cat)
-    if citisen.fullness == 0:
-        break
+    citizens[0].go_to_the_cat_house(cat)
+    # if citizens[0].fullness == 0:
+    #     break
 
 live = False
 for day in range(1, 366):  # берем день начиная с 1 по 365 с шагом 1
@@ -267,13 +255,11 @@ for day in range(1, 366):  # берем день начиная с 1 по 365 с
     for citisen in citizens:
         if citisen.live_dead():
             live = True
-            # TODO break можно убрать
-            break
+            my_sweet_home.life.remove(citisen.name)
     for cat in cats:
         if cat.live_dead():
             live = True
-            # TODO break можно убрать
-            break
+            my_sweet_home.life.remove(cat.name)
     if live:
         break
 
