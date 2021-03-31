@@ -150,11 +150,16 @@ class Man:
         else:
             return False
 
+    # TODO мы принимаем не имя а экземпляр класса кот + оно не должно подчеркиваться
+    # TODO этот метод только проверят если у человека дом и добавляет коту дом человека и более ничего
     def go_to_the_cat_house(self, name):
         """" метод добавления кота в дом"""
         if self.house:
+            # TODO можете построчно описать что у вас происходить ниже
             name.house = self.house
+            # TODO от куда мы знаем в методе класса что есть какой то внешний список ?
             cats.append(name)
+            # TODO и какой то внейшний параметр класса
             my_sweet_home.life.append(cat.name)
             citisen.fullness -= 10  # убавляем сытость человека
             cprint('Взяли {}'.format(cat.name), color='cyan')  # вывод
@@ -206,7 +211,6 @@ class Cat:
         else:
             self.sleep()
 
-
     def live_dead(self):
         """ метод проверки на живой мертвый"""
         if self.fullness < 0:
@@ -255,6 +259,7 @@ for day in range(1, 366):  # берем день начиная с 1 по 365 с
     for citisen in citizens:
         if citisen.live_dead():
             live = True
+            # TODO просветите по логике удаления для чего это нужно ?
             my_sweet_home.life.remove(citisen.name)
     for cat in cats:
         if cat.live_dead():
@@ -263,6 +268,8 @@ for day in range(1, 366):  # берем день начиная с 1 по 365 с
     if live:
         break
 
+# TODO логика должна быть такая что если что то случить нужно остановить цикл
+# TODO список котов должен быть таким чтобы цикл доходил до 365 дня без кого либо удаления
 print('')
 my_sweet_home.inspect()
 
