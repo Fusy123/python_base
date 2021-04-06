@@ -32,7 +32,6 @@ class House:
     """ класс дом. основные параметры"""
 
     def __init__(self):
-        self.life = []
         self.food = 50
         self.money = 100
         self.cat_food = 0
@@ -45,11 +44,6 @@ class House:
         else:
             return 'В доме еды осталось {}, денег осталось {}.\nВ доме осталось кошачей еды {}, уровень грязи {}'.format(
                 self.food, self.money, self.cat_food, self.mud)
-
-    def inspect(self):
-        """ кто живет в доме """
-        cprint('В доме живут: ', color="green", end='')
-        cprint(', '.join(self.life), color='green')
 
 
 class Man:
@@ -116,7 +110,6 @@ class Man:
     def go_to_the_house(self, house):
         """ метод заселение в дом """
         self.house = house
-        house.life.append(self.name)
         self.fullness -= 10
         cprint('{} Въехал(а) в дом'.format(self.name), color='cyan')
 
@@ -150,18 +143,11 @@ class Man:
         else:
             return False
 
-    # TODO мы принимаем не имя а экземпляр класса кот + оно не должно подчеркиваться
-    # TODO этот метод только проверят если у человека дом и добавляет коту дом человека и более ничего
-    def go_to_the_cat_house(self, name):
+    def go_to_the_cat_house(self, cat):
         """" метод добавления кота в дом"""
         if self.house:
-            # TODO можете построчно описать что у вас происходить ниже
-            name.house = self.house
-            # TODO от куда мы знаем в методе класса что есть какой то внешний список ?
-            cats.append(name)
-            # TODO и какой то внейшний параметр класса
-            my_sweet_home.life.append(cat.name)
-            citisen.fullness -= 10  # убавляем сытость человека
+            cat.house = self.house
+            self.fullness -= 10  # убавляем сытость человека
             cprint('Взяли {}'.format(cat.name), color='cyan')  # вывод
 
 
@@ -237,8 +223,7 @@ for citisen in citizens:
 for name in cat_names:
     cat = Cat(name=name)  # создаем обьект из класса сат
     citizens[0].go_to_the_cat_house(cat)
-    # if citizens[0].fullness == 0:
-    #     break
+    cats.append(cat)
 
 live = False
 for day in range(1, 366):  # берем день начиная с 1 по 365 с шагом 1
@@ -259,19 +244,14 @@ for day in range(1, 366):  # берем день начиная с 1 по 365 с
     for citisen in citizens:
         if citisen.live_dead():
             live = True
-            # TODO просветите по логике удаления для чего это нужно ?
-            my_sweet_home.life.remove(citisen.name)
     for cat in cats:
         if cat.live_dead():
             live = True
-            my_sweet_home.life.remove(cat.name)
     if live:
         break
 
-# TODO логика должна быть такая что если что то случить нужно остановить цикл
-# TODO список котов должен быть таким чтобы цикл доходил до 365 дня без кого либо удаления
-print('')
-my_sweet_home.inspect()
+# TODO добавление и удаление элементов в список, было сделано для вывода живых жителей дома, как людей так и котов.
+# TODO  убрал этот список.
 
 # Усложненное задание (делать по желанию)
 # Создать несколько (2-3) котов и подселить их в дом к человеку.
