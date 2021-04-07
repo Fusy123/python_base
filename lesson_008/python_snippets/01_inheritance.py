@@ -30,6 +30,7 @@ class Dog(Pet):
 
 class Hamster(Pet):
     """ Хомячок - является Домашним Животным """
+    has_tail = False
 
     def sound(self):
         print('Ццццццц!')  # https://goo.gl/KXoj21
@@ -50,6 +51,8 @@ my_pet = Hamster()
 my_pet.inspect()
 my_pet.sound()
 
+print('')
+
 
 # Полезные встроенные аттрибуты
 class Pet:
@@ -69,6 +72,8 @@ class Pet:
 
 pet = Pet(name='Кузя')
 print(pet.__class__ is Pet)
+
+print('')
 
 
 # Порядок поиска атрибутов объекта:
@@ -170,6 +175,7 @@ print(butterfly)
 butterfly.land_on()
 print(butterfly)
 
+print('')
 missile = Missile()
 print(missile)
 missile.take_off()
@@ -177,4 +183,14 @@ print(missile)
 missile.fly()
 print(missile)
 missile.land_on()
-print(missile)
+
+print('')
+
+airplane = Aircraft()
+print(airplane)
+airplane.take_off()
+print(airplane)
+airplane.fly()
+print(airplane)
+airplane.land_on()
+print(airplane)
