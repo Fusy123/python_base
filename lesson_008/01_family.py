@@ -3,6 +3,7 @@
 from termcolor import cprint
 from random import randint
 
+
 ######################################################## Часть первая
 #
 # Создать модель жизни небольшой семьи.
@@ -52,12 +53,8 @@ class House:
     def __str__(self):
         return 'В доме еды осталось {}, денег осталось {}, уровень грязи {}'.format(self.food, self.money, self.mud)
 
-    def inspektion(self, money, food):
-        pass
 
-
-
-class Husband:
+class Man:
 
     def __init__(self, name):
         self.name = name
@@ -65,10 +62,45 @@ class Husband:
         self.happy = 100
         self.house = None
 
+    def __str__(self):
+        return 'Я - {}, сытость {}, уровень счастья {}'.format(self.name, self.fullness, self.happy)
 
-    def __str__(self):    # super().__str__(),
-        return 'Я - {}, сытость {}, уровень счастья {}'.format(
-            self.name, self.fullness, self.happy)
+    def eat(self):
+        """метод поел"""
+        global food_year   # переменная для подсчета годового потребления еды
+        if self.house.food >= 10:
+            portion = randint(10, 31)
+            self.fullness += portion
+            food_year += portion
+            self.happy += 10
+            self.house.food -= 10
+            cprint('{} поел(а)'.format(self.name), color='yellow')
+        else:
+            self.fullness -= 10
+            cprint('{} нет еды'.format(self.name), color='red')
+
+    def go_to_the_house(self, house):
+        """ метод заселение в дом """
+        self.house = house
+        self.fullness -= 10
+        cprint('{} Въехал(а) в дом'.format(self.name), color='cyan')
+
+    def live_dead(self):
+        """ метод проверки на живой мертвый"""
+        if self.fullness < 0 or self.happy <= 10:
+            cprint('{} умер(ла)...'.format(self.name), color='red')
+            return True
+        else:
+            return False
+
+
+class Husband(Man):
+
+    def __init__(self, name):
+        super().__init__(name=name)
+
+    def __str__(self):
+        return super().__str__()
 
     def act(self):
         """метод активности человека"""
@@ -86,23 +118,13 @@ class Husband:
         else:
             self.work()
 
-    def eat(self):
-        """метод поел"""
-        if self.house.food >= 10:
-            portion = randint(10, 31)
-            self.fullness += portion
-            self.happy += 10
-            self.house.food -= 10
-            cprint('{} поел(а)'.format(self.name), color='yellow')
-        else:
-            self.fullness -= 10
-            cprint('{} нет еды'.format(self.name), color='red')
-
     def work(self):
         """ метод работа"""
+        global money_year
         cprint('{} сходил(а) на работу'.format(self.name), color='blue')
         self.house.money += 150
         self.fullness -= 10
+        money_year += 150
 
     def gaming(self):
         """ метод отдых"""
@@ -110,33 +132,15 @@ class Husband:
         self.fullness -= 10
         self.happy += 20
 
-    def go_to_the_house(self, house):
-        """ метод заселение в дом """
-        self.house = house
-        self.fullness -= 10
-        cprint('{} Въехал(а) в дом'.format(self.name), color='cyan')
 
-    def live_dead(self):
-        """ метод проверки на живой мертвый"""
-        if self.fullness < 0 or self.happy <= 10:
-            cprint('{} умер(ла)...'.format(self.name), color='red')
-            return True
-        else:
-            return False
-
-
-class Wife:
+class Wife(Man):
 
     def __init__(self, name):
-        self.name = name
-        self.fullness = 30
-        self.happy = 100
-        self.house = None
+        super().__init__(name=name)
         self.coat = 0
 
-    def __str__(self):       # super().__str__(),
-        return 'Я - {}, сытость {}, уровень счастья {}, у меня {} шуб'.format(
-            self.name, self.fullness, self.happy, self.coat)
+    def __str__(self):
+        return super().__str__()
 
     def act(self):
         """метод активности человека"""
@@ -156,18 +160,6 @@ class Wife:
         else:
             self.buy_fur_coat()
 
-    def eat(self):
-        """метод поел"""
-        if self.house.food >= 10:
-            portion = randint(10, 31)
-            self.fullness += portion
-            self.happy += 10
-            self.house.food -= 10
-            cprint('{} поел(а)'.format(self.name), color='yellow')
-        else:
-            self.fullness -= 10
-            cprint('{} нет еды'.format(self.name), color='red')
-
     def shopping(self):
         """ метод поход в магазин"""
         if self.house.money >= 10:
@@ -179,12 +171,14 @@ class Wife:
 
     def buy_fur_coat(self):
         """ метод поход за шубой"""
+        global coat
         if self.house.money >= 350:
             cprint('{} сходил(а) в магазин за шубой'.format(self.name), color='magenta')
             self.house.money -= 350
             self.happy += 60
-            self.coat += 1
+            coat += 1
         else:
+            self.happy -= 20
             cprint('{} хочет шубу, но нет денег!'.format(self.name), color='red')
 
     def clean_house(self):
@@ -196,33 +190,17 @@ class Wife:
         else:
             cprint('{} в доме чисто.'.format(self.name), color='blue')
 
-    def go_to_the_house(self, house):
-        """ метод заселение в дом """
-        self.house = house
-        self.fullness -= 10
-        cprint('{} Въехал(а) в дом'.format(self.name), color='cyan')
-
-    def live_dead(self):
-        """ метод проверки на живой мертвый"""
-        if self.fullness < 0 or self.happy <= 10:
-            cprint('{} умер(ла)...'.format(self.name), color='red')
-            return True
-        else:
-            return False
-
 
 home = House()
 serge = Husband(name='Сережа')
 masha = Wife(name='Маша')
 
-
-
 coat = 0
+food_year = 0
+money_year = 0
 
 serge.go_to_the_house(house=home)
 masha.go_to_the_house(house=home)
-
-
 
 for day in range(1, 365):
     cprint('================== День {} =================='.format(day), color='red')
@@ -231,11 +209,20 @@ for day in range(1, 365):
     home.mud += 5
     if home.mud > 90:
         serge.happy -= 10
+        if serge.live_dead():
+            break
         masha.happy -= 10
+        if masha.live_dead():
+            break
+
     cprint(serge, color='cyan')
     cprint(masha, color='cyan')
     cprint(home, color='cyan')
     print('')
+
+cprint('За год заработано денег: {}. сьедено еды: {}, куплено шуб: {}'.format(money_year, food_year, coat),
+       color='green')
+
 
 # TODO после реализации первой части - отдать на проверку учителю
 
@@ -270,7 +257,20 @@ class Cat:
         pass
 
     def act(self):
-        pass
+        """метод активности человека"""
+        dice = randint(1, 6)
+        if self.fullness <= 20:
+            self.eat()
+        elif self.house.money <= 50:
+            self.work()
+        elif dice == 1:
+            self.work()
+        elif dice == 2:
+            self.eat()
+        elif dice == 4:
+            self.gaming()
+        else:
+            self.work()
 
     def eat(self):
         pass
@@ -293,7 +293,7 @@ class Cat:
 # отличия от взрослых - кушает максимум 10 единиц еды,
 # степень счастья  - не меняется, всегда ==100 ;)
 
-class Child:
+class Child(Man):
 
     def __init__(self):
         pass
@@ -301,8 +301,14 @@ class Child:
     def __str__(self):
         return super().__str__()
 
-    def act(self):
-        pass
+    # def act(self):
+    #     """метод активности человека"""
+    #     dice = randint(1, 6)
+    #     if self.fullness <= 20:
+    #         self.eat()
+    #
+    #     else:
+    #         self.buy_fur_coat()
 
     def eat(self):
         pass
@@ -337,7 +343,6 @@ for day in range(365):
     cprint(masha, color='cyan')
     cprint(kolya, color='cyan')
     cprint(murzik, color='cyan')
-
 
 # Усложненное задание (делать по желанию)
 #
