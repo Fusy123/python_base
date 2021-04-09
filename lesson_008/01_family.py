@@ -202,7 +202,7 @@ money_year = 0
 serge.go_to_the_house(house=home)
 masha.go_to_the_house(house=home)
 
-for day in range(1, 365):
+for day in range(1, 366):
     cprint('================== День {} =================='.format(day), color='red')
     serge.act()
     masha.act()
