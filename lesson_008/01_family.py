@@ -121,14 +121,14 @@ class Husband(Man):
     def work(self):
         """ метод работа"""
         global money_year
-        cprint('{} сходил(а) на работу'.format(self.name), color='blue')
+        cprint('{} сходил на работу'.format(self.name), color='blue')
         self.house.money += 150
         self.fullness -= 10
         money_year += 150
 
     def gaming(self):
         """ метод отдых"""
-        cprint('{} играл(а) на приставке целый день'.format(self.name), color='green')
+        cprint('{} играл на приставке целый день'.format(self.name), color='green')
         self.fullness -= 10
         self.happy += 20
 
@@ -163,7 +163,7 @@ class Wife(Man):
     def shopping(self):
         """ метод поход в магазин"""
         if self.house.money >= 10:
-            cprint('{} сходил(а) в магазин за едой'.format(self.name), color='magenta')
+            cprint('{} сходила в магазин за едой'.format(self.name), color='magenta')
             self.house.money -= 10
             self.house.food += 10
         else:
@@ -173,7 +173,7 @@ class Wife(Man):
         """ метод поход за шубой"""
         global coat
         if self.house.money >= 350:
-            cprint('{} сходил(а) в магазин за шубой'.format(self.name), color='magenta')
+            cprint('{} сходила в магазин за шубой'.format(self.name), color='magenta')
             self.house.money -= 350
             self.happy += 60
             coat += 1
@@ -184,7 +184,7 @@ class Wife(Man):
     def clean_house(self):
         """ метод уборка в доме"""
         if self.house.mud >= 100:
-            cprint('{} Прибрался дома'.format(self.name), color='blue')
+            cprint('{} прибралась дома'.format(self.name), color='blue')
             self.house.mud -= 100
             self.fullness -= 20
         else:
@@ -249,37 +249,37 @@ cprint('За год заработано денег: {}. сьедено еды: 
 # Степень сытости не должна падать ниже 0, иначе кот умрет от голода.
 #
 # Если кот дерет обои, то грязи становится больше на 5 пунктов
-
-
-class Cat:
-
-    def __init__(self):
-        pass
-
-    def act(self):
-        """метод активности человека"""
-        dice = randint(1, 6)
-        if self.fullness <= 20:
-            self.eat()
-        elif self.house.money <= 50:
-            self.work()
-        elif dice == 1:
-            self.work()
-        elif dice == 2:
-            self.eat()
-        elif dice == 4:
-            self.gaming()
-        else:
-            self.work()
-
-    def eat(self):
-        pass
-
-    def sleep(self):
-        pass
-
-    def soil(self):
-        pass
+#
+#
+# class Cat:
+#
+#     def __init__(self):
+#         pass
+#
+#     def act(self):
+#         """метод активности человека"""
+#         dice = randint(1, 6)
+#         if self.fullness <= 20:
+#             self.eat()
+#         elif self.house.money <= 50:
+#             self.work()
+#         elif dice == 1:
+#             self.work()
+#         elif dice == 2:
+#             self.eat()
+#         elif dice == 4:
+#             self.gaming()
+#         else:
+#             self.work()
+#
+#     def eat(self):
+#         pass
+#
+#     def sleep(self):
+#         pass
+#
+#     def soil(self):
+#         pass
 
 
 ######################################################## Часть вторая бис
@@ -292,29 +292,29 @@ class Cat:
 #
 # отличия от взрослых - кушает максимум 10 единиц еды,
 # степень счастья  - не меняется, всегда ==100 ;)
-
-class Child(Man):
-
-    def __init__(self):
-        pass
-
-    def __str__(self):
-        return super().__str__()
-
-    # def act(self):
-    #     """метод активности человека"""
-    #     dice = randint(1, 6)
-    #     if self.fullness <= 20:
-    #         self.eat()
-    #
-    #     else:
-    #         self.buy_fur_coat()
-
-    def eat(self):
-        pass
-
-    def sleep(self):
-        pass
+#
+# class Child(Man):
+#
+#     def __init__(self):
+#         pass
+#
+#     def __str__(self):
+#         return super().__str__()
+#
+#     # def act(self):
+#     #     """метод активности человека"""
+#     #     dice = randint(1, 6)
+#     #     if self.fullness <= 20:
+#     #         self.eat()
+#     #
+#     #     else:
+#     #         self.buy_fur_coat()
+#
+#     def eat(self):
+#         pass
+#
+#     def sleep(self):
+#         pass
 
 
 # TODO после реализации второй части - отдать на проверку учителем две ветки
@@ -326,23 +326,23 @@ class Child(Man):
 # влить в мастер все коммиты из ветки develop и разрешить все конфликты
 # отправить на проверку учителем.
 
-
-home = House()
-serge = Husband(name='Сережа')
-masha = Wife(name='Маша')
-kolya = Child(name='Коля')
-murzik = Cat(name='Мурзик')
-
-for day in range(365):
-    cprint('================== День {} =================='.format(day), color='red')
-    serge.act()
-    masha.act()
-    kolya.act()
-    murzik.act()
-    cprint(serge, color='cyan')
-    cprint(masha, color='cyan')
-    cprint(kolya, color='cyan')
-    cprint(murzik, color='cyan')
+#
+# home = House()
+# serge = Husband(name='Сережа')
+# masha = Wife(name='Маша')
+# kolya = Child(name='Коля')
+# murzik = Cat(name='Мурзик')
+#
+# for day in range(365):
+#     cprint('================== День {} =================='.format(day), color='red')
+#     serge.act()
+#     masha.act()
+#     kolya.act()
+#     murzik.act()
+#     cprint(serge, color='cyan')
+#     cprint(masha, color='cyan')
+#     cprint(kolya, color='cyan')
+#     cprint(murzik, color='cyan')
 
 # Усложненное задание (делать по желанию)
 #
