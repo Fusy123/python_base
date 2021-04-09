@@ -53,6 +53,8 @@ class House:
     def __str__(self):
         return 'В доме еды осталось {}, денег осталось {}, уровень грязи {}'.format(self.food, self.money, self.mud)
 
+    # TODO Добавим метод который будет добавлять грязь в доме
+
 
 class Man:
 
@@ -67,6 +69,7 @@ class Man:
 
     def eat(self):
         """метод поел"""
+        # TODO global переменных быть не должно используем параметры класса или экземпляра
         global food_year   # переменная для подсчета годового потребления еды
         if self.house.food >= 10:
             portion = randint(10, 31)
@@ -96,6 +99,7 @@ class Man:
 
 class Husband(Man):
 
+    # TODO эти два мейджик метода нет необходимости переопределять
     def __init__(self, name):
         super().__init__(name=name)
 
@@ -135,6 +139,7 @@ class Husband(Man):
 
 class Wife(Man):
 
+    # TODO эти два мейджик метода нет необходимости переопределять
     def __init__(self, name):
         super().__init__(name=name)
         self.coat = 0
@@ -149,6 +154,7 @@ class Wife(Man):
             self.eat()
         elif self.house.food <= 20:
             self.shopping()
+        # TODO оставим на волю случая
         elif self.house.mud >= 90:
             self.clean_house()
         elif dice == 1:
@@ -166,6 +172,7 @@ class Wife(Man):
             cprint('{} сходила в магазин за едой'.format(self.name), color='magenta')
             self.house.money -= 10
             self.house.food += 10
+            # TODO уменьшаем сытость
         else:
             cprint('{} деньги кончились!'.format(self.name), color='red')
 
@@ -188,6 +195,7 @@ class Wife(Man):
             self.house.mud -= 100
             self.fullness -= 20
         else:
+            # TODO прибавляем счастье
             cprint('{} в доме чисто.'.format(self.name), color='blue')
 
 
@@ -206,9 +214,12 @@ for day in range(1, 366):
     cprint('================== День {} =================='.format(day), color='red')
     serge.act()
     masha.act()
+    # TODO это у нас будет метод дома
     home.mud += 5
+    # TODO проверка на грязь у нас будет в отдельном методе
     if home.mud > 90:
         serge.happy -= 10
+        # TODO проверку на жизнь пишем в одной строке
         if serge.live_dead():
             break
         masha.happy -= 10
