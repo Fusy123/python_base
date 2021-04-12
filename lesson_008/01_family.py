@@ -54,9 +54,15 @@ class House:
         return 'В доме еды осталось {}, денег осталось {}, уровень грязи {}'.format(self.food, self.money, self.mud)
 
     # TODO Добавим метод который будет добавлять грязь в доме
+    def muds(self):
+        """добавляем грязь в дом"""
+        self.mud += 5
 
 
 class Man:
+    food_year = 0
+    money_year = 0
+    coat_year = 0
 
     def __init__(self, name):
         self.name = name
@@ -69,12 +75,10 @@ class Man:
 
     def eat(self):
         """метод поел"""
-        # TODO global переменных быть не должно используем параметры класса или экземпляра
-        global food_year   # переменная для подсчета годового потребления еды
         if self.house.food >= 10:
             portion = randint(10, 31)
             self.fullness += portion
-            food_year += portion
+            self.food_year += portion
             self.happy += 10
             self.house.food -= 10
             cprint('{} поел(а)'.format(self.name), color='yellow')
@@ -100,11 +104,13 @@ class Man:
 class Husband(Man):
 
     # TODO эти два мейджик метода нет необходимости переопределять
-    def __init__(self, name):
-        super().__init__(name=name)
+    # def __init__(self, name):
+    #     self.name = name
 
-    def __str__(self):
-        return super().__str__()
+    #     super().__init__(name=name)
+    #
+    # def __str__(self):
+    #     return super().__str__()
 
     def act(self):
         """метод активности человека"""
@@ -128,7 +134,7 @@ class Husband(Man):
         cprint('{} сходил на работу'.format(self.name), color='blue')
         self.house.money += 150
         self.fullness -= 10
-        money_year += 150
+        Man.money_year += 150
 
     def gaming(self):
         """ метод отдых"""
@@ -140,12 +146,13 @@ class Husband(Man):
 class Wife(Man):
 
     # TODO эти два мейджик метода нет необходимости переопределять
-    def __init__(self, name):
-        super().__init__(name=name)
-        self.coat = 0
+    # def __init__(self):
 
-    def __str__(self):
-        return super().__str__()
+    # super().__init__(name=name)
+    #     self.coat = 0
+    #
+    # def __str__(self):
+    #     return super().__str__()
 
     def act(self):
         """метод активности человека"""
@@ -154,17 +161,14 @@ class Wife(Man):
             self.eat()
         elif self.house.food <= 20:
             self.shopping()
-        # TODO оставим на волю случая
-        elif self.house.mud >= 90:
-            self.clean_house()
         elif dice == 1:
             self.clean_house()
         elif dice == 2:
             self.eat()
-        elif dice == 4:
+        elif dice == 3:
             self.buy_fur_coat()
         else:
-            self.buy_fur_coat()
+            self.shopping()
 
     def shopping(self):
         """ метод поход в магазин"""
@@ -172,8 +176,9 @@ class Wife(Man):
             cprint('{} сходила в магазин за едой'.format(self.name), color='magenta')
             self.house.money -= 10
             self.house.food += 10
-            # TODO уменьшаем сытость
+            self.fullness -= 10
         else:
+            self.fullness -= 10
             cprint('{} деньги кончились!'.format(self.name), color='red')
 
     def buy_fur_coat(self):
@@ -183,9 +188,11 @@ class Wife(Man):
             cprint('{} сходила в магазин за шубой'.format(self.name), color='magenta')
             self.house.money -= 350
             self.happy += 60
-            coat += 1
+            self.fullness -= 10
+            self.coat_year += 1
         else:
             self.happy -= 20
+            self.fullness -= 10
             cprint('{} хочет шубу, но нет денег!'.format(self.name), color='red')
 
     def clean_house(self):
@@ -195,7 +202,8 @@ class Wife(Man):
             self.house.mud -= 100
             self.fullness -= 20
         else:
-            # TODO прибавляем счастье
+            self.fullness -= 10
+            self.happy += 10
             cprint('{} в доме чисто.'.format(self.name), color='blue')
 
 
@@ -217,23 +225,18 @@ for day in range(1, 366):
     # TODO это у нас будет метод дома
     home.mud += 5
     # TODO проверка на грязь у нас будет в отдельном методе
-    if home.mud > 90:
-        serge.happy -= 10
-        # TODO проверку на жизнь пишем в одной строке
-        if serge.live_dead():
-            break
-        masha.happy -= 10
-        if masha.live_dead():
-            break
+    if serge.live_dead():
+        break
+    if masha.live_dead():
+        break
 
     cprint(serge, color='cyan')
     cprint(masha, color='cyan')
     cprint(home, color='cyan')
     print('')
 
-cprint('За год заработано денег: {}. сьедено еды: {}, куплено шуб: {}'.format(money_year, food_year, coat),
-       color='green')
-
+cprint('За год заработано денег: {}. сьедено еды: {}, куплено шуб: {}'.format(money_year, food_year, coat_year,
+                                                                              color='green')
 
 # TODO после реализации первой части - отдать на проверку учителю
 
@@ -292,7 +295,6 @@ cprint('За год заработано денег: {}. сьедено еды: 
 #     def soil(self):
 #         pass
 
-
 ######################################################## Часть вторая бис
 #
 # После реализации первой части надо в ветке мастер продолжить работу над семьей - добавить ребенка
@@ -327,9 +329,7 @@ cprint('За год заработано денег: {}. сьедено еды: 
 #     def sleep(self):
 #         pass
 
-
 # TODO после реализации второй части - отдать на проверку учителем две ветки
-
 
 ######################################################## Часть третья
 #
