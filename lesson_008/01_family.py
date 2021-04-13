@@ -44,6 +44,10 @@ from random import randint
 
 
 class House:
+    """ класс дом"""
+    food_year = 0
+    money_year = 0
+    coat_year = 0
 
     def __init__(self):
         self.money = 100
@@ -53,16 +57,13 @@ class House:
     def __str__(self):
         return 'В доме еды осталось {}, денег осталось {}, уровень грязи {}'.format(self.food, self.money, self.mud)
 
-    # TODO Добавим метод который будет добавлять грязь в доме
     def muds(self):
         """добавляем грязь в дом"""
         self.mud += 5
 
 
 class Man:
-    food_year = 0
-    money_year = 0
-    coat_year = 0
+    """ класс человек"""
 
     def __init__(self, name):
         self.name = name
@@ -76,9 +77,8 @@ class Man:
     def eat(self):
         """метод поел"""
         if self.house.food >= 10:
-            portion = randint(10, 31)
-            self.fullness += portion
-            self.food_year += portion
+            self.fullness += 10  # portion
+            House.food_year += 10  # portion
             self.happy += 10
             self.house.food -= 10
             cprint('{} поел(а)'.format(self.name), color='yellow')
@@ -100,17 +100,13 @@ class Man:
         else:
             return False
 
+    def happys(self, muds):
+        if muds > 90:
+            self.happy -= 10
+
 
 class Husband(Man):
-
-    # TODO эти два мейджик метода нет необходимости переопределять
-    # def __init__(self, name):
-    #     self.name = name
-
-    #     super().__init__(name=name)
-    #
-    # def __str__(self):
-    #     return super().__str__()
+    """ класс муж"""
 
     def act(self):
         """метод активности человека"""
@@ -130,11 +126,10 @@ class Husband(Man):
 
     def work(self):
         """ метод работа"""
-        global money_year
         cprint('{} сходил на работу'.format(self.name), color='blue')
         self.house.money += 150
         self.fullness -= 10
-        Man.money_year += 150
+        House.money_year += 150
 
     def gaming(self):
         """ метод отдых"""
@@ -144,38 +139,30 @@ class Husband(Man):
 
 
 class Wife(Man):
-
-    # TODO эти два мейджик метода нет необходимости переопределять
-    # def __init__(self):
-
-    # super().__init__(name=name)
-    #     self.coat = 0
-    #
-    # def __str__(self):
-    #     return super().__str__()
+    """ класс жена"""
 
     def act(self):
         """метод активности человека"""
         dice = randint(1, 6)
-        if self.fullness <= 20:
-            self.eat()
-        elif self.house.food <= 20:
+        if self.house.food <= 20:
             self.shopping()
+        elif self.fullness <= 20:
+            self.eat()
         elif dice == 1:
             self.clean_house()
         elif dice == 2:
             self.eat()
         elif dice == 3:
-            self.buy_fur_coat()
-        else:
             self.shopping()
+        else:
+            self.buy_fur_coat()
 
     def shopping(self):
         """ метод поход в магазин"""
         if self.house.money >= 10:
             cprint('{} сходила в магазин за едой'.format(self.name), color='magenta')
-            self.house.money -= 10
-            self.house.food += 10
+            self.house.money -= 50
+            self.house.food += 50
             self.fullness -= 10
         else:
             self.fullness -= 10
@@ -189,7 +176,7 @@ class Wife(Man):
             self.house.money -= 350
             self.happy += 60
             self.fullness -= 10
-            self.coat_year += 1
+            House.coat_year += 1
         else:
             self.happy -= 20
             self.fullness -= 10
@@ -211,20 +198,14 @@ home = House()
 serge = Husband(name='Сережа')
 masha = Wife(name='Маша')
 
-coat = 0
-food_year = 0
-money_year = 0
-
 serge.go_to_the_house(house=home)
 masha.go_to_the_house(house=home)
 
 for day in range(1, 366):
     cprint('================== День {} =================='.format(day), color='red')
+    home.muds()
     serge.act()
     masha.act()
-    # TODO это у нас будет метод дома
-    home.mud += 5
-    # TODO проверка на грязь у нас будет в отдельном методе
     if serge.live_dead():
         break
     if masha.live_dead():
@@ -235,8 +216,8 @@ for day in range(1, 366):
     cprint(home, color='cyan')
     print('')
 
-cprint('За год заработано денег: {}. сьедено еды: {}, куплено шуб: {}'.format(money_year, food_year, coat_year,
-                                                                              color='green')
+cprint('За год заработано денег: {}. сьедено еды: {}, куплено шуб: {}'.format(
+    House.money_year, House.food_year, House.coat_year), color='green')
 
 # TODO после реализации первой части - отдать на проверку учителю
 
