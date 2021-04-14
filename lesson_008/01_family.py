@@ -247,7 +247,6 @@ class Cat:
             portion = randint(5, 11)
             self.house.cat_food -= portion
             self.fullness += portion * 2
-
         else:
             self.fullness -= 10
             cprint('{} нет еды'.format(self.name), color='red')
@@ -263,15 +262,12 @@ class Cat:
         self.fullness -= 10
         self.house.mud += 5
 
-    def soil(self):
-        pass
-
     def cat_act(self):
         """ метод выбора активностей кота"""
         dice = randint(1, 4)
         if self.fullness < 20:
             self.eat()
-        elif self.fullness > 30:
+        elif self.fullness > 50:
             self.play_wallpapper()
         elif dice == 1:
             self.eat()
@@ -289,13 +285,13 @@ class Cat:
             return False
 
 
-cat_names = ['Кот', 'Пушистик']    # 'Киска','Мохнатый ублюдок', 'Облезлый', 'Длинный хвост']
+cat_names = ['Кот', 'Пушистик', 'Киска']  # ,'Мохнатый ублюдок', 'Облезлый', 'Длинный хвост']
 cats = []
 
 home = House()
 serge = Husband(name='Сережа')
 masha = Wife(name='Маша')
-# murzik = Cat(name='Мурзик')
+
 
 serge.go_to_the_house(house=home)
 masha.go_to_the_house(house=home)
@@ -326,7 +322,8 @@ for day in range(1, 366):
 
     cprint(serge, color='cyan')
     cprint(masha, color='cyan')
-    # cprint(murzik, color='cyan')
+    for cat in cats:
+        cprint(cat, color='cyan')
     cprint(home, color='cyan')
     print('')
 
