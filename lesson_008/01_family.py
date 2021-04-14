@@ -114,12 +114,12 @@ class Man:
         """" метод добавления кота в дом"""
         if self.house:
             cat.house = self.house
-            cprint('Взяли {}'.format(cat.name), color='cyan')  # вывод
+            cprint('Взяли {}'.format(cat.name), color='cyan')
             self.house.cat_food = 30
 
     def pet_the_cat(self):
         """ гладим кота"""
-        cprint('{} гладил(а) кота'.format(self.name), color='cyan')
+        cprint('{} гладил(а) кота'.format(self.name), color='green')
         self.happy += 5
 
 
