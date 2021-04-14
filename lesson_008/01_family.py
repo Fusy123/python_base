@@ -148,6 +148,8 @@ class Wife(Man):
             self.shopping()
         elif self.fullness <= 20:
             self.eat()
+        elif self.house.mud > 100:
+            self.clean_house()
         elif dice == 1:
             self.clean_house()
         elif dice == 2:
@@ -205,6 +207,9 @@ for day in range(1, 366):
     home.muds()
     serge.act()
     masha.act()
+    serge.happys()
+    masha.happys()
+
     if serge.live_dead() or masha.live_dead():
         break
     cprint(serge, color='cyan')
