@@ -164,19 +164,23 @@ class Wife(Man):
     def act(self):
         """метод активности человека"""
         dice = randint(1, 6)
-        if self.house.food <= 20:
+        if self.house.food <= 10:
             self.shopping()
+        elif self.house.cat_food <= 10:
+            self.shop_food_the_cat()
         elif self.fullness <= 20:
             self.eat()
+        elif self.house.mud > 100:
+            self.clean_house()
         elif dice == 1:
             self.clean_house()
         elif dice == 2:
             self.eat()
         elif dice == 3:
             self.shopping()
-        elif dice == 4:
-            self.pet_the_cat()
         elif dice == 5:
+            self.pet_the_cat()
+        elif dice == 4:
             self.shop_food_the_cat()
         else:
             self.buy_fur_coat()
@@ -194,10 +198,10 @@ class Wife(Man):
 
     def shop_food_the_cat(self):
         """ метод поход в магазин за едой для кота"""
-        if self.house.money >= 50:
+        if self.house.money >= 20 * len(cats):
             cprint('{} сходила в магазин за едой для кота'.format(self.name), color='magenta')
-            self.house.cat_food += 50
-            self.house.money -= 50
+            self.house.cat_food += len(cats) * 20
+            self.house.money -= len(cats) * 20
         else:
             cprint('{} деньги кончились!'.format(self.name), color='red')
 
@@ -285,31 +289,48 @@ class Cat:
             return False
 
 
+cat_names = ['Кот', 'Пушистик']    # 'Киска','Мохнатый ублюдок', 'Облезлый', 'Длинный хвост']
+cats = []
+
 home = House()
 serge = Husband(name='Сережа')
 masha = Wife(name='Маша')
-murzik = Cat(name='Мурзик')
+# murzik = Cat(name='Мурзик')
 
 serge.go_to_the_house(house=home)
 masha.go_to_the_house(house=home)
-serge.go_to_the_cat_house(murzik)
+
+for name in cat_names:
+    cat = Cat(name=name)  # создаем обьект из класса сат
+    serge.go_to_the_cat_house(cat)
+    cats.append(cat)
+
+live = False
 
 for day in range(1, 366):
     cprint('================== День {} =================='.format(day), color='red')
     home.muds()
+    serge.happys()
+    masha.happys()
     serge.act()
     masha.act()
-    murzik.cat_act()
-    if serge.live_dead() or masha.live_dead() or murzik.live_dead():
+    for cat in cats:
+        cat.cat_act()
+    if serge.live_dead() or masha.live_dead():
+        break
+    for cat in cats:
+        if cat.live_dead():
+            live = True
+    if live:
         break
 
     cprint(serge, color='cyan')
     cprint(masha, color='cyan')
-    cprint(murzik, color='cyan')
+    # cprint(murzik, color='cyan')
     cprint(home, color='cyan')
     print('')
 
-cprint('За год заработано денег: {}. сьедено еды: {}, куплено шуб: {}'.format(
+cprint('За год заработано: {} монгольских тугриков . сьедено еды: {} кг, куплено шуб: {}'.format(
     House.money_year, House.food_year, House.coat_year), color='green')
 
 # TODO после реализации первой части - отдать на проверку учителю
