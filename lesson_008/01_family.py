@@ -100,9 +100,8 @@ class Man:
         else:
             return False
 
-    # TODO параметр грязи берем из экземпляра дома self.mud
-    def happys(self, muds):
-        if muds > 90:
+    def happys(self):
+        if self.house.mud > 90:
             self.happy -= 10
 
 
@@ -172,8 +171,7 @@ class Wife(Man):
 
     def buy_fur_coat(self):
         """ метод поход за шубой"""
-        # TODO на крайние не берем
-        if self.house.money >= 350:
+        if self.house.money > 400:
             cprint('{} сходила в магазин за шубой'.format(self.name), color='magenta')
             self.house.money -= 350
             self.happy += 60
@@ -191,8 +189,6 @@ class Wife(Man):
             self.house.mud -= 100
             self.fullness -= 20
         else:
-            # TODO можно вообще не убавлять
-            self.fullness -= 10
             self.happy += 10
             cprint('{} в доме чисто.'.format(self.name), color='blue')
 
@@ -209,12 +205,8 @@ for day in range(1, 366):
     home.muds()
     serge.act()
     masha.act()
-    # TODO записать 2 проверки в 1 строку
-    if serge.live_dead():
+    if serge.live_dead() or masha.live_dead():
         break
-    if masha.live_dead():
-        break
-
     cprint(serge, color='cyan')
     cprint(masha, color='cyan')
     cprint(home, color='cyan')
