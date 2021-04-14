@@ -197,6 +197,7 @@ class Wife(Man):
 home = House()
 serge = Husband(name='Сережа')
 masha = Wife(name='Маша')
+murzik = Cat(name='Мурзик')
 
 serge.go_to_the_house(house=home)
 masha.go_to_the_house(house=home)
@@ -246,35 +247,62 @@ cprint('За год заработано денег: {}. сьедено еды: 
 # Если кот дерет обои, то грязи становится больше на 5 пунктов
 #
 #
-# class Cat:
-#
-#     def __init__(self):
-#         pass
-#
-#     def act(self):
-#         """метод активности человека"""
-#         dice = randint(1, 6)
-#         if self.fullness <= 20:
-#             self.eat()
-#         elif self.house.money <= 50:
-#             self.work()
-#         elif dice == 1:
-#             self.work()
-#         elif dice == 2:
-#             self.eat()
-#         elif dice == 4:
-#             self.gaming()
-#         else:
-#             self.work()
-#
-#     def eat(self):
-#         pass
-#
-#     def sleep(self):
-#         pass
-#
-#     def soil(self):
-#         pass
+
+class Cat:
+
+    def __init__(self, name):
+        self.name = name
+        self.fullness = 30
+        self.house = None
+
+    def __str__(self):
+        return 'Я - {}, сытость {}'.format(self.name, self.fullness)
+
+    def eat(self):
+        """ метод еда кота"""
+        if self.house.cat_food >= 10:
+            cprint('{} поел'.format(self.name), color='yellow')
+            self.fullness += 20
+            self.house.cat_food -= 10
+        else:
+            self.fullness -= 10
+            cprint('{} нет еды'.format(self.name), color='red')
+
+    def sleep(self):
+        """ метод кот спит """
+        cprint('{} спал целый день'.format(self.name), color='green')
+        self.fullness -= 10
+
+    def play_wallpapper(self):
+        """ метод кот играет """
+        cprint('{} драл обои целый день'.format(self.name), color='green')
+        self.fullness -= 10
+        self.house.mud += 5
+
+    def soil(self):
+        pass
+
+    def cat_act(self):
+        """ метод выбора активностей кота"""
+        dice = randint(1, 4)
+        if self.fullness < 20:
+            self.eat()
+        elif self.fullness >= 30:
+            self.play_wallpapper()
+        elif dice == 1:
+            self.eat()
+        elif dice == 2:
+            self.play_wallpapper()
+        else:
+            self.sleep()
+
+    def live_dead(self):
+        """ метод проверки на живой мертвый"""
+        if self.fullness < 0:
+            cprint('{} умер(ла)...'.format(self.name), color='red')
+            return True
+        else:
+            return False
 
 ######################################################## Часть вторая бис
 #
