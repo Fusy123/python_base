@@ -256,7 +256,7 @@ for day in range(1, 366):
     cprint(home, color='cyan')
     print('')
 
-cprint('За год заработано денег: {}. съедено еды: {}, куплено шуб: {}'.format(
+cprint('За год заработано денег: {} монгольских тугриков. съедено еды: {} единиц, куплено шуб: {}'.format(
     House.money_year, House.food_year, House.coat_year), color='green')
 
 # TODO делайте вторую часть.
