@@ -228,8 +228,6 @@ class Child(Man):
         self.fullness -= 10
 
 
-
-
 home = House()
 serge = Husband(name='Сережа')
 masha = Wife(name='Маша')
