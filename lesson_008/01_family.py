@@ -318,7 +318,7 @@ class Cat:
             return False
 
 
-cat_names = ['Кот']  #, 'Пушистик', 'Киска' ,'Мохнатый ублюдок', 'Облезлый', 'Длинный хвост']
+cat_names = ['Кот']  #  'Пушистик', 'Киска' ,'Мохнатый ублюдок', 'Облезлый', 'Длинный хвост'
 cats = []
 
 home = House()
@@ -346,15 +346,10 @@ for day in range(1, 366):
     serge.act()
     masha.act()
     kolya.act()
-
-    serge.happys()
-    masha.happys()
-
     if serge.live_dead() or masha.live_dead() or kolya.live_dead():
+        break
     for cat in cats:
         cat.cat_act()
-    if serge.live_dead() or masha.live_dead():
-        break
     for cat in cats:
         if cat.live_dead():
             live = True
