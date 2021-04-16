@@ -4,7 +4,7 @@ from termcolor import cprint
 from random import randint
 
 
-######################################################## Часть первая
+#  ####################################################### Часть первая
 #
 # Создать модель жизни небольшой семьи.
 #
@@ -83,11 +83,12 @@ class Man:
     def eat(self):
         """метод поел"""
         if self.house.food >= 10:
-            self.fullness += 10  # portion
-            House.food_year += 10  # portion
+            portion = randint(10, 31)
+            self.fullness += portion
+            House.food_year += portion
             self.happy += 10
             self.house.food -= 10
-            cprint('{} поел(а)'.format(self.name), color='yellow')
+            cprint('{} съел {} единиц еды '.format(self.name, portion), color='yellow')
         else:
             self.fullness -= 10
             cprint('{} нет еды'.format(self.name), color='red')
@@ -189,8 +190,9 @@ class Wife(Man):
         """ метод поход в магазин"""
         if self.house.money >= 10:
             cprint('{} сходила в магазин за едой'.format(self.name), color='magenta')
-            self.house.money -= 50
-            self.house.food += 50
+            sale = randint(30, 61)
+            self.house.money -= sale
+            self.house.food += sale
             self.fullness -= 10
         else:
             self.fullness -= 10
@@ -207,7 +209,7 @@ class Wife(Man):
 
     def buy_fur_coat(self):
         """ метод поход за шубой"""
-        if self.house.money >= 350:
+        if self.house.money > 400:
             cprint('{} сходила в магазин за шубой'.format(self.name), color='magenta')
             self.house.money -= 350
             self.happy += 60
@@ -220,14 +222,45 @@ class Wife(Man):
 
     def clean_house(self):
         """ метод уборка в доме"""
-        if self.house.mud >= 100:
+        if self.house.mud > 100:
             cprint('{} прибралась дома'.format(self.name), color='blue')
             self.house.mud -= 100
             self.fullness -= 20
         else:
-            self.fullness -= 10
             self.happy += 10
             cprint('{} в доме чисто.'.format(self.name), color='blue')
+
+
+class Child(Man):
+
+    def act(self):
+        """метод активности человека"""
+        dice = randint(1, 6)
+        if self.fullness <= 20:
+            self.eat()
+        elif dice == 1:
+            self.eat()
+        elif dice == 2:
+            self.sleep()
+        else:
+            self.sleep()
+
+    def eat(self):
+        """метод поел"""
+        if self.house.food >= 10:
+            self.fullness += 10
+            House.food_year += 10
+            self.happy = 100
+            self.house.food -= 10
+            cprint('{} поел(а)'.format(self.name), color='yellow')
+        else:
+            self.fullness -= 10
+            cprint('{} нет еды'.format(self.name), color='red')
+
+    def sleep(self):
+        """ метод ребенок спит """
+        cprint('{} спал целый день'.format(self.name), color='green')
+        self.fullness -= 10
 
 
 class Cat:
@@ -291,10 +324,12 @@ cats = []
 home = House()
 serge = Husband(name='Сережа')
 masha = Wife(name='Маша')
+kolya = Child(name='Коля')
 
 
 serge.go_to_the_house(house=home)
 masha.go_to_the_house(house=home)
+kolya.go_to_the_house(house=home)
 
 for name in cat_names:
     cat = Cat(name=name)  # создаем обьект из класса сат
@@ -310,6 +345,12 @@ for day in range(1, 366):
     masha.happys()
     serge.act()
     masha.act()
+    kolya.act()
+
+    serge.happys()
+    masha.happys()
+
+    if serge.live_dead() or masha.live_dead() or kolya.live_dead():
     for cat in cats:
         cat.cat_act()
     if serge.live_dead() or masha.live_dead():
@@ -319,20 +360,18 @@ for day in range(1, 366):
             live = True
     if live:
         break
-
     cprint(serge, color='cyan')
     cprint(masha, color='cyan')
+    cprint(kolya, color='cyan')
     for cat in cats:
         cprint(cat, color='cyan')
     cprint(home, color='cyan')
     print('')
 
-cprint('За год заработано: {} монгольских тугриков . съедено еды: {} кг, куплено шуб: {}'.format(
+cprint('За год заработано денег: {} монгольских тугриков. съедено еды: {} единиц, куплено шуб: {}'.format(
     House.money_year, House.food_year, House.coat_year), color='green')
 
-# TODO после реализации первой части - отдать на проверку учителю
-
-######################################################## Часть вторая
+#   ####################################################### Часть вторая
 #
 # После подтверждения учителем первой части надо
 # отщепить ветку develop и в ней начать добавлять котов в модель семьи
@@ -357,8 +396,41 @@ cprint('За год заработано: {} монгольских тугрик
 # Если кот дерет обои, то грязи становится больше на 5 пунктов
 #
 #
+# class Cat:
+#
+#     def __init__(self):
+#         pass
+#
+#     def act(self):
+#         """метод активности человека"""
+#         dice = randint(1, 6)
+#         if self.fullness <= 20:
+#             self.eat()
+#         elif self.house.money <= 50:
+#             self.work()
+#         elif dice == 1:
+#             self.work()
+#         elif dice == 2:
+#             self.eat()
+#         elif dice == 4:
+#             self.gaming()
+#         else:
+#             self.work()
+#
+#     def eat(self):
+#         pass
+#
+#     def sleep(self):
+#         pass
+#
+#     def soil(self):
+#         pass
 
-######################################################## Часть вторая бис
+
+
+
+
+#  ####################################################### Часть вторая бис
 #
 # После реализации первой части надо в ветке мастер продолжить работу над семьей - добавить ребенка
 #
@@ -392,9 +464,7 @@ cprint('За год заработано: {} монгольских тугрик
 #     def sleep(self):
 #         pass
 
-# TODO после реализации второй части - отдать на проверку учителем две ветки
-
-######################################################## Часть третья
+#   ####################################################### Часть третья
 #
 # после подтверждения учителем второй части (обоих веток)
 # влить в мастер все коммиты из ветки develop и разрешить все конфликты
