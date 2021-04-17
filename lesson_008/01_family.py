@@ -56,6 +56,8 @@ class House:
         self.cat_food = None
 
     def __str__(self):
+        # TODO класс дом должен изначально знать о классе Cat
+        # TODO или данную логику упростить
         if Cat is False:
             return 'В доме еды осталось {}, денег осталось {}, уровень грязи {}'.format(
                 self.food, self.money, self.mud)
@@ -71,6 +73,7 @@ class House:
 class Man:
     """ класс человек"""
 
+    # TODO параметр не должен подчеркиваться
     def __init__(self, name):
         self.name = name
         self.fullness = 30
@@ -265,6 +268,7 @@ class Child(Man):
 
 class Cat:
 
+    # TODO параметр не должен подчеркиваться
     def __init__(self, name):
         self.name = name
         self.fullness = 30
