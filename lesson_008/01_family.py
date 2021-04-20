@@ -56,24 +56,27 @@ class House:
         self.cat_food = None
 
     def __str__(self):
-        # TODO класс дом должен изначально знать о классе Cat
-        # TODO или данную логику упростить
-        if Cat is False:
+        if self.cat_food is False:
             return 'В доме еды осталось {}, денег осталось {}, уровень грязи {}'.format(
                 self.food, self.money, self.mud)
         else:
-            return 'В доме еды осталось {}, денег осталось {}.\nВ доме осталось кошачей еды {}, уровень грязи {}'.format(
-                self.food, self.money, self.cat_food, self.mud)
+            return 'В доме еды осталось {}, денег осталось {}.\nВ доме осталось кошачей еды {},' \
+                   ' уровень грязи {}'.format(self.food, self.money, self.cat_food, self.mud)
 
     def muds(self):
         """добавляем грязь в дом"""
         self.mud += 5
 
+    def food_incidents(self):
+        self.food //= 2
+
+    def money_incidents(self):
+        self.money //= 2
+
 
 class Man:
     """ класс человек"""
 
-    # TODO параметр не должен подчеркиваться
     def __init__(self, name):
         self.name = name
         self.fullness = 30
@@ -151,9 +154,10 @@ class Husband(Man):
     def work(self):
         """ метод работа"""
         cprint('{} сходил на работу'.format(self.name), color='blue')
-        self.house.money += 150
+        salary = randint(50, 401)
+        self.house.money += salary
         self.fullness -= 10
-        House.money_year += 150
+        House.money_year += salary
 
     def gaming(self):
         """ метод отдых"""
@@ -268,7 +272,6 @@ class Child(Man):
 
 class Cat:
 
-    # TODO параметр не должен подчеркиваться
     def __init__(self, name):
         self.name = name
         self.fullness = 30
@@ -322,14 +325,13 @@ class Cat:
             return False
 
 
-cat_names = ['Кот']  #  'Пушистик', 'Киска' ,'Мохнатый ублюдок', 'Облезлый', 'Длинный хвост'
+cat_names = ['Кот', 'Пушистик']  # , 'Киска' ,'Мохнатый ублюдок', 'Облезлый', 'Длинный хвост'
 cats = []
 
 home = House()
 serge = Husband(name='Сережа')
 masha = Wife(name='Маша')
 kolya = Child(name='Коля')
-
 
 serge.go_to_the_house(house=home)
 masha.go_to_the_house(house=home)
@@ -366,6 +368,15 @@ for day in range(1, 366):
         cprint(cat, color='cyan')
     cprint(home, color='cyan')
     print('')
+    # incidents = randint(1, 11)
+    # if incidents == 2:
+    #     home.food_incidents()
+    #     cprint('В доме пропала еда! ', color='red')
+    #     print('')
+    # elif incidents == 9:
+    #     home.money_incidents()
+    #     cprint('В доме пропали деньги! ', color='red')
+    #     print('')
 
 cprint('За год заработано денег: {} монгольских тугриков. съедено еды: {} единиц, куплено шуб: {}'.format(
     House.money_year, House.food_year, House.coat_year), color='green')
@@ -426,8 +437,7 @@ cprint('За год заработано денег: {} монгольских �
 #         pass
 
 
-
-
+print('')
 
 #  ####################################################### Часть вторая бис
 #
@@ -486,6 +496,7 @@ cprint('За год заработано денег: {} монгольских �
 #     cprint(masha, color='cyan')
 #     cprint(kolya, color='cyan')
 #     cprint(murzik, color='cyan')
+print('')
 
 # Усложненное задание (делать по желанию)
 #
