@@ -60,6 +60,7 @@ class House:
             return 'В доме еды осталось {}, денег осталось {}, уровень грязи {}'.format(
                 self.food, self.money, self.mud)
         else:
+            # TODO не используем знак для переноса \
             return 'В доме еды осталось {}, денег осталось {}.\nВ доме осталось кошачей еды {},' \
                    ' уровень грязи {}'.format(self.food, self.money, self.cat_food, self.mud)
 
