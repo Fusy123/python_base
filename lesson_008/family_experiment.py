@@ -17,6 +17,7 @@ class House:
         self.cat_food = None
 
     def __str__(self):
+        # TODO все лишнее удаляем из кода!
         # if self.cat_food is False:
         #     return 'В доме еды осталось {}, денег осталось {}, уровень грязи {}'.format(
         #         self.food, self.money, self.mud)
@@ -287,12 +288,15 @@ class Simulation:
     """ класс симуляции"""
     cats = []
 
+    # TODO что класс должен принимать на вход ?
     def __init__(self, name):
         self.name = name
+        # TODO все объекты нужно инициализировать тут
         self.house = None
         self.husband = None
         self.wife = None
         self.children = None
+        # TODO эта переменная дублируется
         self.cats = None
 
     #
@@ -300,6 +304,7 @@ class Simulation:
     #     # return 'Прошел год, все выжили. Зарплата {} '.format(salary)
     #     pass
 
+    # TODO метод пересоздания нужно будет пересоздать все экземпляры заново
     def new_family(self, house, husband, wife, children):
         """ создание новой семьи, при каждом вызове метода обнуляем данные"""
         self.house = house
@@ -314,6 +319,7 @@ class Simulation:
     #     serge.go_to_the_cat_house(cat)
     #     cats.append(cat)
 
+    # TODO без дополнительных проверок и условий, сразу ретурним True|False
     def new_year(self):
         """ Метод жизнь 1 год"""
         house = self.house
@@ -345,6 +351,7 @@ class Simulation:
             # return cprint('Все выжили', color='green')
             return False
 
+    # TODO если вы коментируете код и он нужен отавляйте комментарии в виде TODO
     # def food_incidents(self, home):
     #     home.food //= 2
     #
@@ -381,6 +388,8 @@ life.new_family(house=House(), husband=Husband(name='Сережа'), wife=Wife(n
 # salary = Simulation.salary_new(husband.salary)
 life.experiments()
 
+# TODO метод запуска должен быть такой
+# TODO задайте вопросы что еще не хватает, код ниже вам подсказывает
 # for food_incidents in range(6):
 #   for money_incidents in range(6):
 #       life = Simulation(money_incidents, food_incidents)
