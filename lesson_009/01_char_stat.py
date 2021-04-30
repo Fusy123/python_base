@@ -49,6 +49,7 @@ class Parsing:
         zfile = zipfile.ZipFile(self.file_name, 'r')
         for filename in zfile.namelist():
             zfile.extract(filename)
+        # TODO поправить выделение
         self.file_name = filename
 
     def collect(self):
@@ -73,6 +74,7 @@ class Parsing:
     def prepare(self):
         """ метод фильтрации по частоте использования"""
         for char, count in self.stat.items():
+            # TODO вынести в  _collect_for_line
             self.totals += count
             self.stat_for_generate.append([count, char])
             self.stat_for_generate.sort(reverse=True)  # утрать реверс будет по возрастанию
@@ -93,6 +95,7 @@ class Parsing:
 
     def results(self, out_file_name=None):
         """ метод записи результатов в файл"""
+        # TODO логика этой проверки ?
         if out_file_name is not None:
             file = open(out_file_name, 'w', encoding='utf8')
         else:
@@ -115,7 +118,7 @@ class Parsing:
         if file:
             file.close()
 
-
+# TODO забыли скопировать или укажите верную директорию
 parser = Parsing(file_name='voyna-i-mir.txt.zip')
 parser.collect()
 parser.prepare()  # фильтрация по частоте букв
