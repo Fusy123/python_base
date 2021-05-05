@@ -254,8 +254,6 @@ class Simulation:
         self.husband = None
         self.wife = None
         self.children = None
-        # TODO эта переменная дублируется
-        self.cats = None
 
     #
     # def __str__(self):
