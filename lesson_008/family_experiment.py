@@ -16,16 +16,6 @@ class House:
         self.mud = 0
         self.cat_food = None
 
-    def __str__(self):
-        # TODO все лишнее удаляем из кода!
-        # if self.cat_food is False:
-        #     return 'В доме еды осталось {}, денег осталось {}, уровень грязи {}'.format(
-        #         self.food, self.money, self.mud)
-        # else:
-        #     return 'В доме еды осталось {}, денег осталось {}.\nВ доме осталось кошачей еды {}, уровень грязи {}'.format(
-        #         self.food, self.money, self.cat_food, self.mud)
-        pass
-
     def muds(self):
         """добавляем грязь в дом"""
         self.mud += 5
@@ -40,9 +30,6 @@ class Man:
         self.happy = 100
         self.house = None
 
-    # def __str__(self):
-    # # return 'Я - {}, сытость {}, уровень счастья {}'.format(self.name, self.fullness, self.happy)
-
     def eat(self):
         """метод поел"""
         if self.house.food >= 10:
@@ -51,21 +38,17 @@ class Man:
             House.food_year += portion
             self.happy += 10
             self.house.food -= 10
-            # cprint('{} съел {} единиц еды '.format(self.name, portion), color='yellow')
         else:
             self.fullness -= 10
-            # cprint('{} нет еды'.format(self.name), color='red')
 
     def go_to_the_house(self, house):
         """ метод заселение в дом """
         self.house = house
         self.fullness -= 10
-        # cprint('{} Въехал(а) в дом'.format(self.name), color='cyan')
 
     def live_dead(self):
         """ метод проверки на живой мертвый"""
         if self.fullness < 0 or self.happy <= 10:
-            # cprint('{} умер(ла)...'.format(self.name), color='red')
             return True
         else:
             return False
@@ -78,12 +61,10 @@ class Man:
         """" метод добавления кота в дом"""
         if self.house:
             cat.house = self.house
-            # cprint('Взяли {}'.format(cat.name), color='cyan')
             self.house.cat_food = 30
 
     def pet_the_cat(self):
         """ гладим кота"""
-        # cprint('{} гладил(а) кота'.format(self.name), color='green')
         self.happy += 5
 
 
@@ -111,7 +92,6 @@ class Husband(Man):
 
     def work(self):
         """ метод работа"""
-        # cprint('{} сходил на работу'.format(self.name), color='blue')
         salary = 50
         self.house.money += salary
         self.fullness -= 10
@@ -119,7 +99,6 @@ class Husband(Man):
 
     def gaming(self):
         """ метод отдых"""
-        # cprint('{} играл на приставке целый день'.format(self.name), color='green')
         self.fullness -= 10
         self.happy += 20
 
@@ -154,28 +133,22 @@ class Wife(Man):
     def shopping(self):
         """ метод поход в магазин"""
         if self.house.money >= 10:
-            # cprint('{} сходила в магазин за едой'.format(self.name), color='magenta')
             sale = randint(30, 61)
             self.house.money -= sale
             self.house.food += sale
             self.fullness -= 10
         else:
             self.fullness -= 10
-            # cprint('{} деньги кончились!'.format(self.name), color='red')
 
     def shop_food_the_cat(self):
         """ метод поход в магазин за едой для кота"""
         if self.house.money >= 20 * len(Simulation.cats):
-            # cprint('{} сходила в магазин за едой для кота'.format(self.name), color='magenta')
             self.house.cat_food += len(Simulation.cats) * 20
             self.house.money -= len(Simulation.cats) * 20
-        # else:
-        # cprint('{} деньги кончились!'.format(self.name), color='red')
 
     def buy_fur_coat(self):
         """ метод поход за шубой"""
         if self.house.money > 400:
-            # cprint('{} сходила в магазин за шубой'.format(self.name), color='magenta')
             self.house.money -= 350
             self.happy += 60
             self.fullness -= 10
@@ -183,17 +156,14 @@ class Wife(Man):
         else:
             self.happy -= 20
             self.fullness -= 10
-            # cprint('{} хочет шубу, но нет денег!'.format(self.name), color='red')
 
     def clean_house(self):
         """ метод уборка в доме"""
         if self.house.mud > 100:
-            # cprint('{} прибралась дома'.format(self.name), color='blue')
             self.house.mud -= 100
             self.fullness -= 20
         else:
             self.happy += 10
-            # cprint('{} в доме чисто.'.format(self.name), color='blue')
 
 
 class Child(Man):
@@ -217,14 +187,11 @@ class Child(Man):
             House.food_year += 10
             self.happy = 100
             self.house.food -= 10
-            # cprint('{} поел(а)'.format(self.name), color='yellow')
         else:
             self.fullness -= 10
-            # cprint('{} нет еды'.format(self.name), color='red')
 
     def sleep(self):
         """ метод ребенок спит """
-        # cprint('{} спал целый день'.format(self.name), color='green')
         self.fullness -= 10
 
 
@@ -235,29 +202,21 @@ class Cat:
         self.fullness = 30
         self.house = None
 
-    def __str__(self):
-        # return 'Я - {}, сытость {}'.format(self.name, self.fullness)
-        pass
-
     def eat(self):
         """ метод еда кота"""
         if self.house.cat_food >= 10:
-            # cprint('{} поел'.format(self.name), color='yellow')
             portion = randint(5, 11)
             self.house.cat_food -= portion
             self.fullness += portion * 2
         else:
             self.fullness -= 10
-            # cprint('{} нет еды'.format(self.name), color='red')
 
     def sleep(self):
         """ метод кот спит """
-        # cprint('{} спал целый день'.format(self.name), color='green')
         self.fullness -= 10
 
     def play_wallpapper(self):
         """ метод кот играет """
-        # cprint('{} драл обои целый день'.format(self.name), color='green')
         self.fullness -= 10
         self.house.mud += 5
 
@@ -278,7 +237,6 @@ class Cat:
     def live_dead(self):
         """ метод проверки на живой мертвый"""
         if self.fullness < 0:
-            # cprint('{} умер(ла)...'.format(self.name), color='red')
             return True
         else:
             return False

@@ -33,6 +33,7 @@
 # После этого начнем с произвольной буквы и каждую следующую будем выбирать в зависимости от
 # частоты её появления в статистике.
 import zipfile
+import os
 
 
 class Parsing:
@@ -118,8 +119,9 @@ class Parsing:
         if file:
             file.close()
 
-# TODO забыли скопировать или укажите верную директорию
-parser = Parsing(file_name='voyna-i-mir.txt.zip')
+
+
+parser = Parsing(file_name='C:\!disk_D\python_kursy\project\python_base\lesson_009\\voyna-i-mir.txt.zip')
 parser.collect()
 parser.prepare()  # фильтрация по частоте букв
 # parser.prepare_A_Z()  # Фильтрация по алфавиту в прямом порядке
