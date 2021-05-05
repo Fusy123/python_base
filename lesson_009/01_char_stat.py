@@ -33,7 +33,7 @@
 # После этого начнем с произвольной буквы и каждую следующую будем выбирать в зависимости от
 # частоты её появления в статистике.
 import zipfile
-import os
+from termcolor import cprint
 
 
 class Parsing:
@@ -50,12 +50,11 @@ class Parsing:
         zfile = zipfile.ZipFile(self.file_name, 'r')
         for filename in zfile.namelist():
             zfile.extract(filename)
-        # TODO поправить выделение
         self.file_name = filename
 
     def collect(self):
         """ метод проверки типа файла: если zip то вызвать метод распаковки"""
-        if self.file_name.endswith('.zip'):  # если файл в формате зип, происходитвызов метода распаковки
+        if self.file_name.endswith('.zip'):  # если файл в формате зип, происходит вызов метода распаковки
             self.unzip()
         with open(self.file_name, 'r', encoding='cp1251') as file:  # читаем файл построчно
             for line in file:
@@ -68,39 +67,39 @@ class Parsing:
             if char in self.stat:
                 if char.isalpha():
                     self.stat[char] += 1
+                    self.totals += 1
             else:
                 if char.isalpha():
                     self.stat[char] = 1
+                    self.totals += 1
+
 
     def prepare(self):
         """ метод фильтрации по частоте использования"""
         for char, count in self.stat.items():
-            # TODO вынести в  _collect_for_line
-            self.totals += count
             self.stat_for_generate.append([count, char])
             self.stat_for_generate.sort(reverse=True)  # утрать реверс будет по возрастанию
 
     def prepare_A_Z(self):
         """ метод фильтрации по алфавиту в прямом направлении"""
         for char, count in self.stat.items():
-            self.totals += count
             self.stat_for_generate.append([count, char])
             self.stat_for_generate.sort(key=lambda i: i[1])
 
     def prepare_Z_A(self):
         """ метод фильтрации по алфавиту в обратном направлении"""
         for char, count in self.stat.items():
-            self.totals += count
             self.stat_for_generate.append([count, char])
             self.stat_for_generate.sort(key=lambda i: i[1], reverse=True)
 
     def results(self, out_file_name=None):
         """ метод записи результатов в файл"""
-        # TODO логика этой проверки ?
+        # если не указан файл куда записывать результат то выпадает с ошибкой
         if out_file_name is not None:
             file = open(out_file_name, 'w', encoding='utf8')
         else:
-            file = None
+            return cprint("Не указан файл для записи результатов", color='red')
+
         file.write('+{txt:^13}+{txt:^13}+'.format(txt=("-" * 13)))
         file.write('\n')
         file.write('|{txt:^13}|{txt2:^13}|'.format(txt="Буква", txt2="Частота"))
@@ -121,7 +120,7 @@ class Parsing:
 
 
 
-parser = Parsing(file_name='C:\!disk_D\python_kursy\project\python_base\lesson_009\\voyna-i-mir.txt.zip')
+parser = Parsing(file_name='voyna-i-mir.txt.zip')
 parser.collect()
 parser.prepare()  # фильтрация по частоте букв
 # parser.prepare_A_Z()  # Фильтрация по алфавиту в прямом порядке
