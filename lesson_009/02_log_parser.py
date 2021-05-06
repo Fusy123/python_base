@@ -25,7 +25,7 @@
 import zipfile
 import os
 
-
+# TODO нейминг
 class Log_parser:
     """ класс подсчета символов в файле. """
 
@@ -45,6 +45,7 @@ class Log_parser:
         zfile = zipfile.ZipFile(self.file_name, 'r')
         for filename in zfile.namelist():
             zfile.extract(filename)
+        # TODO исправить выделение
         self.file_name = filename
 
     def collect(self):
@@ -99,6 +100,7 @@ time_day = '[0][0:10]'  # при парсинге по дням
 time_month = '[0][0:7]'  # при парсинге по месяцу
 time_year = '[0][0:4]'  # при парсинге по году
 
+# TODO у меня нет такого пути
 path = 'C:\!disk_D\python_kursy\project\python_base\events.txt'
 path_norm = os.path.normpath(path)
 
