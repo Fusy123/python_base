@@ -118,8 +118,9 @@ class Parsing:
         if file:
             file.close()
 
-
-
+# TODO нужно использовать шаблонные метод
+# TODO переопределить родительский дефолтный метод сортировки
+# https://gitlab.skillbox.ru/vadim_shandrinov/python_base_snippets/snippets/4
 parser = Parsing(file_name='voyna-i-mir.txt.zip')
 parser.collect()
 parser.prepare()  # фильтрация по частоте букв
