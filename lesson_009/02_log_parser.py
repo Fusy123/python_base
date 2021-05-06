@@ -22,15 +22,18 @@
 # Для этого пригодится шаблон проектирование "Шаблонный метод"
 #   см https://refactoring.guru/ru/design-patterns/template-method
 #   и https://gitlab.skillbox.ru/vadim_shandrinov/python_base_snippets/snippets/4
-
 import zipfile
+import os
+
 
 
 class Log_parser:
     """ класс подсчета символов в файле. """
 
-    def __init__(self, file_name):
+    def __init__(self, file_name, time1, date1):
         self.file_name = file_name
+        self.time_analiz = time1
+        self.date_analiz = date1
         self.statistic_log = {}
         self.start_log = {}
         self.hours_log = {}
@@ -58,8 +61,10 @@ class Log_parser:
     def _first_analiz(self, line):
         """ анализируем строку на вхождение NOK"""
         self.start_log = line.split(' ')
-        time = str(self.start_log[1][0:5])
-        date = str(self.start_log[0])
+        # time1 = ''.join(['self.start_log', self.time_analiz])
+        # date1 = ''.join(['self.start_log', self.date_analiz])
+        time = eval(''.join(['self.start_log', self.time_analiz]))
+        date = eval(''.join(['self.start_log', self.date_analiz]))
         if self.blok in self.start_log:
             if self.date in self.statistic_log:
                 if self.time in self.statistic_log[self.date]:
@@ -88,10 +93,22 @@ class Log_parser:
             file.close()
 
 
-loging = Log_parser(file_name='events.txt')
+date_time = '[0]'  # при парсинге часов-минут передаем это значение
+time_min = '[1][0:5]'   # при парсинге по минутам
+time_hours = '[1][0:3]'   # при парсинге по часам
+
+time_date = '[1][0:0]'  # при парсинге по дате передаем это значение часов-минут
+time_day = '[0][0:10]'   # при парсинге по дням
+time_month = '[0][0:7]'   # при парсинге по месяцу
+time_year = '[0][0:4]'    # при парсинге по году
+
+path = 'C:\!disk_D\python_kursy\project\python_base\events.txt'
+path_norm = os.path.normpath(path)
+
+''' парсинг по количеству NOK  в минуту'''
+loging = Log_parser(file_name=path_norm, time1=time_date, date1=time_day)
 loging.collect()
 loging.finish(out_file_name='log_NOK.txt')
-
 # После зачета первого этапа нужно сделать группировку событий
 #  - по часам
 #  - по месяцу
