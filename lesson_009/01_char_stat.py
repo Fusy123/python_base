@@ -73,24 +73,11 @@ class Parsing:
                     self.stat[char] = 1
                     self.totals += 1
 
-
     def prepare(self):
-        """ метод фильтрации по частоте использования"""
+        """ метод фильтрации по частоте использования по убыванию от большего к меньшему"""
         for char, count in self.stat.items():
             self.stat_for_generate.append([count, char])
             self.stat_for_generate.sort(reverse=True)  # утрать реверс будет по возрастанию
-
-    def prepare_A_Z(self):
-        """ метод фильтрации по алфавиту в прямом направлении"""
-        for char, count in self.stat.items():
-            self.stat_for_generate.append([count, char])
-            self.stat_for_generate.sort(key=lambda i: i[1])
-
-    def prepare_Z_A(self):
-        """ метод фильтрации по алфавиту в обратном направлении"""
-        for char, count in self.stat.items():
-            self.stat_for_generate.append([count, char])
-            self.stat_for_generate.sort(key=lambda i: i[1], reverse=True)
 
     def results(self, out_file_name=None):
         """ метод записи результатов в файл"""
@@ -118,14 +105,53 @@ class Parsing:
         if file:
             file.close()
 
-# TODO нужно использовать шаблонные метод
-# TODO переопределить родительский дефолтный метод сортировки
-# https://gitlab.skillbox.ru/vadim_shandrinov/python_base_snippets/snippets/4
-parser = Parsing(file_name='voyna-i-mir.txt.zip')
+
+class Parsing_up(Parsing):
+    """ метод фильтрации по частоте использования по возрастанию"""
+
+    def prepare(self):
+        super().prepare()
+        self.stat_for_generate.sort()
+
+
+class Parsing_A_Z(Parsing):
+    """ метод фильтрации по алфавиту в прямом направлении"""
+
+    def prepare(self):
+        super().prepare()
+        self.stat_for_generate.sort(key=lambda i: i[1])
+
+
+class Parsing_Z_A(Parsing):
+    """ метод фильтрации по алфавиту в обратном направлении"""
+
+    def prepare(self):
+        super().prepare()
+        self.stat_for_generate.sort(key=lambda i: i[1], reverse=True)
+
+
+filename = 'voyna-i-mir.txt.zip'
+
+metods = {'1': ['По убыванию', Parsing(file_name=filename)],
+          '2': ['По возрастанию', Parsing_up(file_name=filename)],
+          '3': ['По алфавиту от А до Я', Parsing_A_Z(file_name=filename)],
+          '4': ['По алфавиту от Я до А', Parsing_Z_A(file_name=filename)],
+          }
+
+print('Выберите тип фильтрации подсчета символов в файле:', filename)
+for metod in metods.items():
+    print(metod[0], ':', metod[1][0])
+
+while True:
+    user_metod = input('Введите выбранный метод: ')
+    if user_metod in metods.keys():
+        parser = metods[user_metod][1]
+        break
+    else:
+        print('Вы ввели неправильный номер метода!')
+
 parser.collect()
 parser.prepare()  # фильтрация по частоте букв
-# parser.prepare_A_Z()  # Фильтрация по алфавиту в прямом порядке
-# parser.prepare_Z_A()  #  Фильтрация по алфавиту в обратном порядке
 parser.results(out_file_name='out.txt')
 
 # После зачета первого этапа нужно сделать упорядочивание статистики
