@@ -48,8 +48,10 @@ class Parsing:
     def unzip(self):
         """ метод распаковки файла из архива """
         zfile = zipfile.ZipFile(self.file_name, 'r')
+        # TODO нейминг пишем в стиле snake_case
         for filename in zfile.namelist():
             zfile.extract(filename)
+        # TODO у вас filename находиться в не области видимости
         self.file_name = filename
 
     def collect(self):
@@ -106,6 +108,7 @@ class Parsing:
             file.close()
 
 
+# TODO нейминг
 class Parsing_up(Parsing):
     """ метод фильтрации по частоте использования по возрастанию"""
 
@@ -131,6 +134,10 @@ class Parsing_Z_A(Parsing):
 
 
 filename = 'voyna-i-mir.txt.zip'
+
+# TODO стараемся объекты не вызывать в списках или в словарях
+# TODO заранее их обявить
+# TODO и использовать только тот который нужен
 
 metods = {'1': ['По убыванию', Parsing(file_name=filename)],
           '2': ['По возрастанию', Parsing_up(file_name=filename)],
