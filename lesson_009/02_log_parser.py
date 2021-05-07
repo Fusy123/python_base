@@ -25,8 +25,8 @@
 import zipfile
 import os
 
-# TODO нейминг
-class Log_parser:
+
+class Parser:
     """ класс подсчета символов в файле. """
 
     def __init__(self, file_name, time1, date1):
@@ -45,7 +45,7 @@ class Log_parser:
         zfile = zipfile.ZipFile(self.file_name, 'r')
         for filename in zfile.namelist():
             zfile.extract(filename)
-        # TODO исправить выделение
+        # TODO что значит исправить выделение?
         self.file_name = filename
 
     def collect(self):
@@ -100,14 +100,30 @@ time_day = '[0][0:10]'  # при парсинге по дням
 time_month = '[0][0:7]'  # при парсинге по месяцу
 time_year = '[0][0:4]'  # при парсинге по году
 
-# TODO у меня нет такого пути
-path = 'C:\!disk_D\python_kursy\project\python_base\events.txt'
-path_norm = os.path.normpath(path)
+path = 'events.txt'
 
-''' парсинг по количеству NOK  в минуту'''
-loging = Log_parser(file_name=path_norm, time1=time_date, date1=time_day)
+metods = {'1': ['Запись событий по количеству в минуту', Parser(file_name=path, time1=time_min, date1=date_time)],
+          '2': ['Запись событий по количеству в час', Parser(file_name=path, time1=time_hours, date1=date_time)],
+          '3': ['Запись событий по количеству в день', Parser(file_name=path, time1=time_date, date1=time_day)],
+          '4': ['Запись событий по количеству в месяц', Parser(file_name=path, time1=time_date, date1=time_month)],
+          '5': ['Запись событий по количеству в год', Parser(file_name=path, time1=time_date, date1=time_year)],
+          }
+
+print('Выберите тип фильтрации подсчета символов в файле:', path)
+for metod in metods.items():
+    print(metod[0], ':', metod[1][0])
+
+while True:
+    user_metod = input('Введите выбранный метод: ')
+    if user_metod in metods.keys():
+        loging = metods[user_metod][1]
+        break
+    else:
+        print('Вы ввели неправильный номер метода!')
+
 loging.collect()
 loging.finish(out_file_name='log_NOK.txt')
+
 # После зачета первого этапа нужно сделать группировку событий
 #  - по часам
 #  - по месяцу
