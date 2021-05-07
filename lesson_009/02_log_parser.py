@@ -45,7 +45,7 @@ class Parser:
         zfile = zipfile.ZipFile(self.file_name, 'r')
         for filename in zfile.namelist():
             zfile.extract(filename)
-        # TODO что значит исправить выделение?
+        # TODO у вас filename находиться в не области видимости
         self.file_name = filename
 
     def collect(self):
@@ -102,6 +102,7 @@ time_year = '[0][0:4]'  # при парсинге по году
 
 path = 'events.txt'
 
+# TODO рекомендации от 01 задания про вызов объяектов в списках\словарях
 metods = {'1': ['Запись событий по количеству в минуту', Parser(file_name=path, time1=time_min, date1=date_time)],
           '2': ['Запись событий по количеству в час', Parser(file_name=path, time1=time_hours, date1=date_time)],
           '3': ['Запись событий по количеству в день', Parser(file_name=path, time1=time_date, date1=time_day)],
@@ -128,3 +129,4 @@ loging.finish(out_file_name='log_NOK.txt')
 #  - по часам
 #  - по месяцу
 #  - по году
+
