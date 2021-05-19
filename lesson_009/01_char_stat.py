@@ -36,6 +36,9 @@ import zipfile
 from termcolor import cprint
 
 
+# TODO подчеркиваний в коде быть не должно
+# TODO исправить по всему модулю
+
 class Parsing_down_order:
     """ класс подсчета символов в файле. """
 
@@ -49,9 +52,12 @@ class Parsing_down_order:
         """ метод распаковки файла из архива """
         zfile = zipfile.ZipFile(self.file_name, 'r')
         # TODO нейминг пишем в стиле snake_case  - Нейминг чего?
+        # TODO переменной filename -> file_name
         for filename in zfile.namelist():
             zfile.extract(filename)
         # TODO чем данный блок отличается от блока lesson_009/python_snippets/07_practice.py???
+        # TODO ничем
+        # TODO но рекомендацию нужно применить
         self.file_name = filename
 
     def collect(self):
