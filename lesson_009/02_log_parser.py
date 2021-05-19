@@ -45,7 +45,7 @@ class Parser:
         zfile = zipfile.ZipFile(self.file_name, 'r')
         for filename in zfile.namelist():
             zfile.extract(filename)
-        # TODO у вас filename находиться в не области видимости
+        # TODO чем данный блок отличается от блока lesson_009/python_snippets/07_practice.py???
         self.file_name = filename
 
     def collect(self):
@@ -102,12 +102,11 @@ time_year = '[0][0:4]'  # при парсинге по году
 
 path = 'events.txt'
 
-# TODO рекомендации от 01 задания про вызов объяектов в списках\словарях
-metods = {'1': ['Запись событий по количеству в минуту', Parser(file_name=path, time1=time_min, date1=date_time)],
-          '2': ['Запись событий по количеству в час', Parser(file_name=path, time1=time_hours, date1=date_time)],
-          '3': ['Запись событий по количеству в день', Parser(file_name=path, time1=time_date, date1=time_day)],
-          '4': ['Запись событий по количеству в месяц', Parser(file_name=path, time1=time_date, date1=time_month)],
-          '5': ['Запись событий по количеству в год', Parser(file_name=path, time1=time_date, date1=time_year)],
+metods = {'1': ['Запись событий по количеству в минуту'],
+          '2': ['Запись событий по количеству в час'],
+          '3': ['Запись событий по количеству в день'],
+          '4': ['Запись событий по количеству в месяц'],
+          '5': ['Запись событий по количеству в год'],
           }
 
 print('Выберите тип фильтрации подсчета символов в файле:', path)
@@ -117,9 +116,22 @@ for metod in metods.items():
 while True:
     user_metod = input('Введите выбранный метод: ')
     if user_metod in metods.keys():
-        loging = metods[user_metod][1]
-        break
-    else:
+        if user_metod == 1:
+            loging = Parser(file_name=path, time1=time_min, date1=date_time)
+            break
+        elif user_metod == 2:
+            loging = Parser(file_name=path, time1=time_hours, date1=date_time)
+            break
+        elif user_metod == 3:
+            loging = Parser(file_name=path, time1=time_date, date1=time_day)
+            break
+        elif user_metod == 4:
+            loging = Parser(file_name=path, time1=time_date, date1=time_month)
+            break
+        elif user_metod == 5:
+            loging = Parser(file_name=path, time1=time_date, date1=time_year)
+            break
+        else:
         print('Вы ввели неправильный номер метода!')
 
 loging.collect()
