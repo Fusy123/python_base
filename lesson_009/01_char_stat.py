@@ -36,7 +36,7 @@ import zipfile
 from termcolor import cprint
 
 
-class Parsing:
+class Parsing_down_order:
     """ класс подсчета символов в файле. """
 
     def __init__(self, file_name):
@@ -48,10 +48,10 @@ class Parsing:
     def unzip(self):
         """ метод распаковки файла из архива """
         zfile = zipfile.ZipFile(self.file_name, 'r')
-        # TODO нейминг пишем в стиле snake_case
+        # TODO нейминг пишем в стиле snake_case  - Нейминг чего?
         for filename in zfile.namelist():
             zfile.extract(filename)
-        # TODO у вас filename находиться в не области видимости
+        # TODO чем данный блок отличается от блока lesson_009/python_snippets/07_practice.py???
         self.file_name = filename
 
     def collect(self):
@@ -108,8 +108,7 @@ class Parsing:
             file.close()
 
 
-# TODO нейминг
-class Parsing_up(Parsing):
+class Parsing_up_order(Parsing_down_order):
     """ метод фильтрации по частоте использования по возрастанию"""
 
     def prepare(self):
@@ -117,7 +116,7 @@ class Parsing_up(Parsing):
         self.stat_for_generate.sort()
 
 
-class Parsing_A_Z(Parsing):
+class Parsing_A_Z(Parsing_down_order):
     """ метод фильтрации по алфавиту в прямом направлении"""
 
     def prepare(self):
@@ -125,7 +124,7 @@ class Parsing_A_Z(Parsing):
         self.stat_for_generate.sort(key=lambda i: i[1])
 
 
-class Parsing_Z_A(Parsing):
+class Parsing_Z_A(Parsing_down_order):
     """ метод фильтрации по алфавиту в обратном направлении"""
 
     def prepare(self):
@@ -135,14 +134,10 @@ class Parsing_Z_A(Parsing):
 
 filename = 'voyna-i-mir.txt.zip'
 
-# TODO стараемся объекты не вызывать в списках или в словарях
-# TODO заранее их обявить
-# TODO и использовать только тот который нужен
-
-metods = {'1': ['По убыванию', Parsing(file_name=filename)],
-          '2': ['По возрастанию', Parsing_up(file_name=filename)],
-          '3': ['По алфавиту от А до Я', Parsing_A_Z(file_name=filename)],
-          '4': ['По алфавиту от Я до А', Parsing_Z_A(file_name=filename)],
+metods = {'1': ['По убыванию'],
+          '2': ['По возрастанию'],
+          '3': ['По алфавиту от А до Я'],
+          '4': ['По алфавиту от Я до А'],
           }
 
 print('Выберите тип фильтрации подсчета символов в файле:', filename)
@@ -152,8 +147,18 @@ for metod in metods.items():
 while True:
     user_metod = input('Введите выбранный метод: ')
     if user_metod in metods.keys():
-        parser = metods[user_metod][1]
-        break
+        if user_metod == 1:
+            parser = Parsing_down_order(file_name=filename)
+            break
+        elif user_metod == 2:
+            parser = Parsing_up_order(file_name=filename)
+            break
+        elif user_metod == 3:
+            parser = Parsing_A_Z(file_name=filename)
+            break
+        elif user_metod == 4:
+            parser = Parsing_Z_A(file_name=filename)
+            break
     else:
         print('Вы ввели неправильный номер метода!')
 
