@@ -36,9 +36,6 @@ import zipfile
 from termcolor import cprint
 
 
-# TODO подчеркиваний в коде быть не должно
-# TODO исправить по всему модулю
-
 class Parsing_down_order:
     """ класс подсчета символов в файле. """
 
@@ -51,14 +48,9 @@ class Parsing_down_order:
     def unzip(self):
         """ метод распаковки файла из архива """
         zfile = zipfile.ZipFile(self.file_name, 'r')
-        # TODO нейминг пишем в стиле snake_case  - Нейминг чего?
-        # TODO переменной filename -> file_name
-        for filename in zfile.namelist():
-            zfile.extract(filename)
-        # TODO чем данный блок отличается от блока lesson_009/python_snippets/07_practice.py???
-        # TODO ничем
-        # TODO но рекомендацию нужно применить
-        self.file_name = filename
+        for file_name in zfile.namelist():
+            zfile.extract(file_name)
+        self.file_name = file_name
 
     def collect(self):
         """ метод проверки типа файла: если zip то вызвать метод распаковки"""
@@ -85,7 +77,7 @@ class Parsing_down_order:
         """ метод фильтрации по частоте использования по убыванию от большего к меньшему"""
         for char, count in self.stat.items():
             self.stat_for_generate.append([count, char])
-            self.stat_for_generate.sort(reverse=True)  # утрать реверс будет по возрастанию
+            self.stat_for_generate.sort(reverse=True)
 
     def results(self, out_file_name=None):
         """ метод записи результатов в файл"""
@@ -153,16 +145,16 @@ for metod in metods.items():
 while True:
     user_metod = input('Введите выбранный метод: ')
     if user_metod in metods.keys():
-        if user_metod == 1:
+        if user_metod == '1':
             parser = Parsing_down_order(file_name=filename)
             break
-        elif user_metod == 2:
+        elif user_metod == '2':
             parser = Parsing_up_order(file_name=filename)
             break
-        elif user_metod == 3:
+        elif user_metod == '3':
             parser = Parsing_A_Z(file_name=filename)
             break
-        elif user_metod == 4:
+        elif user_metod == '4':
             parser = Parsing_Z_A(file_name=filename)
             break
     else:

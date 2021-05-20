@@ -23,7 +23,6 @@
 #   см https://refactoring.guru/ru/design-patterns/template-method
 #   и https://gitlab.skillbox.ru/vadim_shandrinov/python_base_snippets/snippets/4
 import zipfile
-import os
 
 
 class Parser:
@@ -43,10 +42,9 @@ class Parser:
     def unzip(self):
         """ метод распаковки файла из архива """
         zfile = zipfile.ZipFile(self.file_name, 'r')
-        for filename in zfile.namelist():
-            zfile.extract(filename)
-        # TODO чем данный блок отличается от блока lesson_009/python_snippets/07_practice.py???
-        self.file_name = filename
+        for file_name in zfile.namelist():
+            zfile.extract(file_name)
+        self.file_name = file_name
 
     def collect(self):
         """ метод проверки типа файла: если zip то вызвать метод распаковки"""
@@ -116,22 +114,22 @@ for metod in metods.items():
 while True:
     user_metod = input('Введите выбранный метод: ')
     if user_metod in metods.keys():
-        if user_metod == 1:
+        if user_metod == '1':
             loging = Parser(file_name=path, time1=time_min, date1=date_time)
             break
-        elif user_metod == 2:
+        elif user_metod == '2':
             loging = Parser(file_name=path, time1=time_hours, date1=date_time)
             break
-        elif user_metod == 3:
+        elif user_metod == '3':
             loging = Parser(file_name=path, time1=time_date, date1=time_day)
             break
-        elif user_metod == 4:
+        elif user_metod == '4':
             loging = Parser(file_name=path, time1=time_date, date1=time_month)
             break
-        elif user_metod == 5:
+        elif user_metod == '5':
             loging = Parser(file_name=path, time1=time_date, date1=time_year)
             break
-        else:
+    else:
         print('Вы ввели неправильный номер метода!')
 
 loging.collect()
@@ -141,4 +139,3 @@ loging.finish(out_file_name='log_NOK.txt')
 #  - по часам
 #  - по месяцу
 #  - по году
-
