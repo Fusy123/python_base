@@ -35,6 +35,11 @@
 import zipfile
 from termcolor import cprint
 
+# TODO почему вы не выполняете мои рекомендации ?
+# TODO напишите тут
+
+# TODO пайчарм вам подчеркнул именование вашего класса
+# TODO если навести на него курсор то можно прочитать что имя должно быть по типу CamelCase
 
 class Parsing_down_order:
     """ класс подсчета символов в файле. """
@@ -50,6 +55,8 @@ class Parsing_down_order:
         zfile = zipfile.ZipFile(self.file_name, 'r')
         for file_name in zfile.namelist():
             zfile.extract(file_name)
+        # TODO тут тоже не поправили вам нужно либо объявить file_name в этой области по дефолту
+        # TODO либо просто подвинуть строку 60 на один таб правее
         self.file_name = file_name
 
     def collect(self):
@@ -106,9 +113,11 @@ class Parsing_down_order:
             file.close()
 
 
+# TODO нейминг
 class Parsing_up_order(Parsing_down_order):
     """ метод фильтрации по частоте использования по возрастанию"""
 
+    # TODO переопределять нужно полностью класс сортировки который должен за это отвечать в родительском классе
     def prepare(self):
         super().prepare()
         self.stat_for_generate.sort()
