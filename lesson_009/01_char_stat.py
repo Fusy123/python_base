@@ -36,12 +36,10 @@ import zipfile
 from termcolor import cprint
 
 # TODO почему вы не выполняете мои рекомендации ?
-# TODO напишите тут
+# TODO потому что из ваших рекомендаций не всегда понятно что вы имели ввиду. Пишите пжлст более развернуто
 
-# TODO пайчарм вам подчеркнул именование вашего класса
-# TODO если навести на него курсор то можно прочитать что имя должно быть по типу CamelCase
 
-class Parsing_down_order:
+class ParsingDownOrder:
     """ класс подсчета символов в файле. """
 
     def __init__(self, file_name):
@@ -55,9 +53,7 @@ class Parsing_down_order:
         zfile = zipfile.ZipFile(self.file_name, 'r')
         for file_name in zfile.namelist():
             zfile.extract(file_name)
-        # TODO тут тоже не поправили вам нужно либо объявить file_name в этой области по дефолту
-        # TODO либо просто подвинуть строку 60 на один таб правее
-        self.file_name = file_name
+            self.file_name = file_name
 
     def collect(self):
         """ метод проверки типа файла: если zip то вызвать метод распаковки"""
@@ -113,8 +109,7 @@ class Parsing_down_order:
             file.close()
 
 
-# TODO нейминг
-class Parsing_up_order(Parsing_down_order):
+class ParsingUpOrder(ParsingDownOrder):
     """ метод фильтрации по частоте использования по возрастанию"""
 
     # TODO переопределять нужно полностью класс сортировки который должен за это отвечать в родительском классе
@@ -123,7 +118,7 @@ class Parsing_up_order(Parsing_down_order):
         self.stat_for_generate.sort()
 
 
-class Parsing_A_Z(Parsing_down_order):
+class ParsingAZ(ParsingDownOrder):
     """ метод фильтрации по алфавиту в прямом направлении"""
 
     def prepare(self):
@@ -131,7 +126,7 @@ class Parsing_A_Z(Parsing_down_order):
         self.stat_for_generate.sort(key=lambda i: i[1])
 
 
-class Parsing_Z_A(Parsing_down_order):
+class ParsingZA(ParsingDownOrder):
     """ метод фильтрации по алфавиту в обратном направлении"""
 
     def prepare(self):
@@ -155,16 +150,16 @@ while True:
     user_metod = input('Введите выбранный метод: ')
     if user_metod in metods.keys():
         if user_metod == '1':
-            parser = Parsing_down_order(file_name=filename)
+            parser = ParsingDownOrder(file_name=filename)
             break
         elif user_metod == '2':
-            parser = Parsing_up_order(file_name=filename)
+            parser = ParsingUpOrder(file_name=filename)
             break
         elif user_metod == '3':
-            parser = Parsing_A_Z(file_name=filename)
+            parser = ParsingAZ(file_name=filename)
             break
         elif user_metod == '4':
-            parser = Parsing_Z_A(file_name=filename)
+            parser = ParsingZA(file_name=filename)
             break
     else:
         print('Вы ввели неправильный номер метода!')

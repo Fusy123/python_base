@@ -1,6 +1,8 @@
 # Created by .ignore support plugin (hsz.mobi)
 test*.py
 grok/*.*
+icons/*
+icons_by_year/*
 **probe.py
 
 # User-specific stuff:
