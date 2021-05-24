@@ -106,34 +106,32 @@ class ParsingDownOrder:
             file.close()
 
 
-# TODO было бы не плохо получать от вас обратную связь, если что то не понятно переспросите
-# TODO напишу иначе новые ТУДУшки.
-
-# TODO оставлять не выполненные ТУДУшки не стоит
-
 class ParsingUpOrder(ParsingDownOrder):
     """ метод фильтрации по частоте использования по возрастанию"""
+    #TODO разобрался где я сделал не так.
 
-    # TODO опишите логику работы этого метода по строчно заходя в супер метод super().prepare()
     def prepare(self):
-        super().prepare()
-        self.stat_for_generate.sort()
+        for char, count in self.stat.items():
+            self.stat_for_generate.append([count, char])
+            self.stat_for_generate.sort()
 
 
 class ParsingAZ(ParsingDownOrder):
     """ метод фильтрации по алфавиту в прямом направлении"""
 
     def prepare(self):
-        super().prepare()
-        self.stat_for_generate.sort(key=lambda i: i[1])
+        for char, count in self.stat.items():
+            self.stat_for_generate.append([count, char])
+            self.stat_for_generate.sort(key=lambda i: i[1])
 
 
 class ParsingZA(ParsingDownOrder):
     """ метод фильтрации по алфавиту в обратном направлении"""
 
     def prepare(self):
-        super().prepare()
-        self.stat_for_generate.sort(key=lambda i: i[1], reverse=True)
+        for char, count in self.stat.items():
+            self.stat_for_generate.append([count, char])
+            self.stat_for_generate.sort(key=lambda i: i[1], reverse=True)
 
 
 filename = 'voyna-i-mir.txt.zip'

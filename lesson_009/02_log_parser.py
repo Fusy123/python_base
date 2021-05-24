@@ -44,7 +44,7 @@ class Parser:
         zfile = zipfile.ZipFile(self.file_name, 'r')
         for file_name in zfile.namelist():
             zfile.extract(file_name)
-        self.file_name = file_name
+            self.file_name = file_name
 
     def collect(self):
         """ метод проверки типа файла: если zip то вызвать метод распаковки"""
