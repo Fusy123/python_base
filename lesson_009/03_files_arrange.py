@@ -40,7 +40,28 @@ import shutil
 #   см https://refactoring.guru/ru/design-patterns/template-method
 #   и https://gitlab.skillbox.ru/vadim_shandrinov/python_base_snippets/snippets/4
 
-# TODO здесь ваш код
+import os
+import time
+
+
+dict_year = {}
+start_path = 'icons'
+finish_path = 'icons_by_year'
+start_norm_path = os.path.normpath(start_path)
+finish_norm_path = os.path.normpath(finish_path)
+for dirpath, dirnames, filenames in os.walk(start_norm_path):
+    for file in filenames:
+        start_file_path = os.path.join(dirpath, file)
+        secs = os.path.getmtime(start_file_path)
+        file_time = time.gmtime(secs)
+        path_year = str(file_time[0])
+        path_month = str(file_time[1])
+        finish_file_path = os.path.join(finish_norm_path, path_year, path_month, file)
+        if os.path.dirname(finish_file_path):
+            os.renames(start_file_path, finish_file_path)
+        else:
+            os.makedirs(os.path.dirname(finish_file_path), mode=True)
+            os.renames(start_file_path, finish_file_path)
 
 # Усложненное задание (делать по желанию)
 # Нужно обрабатывать zip-файл, содержащий фотографии, без предварительного извлечения файлов в папку.
