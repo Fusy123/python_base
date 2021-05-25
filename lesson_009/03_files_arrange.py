@@ -43,10 +43,8 @@ import shutil
 import os
 import time
 
-
-dict_year = {}
-start_path = 'icons'
-finish_path = 'icons_by_year'
+start_path = os.path.abspath('icons')
+finish_path = os.path.abspath('icons_by_year')
 start_norm_path = os.path.normpath(start_path)
 finish_norm_path = os.path.normpath(finish_path)
 for dirpath, dirnames, filenames in os.walk(start_norm_path):
