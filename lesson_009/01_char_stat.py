@@ -108,7 +108,6 @@ class ParsingDownOrder:
 
 class ParsingUpOrder(ParsingDownOrder):
     """ метод фильтрации по частоте использования по возрастанию"""
-    #TODO разобрался где я сделал не так.
 
     def prepare(self):
         for char, count in self.stat.items():
@@ -172,3 +171,5 @@ parser.results(out_file_name='out.txt')
 #  - по частоте по возрастанию
 #  - по алфавиту по возрастанию
 #  - по алфавиту по убыванию
+
+# зачет!
