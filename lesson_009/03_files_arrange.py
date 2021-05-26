@@ -43,10 +43,16 @@ import shutil
 import os
 import time
 
+# TODO icons и icons_by_year должны быть в корне lessons_009
+# TODO старайтесь не использовать // заменить их на \
+
+# TODO что делает функция abspath ?
 start_path = os.path.abspath('..//icons')
 finish_path = os.path.abspath('..//icons_by_year')
+# TODO что делает функция normpath ?
 start_norm_path = os.path.normpath(start_path)
 finish_norm_path = os.path.normpath(finish_path)
+# TODO переменные пишем через _
 for dirpath, dirnames, filenames in os.walk(start_norm_path):
     for file in filenames:
         start_file_path = os.path.join(dirpath, file)
@@ -55,6 +61,7 @@ for dirpath, dirnames, filenames in os.walk(start_norm_path):
         path_year = str(file_time[0])
         path_month = str(file_time[1])
         finish_file_path = os.path.join(finish_norm_path, path_year, path_month, file)
+        # TODO опишите логику работы
         if os.path.dirname(finish_file_path):
             os.renames(start_file_path, finish_file_path)
         else:
