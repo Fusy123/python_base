@@ -43,25 +43,23 @@ import shutil
 import os
 import time
 
-# TODO icons и icons_by_year должны быть в корне lessons_009
-# TODO старайтесь не использовать // заменить их на \
-
-# TODO что делает функция abspath ?
-start_path = os.path.abspath('..//icons')
-finish_path = os.path.abspath('..//icons_by_year')
-# TODO что делает функция normpath ?
+# TODO что делает функция abspath ? возвращает абсолютный путь
+start_path = '../lesson_009/icons'
+finish_path = '../lesson_009/icons_by_year'
+# TODO что делает функция normpath ? убирает лишние знаки и производит замену \ /
 start_norm_path = os.path.normpath(start_path)
 finish_norm_path = os.path.normpath(finish_path)
-# TODO переменные пишем через _
-for dirpath, dirnames, filenames in os.walk(start_norm_path):
-    for file in filenames:
-        start_file_path = os.path.join(dirpath, file)
+for dir_path, dir_names, file_names in os.walk(start_norm_path):
+    for file in file_names:
+        start_file_path = os.path.join(dir_path, file)
         secs = os.path.getmtime(start_file_path)
         file_time = time.gmtime(secs)
         path_year = str(file_time[0])
         path_month = str(file_time[1])
         finish_file_path = os.path.join(finish_norm_path, path_year, path_month, file)
-        # TODO опишите логику работы
+    # TODO если по указанному пути есть каталоги указанные в finish_file_path, то происходит перемещение текущего файла
+    # TODO в этот каталог, если их нет, то происходит создание нужных каталогов с последующим переносом файла в этот каталог
+    # TODO так как работаем с каждым файлом по очереди и берем дату "создания/изменения" то делать доппроверки не вижу смысла
         if os.path.dirname(finish_file_path):
             os.renames(start_file_path, finish_file_path)
         else:
