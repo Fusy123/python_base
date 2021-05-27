@@ -43,10 +43,19 @@ import shutil
 import os
 import time
 
-# TODO что делает функция abspath ? возвращает абсолютный путь
+# TODO задание переписать в объектном стиле ООП
+
+# TODO возвращает абсолютный путь и уже его нормализует по сути второй вызов normpath был не нужен
+# что делает функция abspath ? возвращает абсолютный путь
+# TODO тогда все пути формируем через os.path.join
+# TODO мы выходим ../ а потом заходим в lesson_009/
+# TODO чтобы получить корень запуска абсолютный путь можно воспользоваться
+# TODO os.path.abspath(__file__)
+# TODO потом применить os.path.join()  добавить имя файла и папки
+
 start_path = '../lesson_009/icons'
 finish_path = '../lesson_009/icons_by_year'
-# TODO что делает функция normpath ? убирает лишние знаки и производит замену \ /
+# что делает функция normpath ? убирает лишние знаки и производит замену \ /
 start_norm_path = os.path.normpath(start_path)
 finish_norm_path = os.path.normpath(finish_path)
 for dir_path, dir_names, file_names in os.walk(start_norm_path):
@@ -57,9 +66,11 @@ for dir_path, dir_names, file_names in os.walk(start_norm_path):
         path_year = str(file_time[0])
         path_month = str(file_time[1])
         finish_file_path = os.path.join(finish_norm_path, path_year, path_month, file)
-    # TODO если по указанному пути есть каталоги указанные в finish_file_path, то происходит перемещение текущего файла
-    # TODO в этот каталог, если их нет, то происходит создание нужных каталогов с последующим переносом файла в этот каталог
-    # TODO так как работаем с каждым файлом по очереди и берем дату "создания/изменения" то делать доппроверки не вижу смысла
+        # TODO используем не перенос а копирование через shutil.copy2
+
+        # TODO логика может быть такой
+        # TODO мы проверяем если такой путь если его нет то создаем в одну команду
+        # TODO используем методы у os.path.
         if os.path.dirname(finish_file_path):
             os.renames(start_file_path, finish_file_path)
         else:
