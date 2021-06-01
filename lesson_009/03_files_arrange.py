@@ -1,9 +1,4 @@
 # -*- coding: utf-8 -*-
-
-import os
-import time
-import shutil
-
 # Нужно написать скрипт для упорядочивания фотографий (вообще любых файлов)
 # Скрипт должен разложить файлы из одной папки по годам и месяцам в другую.
 # Например, так:
@@ -42,40 +37,46 @@ import shutil
 
 import os
 import time
+import shutil
 
-# TODO задание переписать в объектном стиле ООП
 
-# TODO возвращает абсолютный путь и уже его нормализует по сути второй вызов normpath был не нужен
-# что делает функция abspath ? возвращает абсолютный путь
-# TODO тогда все пути формируем через os.path.join
-# TODO мы выходим ../ а потом заходим в lesson_009/
-# TODO чтобы получить корень запуска абсолютный путь можно воспользоваться
-# TODO os.path.abspath(__file__)
-# TODO потом применить os.path.join()  добавить имя файла и папки
+class Sortetd:
+    """сортировка файлов по папкам в формате /год/месяц"""
 
-start_path = '../lesson_009/icons'
-finish_path = '../lesson_009/icons_by_year'
-# что делает функция normpath ? убирает лишние знаки и производит замену \ /
-start_norm_path = os.path.normpath(start_path)
-finish_norm_path = os.path.normpath(finish_path)
-for dir_path, dir_names, file_names in os.walk(start_norm_path):
-    for file in file_names:
-        start_file_path = os.path.join(dir_path, file)
-        secs = os.path.getmtime(start_file_path)
-        file_time = time.gmtime(secs)
-        path_year = str(file_time[0])
-        path_month = str(file_time[1])
-        finish_file_path = os.path.join(finish_norm_path, path_year, path_month, file)
-        # TODO используем не перенос а копирование через shutil.copy2
+    def __init__(self, start, finish):
+        self.start_path = start
+        self.finish_path = finish
 
-        # TODO логика может быть такой
-        # TODO мы проверяем если такой путь если его нет то создаем в одну команду
-        # TODO используем методы у os.path.
-        if os.path.dirname(finish_file_path):
-            os.renames(start_file_path, finish_file_path)
-        else:
-            os.makedirs(os.path.dirname(finish_file_path), mode=True)
-            os.renames(start_file_path, finish_file_path)
+    def norm_path(self):
+        """нормализация пути"""
+        start_norm_path = os.path.abspath(self.start_path)
+        finish_norm_path = os.path.abspath(self.finish_path)
+        self._transfer_file(start=start_norm_path, finish=finish_norm_path)
+
+    def _transfer_file(self, start, finish):
+        """модуль сортировки переноса файлов по папкам"""
+        for dir_path, dir_names, file_names in os.walk(start):
+            for file in file_names:
+                start_file_path = os.path.join(dir_path, file)
+                secs = os.path.getmtime(start_file_path)
+                file_time = time.gmtime(secs)
+                path_year = str(file_time[0])
+                path_month = str(file_time[1])
+                finish_file_path = os.path.join(finish, path_year, path_month, file)
+                if os.path.dirname(finish_file_path) is False:
+                    os.makedirs(os.path.dirname(finish_file_path), mode=True)
+                # используем не перенос а копирование через shutil.copy2
+                # TODO Чтение документации/гугла по функциям - приветствуется. Как и поиск альтернативных вариантов :)
+                # TODO через shutil.copy2 Винда дает ошибку os.renames  все работает.
+                os.renames(start_file_path, finish_file_path)
+                # shutil.copy2(start_file_path, finish_file_path, follow_symlinks=True)
+
+
+start_folder = 'icons'
+finish_folder = 'icons_by_year'
+
+sorter_file = Sortetd(start_folder, finish_folder)
+sorter_file.norm_path()
 
 # Усложненное задание (делать по желанию)
 # Нужно обрабатывать zip-файл, содержащий фотографии, без предварительного извлечения файлов в папку.
