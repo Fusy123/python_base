@@ -62,14 +62,10 @@ class Sortetd:
                 file_time = time.gmtime(secs)
                 path_year = str(file_time[0])
                 path_month = str(file_time[1])
-                finish_file_path = os.path.join(finish, path_year, path_month, file)
-                if os.path.dirname(finish_file_path) is False:
-                    os.makedirs(os.path.dirname(finish_file_path), mode=True)
-                # используем не перенос а копирование через shutil.copy2
-                # TODO Чтение документации/гугла по функциям - приветствуется. Как и поиск альтернативных вариантов :)
-                # TODO через shutil.copy2 Винда дает ошибку os.renames  все работает.
-                os.renames(start_file_path, finish_file_path)
-                # shutil.copy2(start_file_path, finish_file_path, follow_symlinks=True)
+                finish_folder_path = os.path.normpath(os.path.join(finish, path_year, path_month))
+                finish_file_path = os.path.normpath(os.path.join(finish_folder_path, path_month))
+                os.makedirs(finish_folder_path, exist_ok=True)
+                shutil.copy2(start_file_path, finish_file_path)
 
 
 start_folder = 'icons'
