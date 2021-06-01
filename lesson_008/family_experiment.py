@@ -3,6 +3,8 @@
 from termcolor import cprint
 from random import randint
 
+global cats, home, serge, masha, kolya
+
 
 class House:
     """ класс дом"""
@@ -92,10 +94,10 @@ class Husband(Man):
 
     def work(self):
         """ метод работа"""
-        salary = 50
-        self.house.money += salary
+        self.salary = salary
+        self.house.money += self.salary
         self.fullness -= 10
-        House.money_year += salary
+        House.money_year += self.salary
 
     def gaming(self):
         """ метод отдых"""
@@ -241,61 +243,50 @@ class Cat:
         else:
             return False
 
-
+# TODO совсем потерялся с этим классом, просьба подсказать
 class Simulation:
     """ класс симуляции"""
-    cats = []
 
-    # TODO что класс должен принимать на вход ?
-    def __init__(self, name):
-        self.name = name
-        # TODO все объекты нужно инициализировать тут
-        self.house = None
-        self.husband = None
-        self.wife = None
-        self.children = None
+    def __init__(self, salary, money_incidents, food_incidents):
+        self.salary = salary
+        self.money_incidents = money_incidents
+        self.food_incidents = food_incidents
 
-    #
-    # def __str__(self):
-    #     # return 'Прошел год, все выжили. Зарплата {} '.format(salary)
-    #     pass
-
-    # TODO метод пересоздания нужно будет пересоздать все экземпляры заново
-    def new_family(self, house, husband, wife, children):
+    def new_family(self):
         """ создание новой семьи, при каждом вызове метода обнуляем данные"""
-        self.house = house
-        self.husband = husband
-        self.wife = wife
-        self.children = children
+        cats = []
+        home = House()
+        serge = Husband(name='Сережа')
+        masha = Wife(name='Маша')
+        kolya = Child(name='Коля')
 
-    # def add_cat(self, serge, cats):
-    #     """метод добавленяи котов из списка"""
-    #     cat_names = ['Кот', 'Пушистик', 'Киска', 'Мохнатый ублюдок', 'Облезлый', 'Длинный хвост']
-    #     cat = Cat(name=random(cat_names))  # создаем обьект из класса сат
-    #     serge.go_to_the_cat_house(cat)
-    #     cats.append(cat)
+    def add_cat(self):
+        """метод добавленяи котов из списка"""
+        cat_names = ['Кот', 'Пушистик', 'Киска', 'Мохнатый ублюдок', 'Облезлый', 'Длинный хвост']
+        cat = Cat(name=random(cat_names))  # создаем обьект из класса сат
+        serge.go_to_the_cat_house(cat)
+        cats.append(cat)
 
-    # TODO без дополнительных проверок и условий, сразу ретурним True|False
+    #  без дополнительных проверок и условий, сразу ретурним True|False
     def new_year(self):
         """ Метод жизнь 1 год"""
-        house = self.house
-        self.husband.go_to_the_house(house=house)
-        self.wife.go_to_the_house(house=house)
-        self.children.go_to_the_house(house=house)
+        house = home
+        serge.go_to_the_house(house=house)
+        masha.go_to_the_house(house=house)
+        kolya.go_to_the_house(house=house)
         live = False
         for day in range(1, 366):
             # cprint('================== День {} =================='.format(day), color='red')
             house.muds()
-            self.husband.happys()
-            self.wife.happys()
-            self.husband.act()
-            self.wife.act()
-            self.children.act()
-            if self.husband.live_dead() or self.wife.live_dead() or self.children.live_dead():
+            serge.happys()
+            masha.happys()
+            serge.act()
+            masha.act()
+            kolya.act()
+            if serge.live_dead() or masha.live_dead() or kolya.live_dead():
                 break
-            for cat in self.cats:
+            for cat in cats:
                 cat.cat_act()
-            for cat in self.cats:
                 if cat.live_dead():
                     live = True
             if live:
@@ -307,22 +298,10 @@ class Simulation:
             # return cprint('Все выжили', color='green')
             return False
 
-    # TODO если вы коментируете код и он нужен отавляйте комментарии в виде TODO
-    # def food_incidents(self, home):
-    #     home.food //= 2
-    #
-    # def money_incidents(self, home):
-    #     home.money //= 2
-
-    # def salary_new(self, salary):
-    #     salary += 50
-    #     if salary >= 400:
-    #         salary = 400
-    #     return salary
-
-    def experiments(self):
+    def experiments(self, salary):
         """ метод эксперимент, 3 раза имитируем жизнь. если два раза из трех никто не умер, то эксперимент удачный"""
         lacky = 0
+        self.salary = salary
         for _ in range(3):
             if self.new_year():
                 lacky += 1
@@ -339,16 +318,10 @@ class Simulation:
 # если дойдет до конца, методы которые генерят инциденты с едой и деньгами, и сам метод эксперимент в котором
 # мы будем запускать нашу симуляцию три раза!
 
-life = Simulation(name='Идеальная семья')
-life.new_family(house=House(), husband=Husband(name='Сережа'), wife=Wife(name='Маша'), children=Child(name='Коля'))
-# salary = Simulation.salary_new(husband.salary)
-life.experiments()
-
-# TODO метод запуска должен быть такой
-# TODO задайте вопросы что еще не хватает, код ниже вам подсказывает
-# for food_incidents in range(6):
-#   for money_incidents in range(6):
-#       life = Simulation(money_incidents, food_incidents)
-#       for salary in range(50, 401, 50):
-#           max_cats = life.experiment(salary)
-#           print(f'При зарплате {salary} максимально можно прокормить {max_cats} котов')
+for food_incidents in range(6):
+    for money_incidents in range(6):
+        life = Simulation(money_incidents, food_incidents)
+        for salary in range(50, 401, 50):
+            life.new_family()
+            max_cats = life.experiments(salary)
+            print(f'При зарплате {salary} максимально можно прокормить {max_cats} котов')
