@@ -63,7 +63,7 @@ class Sortetd:
                 path_year = str(file_time[0])
                 path_month = str(file_time[1])
                 finish_folder_path = os.path.normpath(os.path.join(finish, path_year, path_month))
-                finish_file_path = os.path.normpath(os.path.join(finish_folder_path, path_month))
+                finish_file_path = os.path.normpath(os.path.join(finish_folder_path, file))
                 os.makedirs(finish_folder_path, exist_ok=True)
                 shutil.copy2(start_file_path, finish_file_path)
 
