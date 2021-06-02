@@ -243,19 +243,25 @@ class Cat:
         else:
             return False
 
-# TODO совсем потерялся с этим классом, просьба подсказать
+
 class Simulation:
     """ класс симуляции"""
 
+    # TODO принимаем только money_incidents, food_incidents но они не должны быть подчеркнуты
     def __init__(self, salary, money_incidents, food_incidents):
+        # TODO зарплату мы будем передавать иначе
         self.salary = salary
         self.money_incidents = money_incidents
         self.food_incidents = food_incidents
+        # TODO тут у нас еще должен быт ьсписок котов и два списка с инцидентами
+        # TODO объявляем тут через self все нужные нам экземпляры
 
+    # TODO тут через self мы их будем пересоздавать
     def new_family(self):
         """ создание новой семьи, при каждом вызове метода обнуляем данные"""
         cats = []
         home = House()
+        # TODO сразу написать классы так чтобы можно было через атрибут передать экземпляр дом
         serge = Husband(name='Сережа')
         masha = Wife(name='Маша')
         kolya = Child(name='Коля')
@@ -267,13 +273,19 @@ class Simulation:
         serge.go_to_the_cat_house(cat)
         cats.append(cat)
 
+    # TODO нужно написать два метода которые будут фомировать два одноименных списка с датами
+    # TODO по которым мы будем потом проходиться и подрезать ресурсы
+
     #  без дополнительных проверок и условий, сразу ретурним True|False
     def new_year(self):
         """ Метод жизнь 1 год"""
+        # TODO эту часть реализовать в классе писал выше
         house = home
         serge.go_to_the_house(house=house)
         masha.go_to_the_house(house=house)
         kolya.go_to_the_house(house=house)
+        # TODO <<<<<<
+        # TODO без дополнительной переменной ретурним True\False
         live = False
         for day in range(1, 366):
             # cprint('================== День {} =================='.format(day), color='red')
@@ -298,6 +310,17 @@ class Simulation:
             # return cprint('Все выжили', color='green')
             return False
 
+    # TODO заводим цикл по количеству котов от 10 до 0 с шагом -1
+    # TODO объявляем переменную которая будет отвечать за верификацию
+    # TODO заводим цикл по range(3)
+    # TODO обнуляемся - пересоздаем экземпляры
+    # TODO передаем ЗП
+    # TODO создаем нужное количество котов
+    # TODO генерим инциденты
+    # TODO условие запускаем цикл, если тру то
+    # TODO увеличиваем верификацию на 1
+    # TODO вложенное условие проверяем если верификацию = 2
+    # TODO то ретурним количество котов
     def experiments(self, salary):
         """ метод эксперимент, 3 раза имитируем жизнь. если два раза из трех никто не умер, то эксперимент удачный"""
         lacky = 0
