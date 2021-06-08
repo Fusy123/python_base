@@ -35,43 +35,58 @@
 #   см https://refactoring.guru/ru/design-patterns/template-method
 #   и https://gitlab.skillbox.ru/vadim_shandrinov/python_base_snippets/snippets/4
 
+
+# TODO усложненная версия
+
 import os
-import time
-import shutil
+import zipfile
 
 
 class Sortetd:
     """сортировка файлов по папкам в формате /год/месяц"""
 
     def __init__(self, start, finish):
-        self.start_path = start
-        self.finish_path = finish
+        self.src_file = start
+        self.dst_path = finish
+        self.src_file_zip = None
 
     def norm_path(self):
         """нормализация пути"""
-        start_norm_path = os.path.abspath(self.start_path)
-        finish_norm_path = os.path.abspath(self.finish_path)
-        self._transfer_file(start=start_norm_path, finish=finish_norm_path)
+        src_norm_path_file = os.path.abspath(self.src_file)
+        dst_norm_path = os.path.abspath(self.dst_path)
+        self._collect(src=src_norm_path_file, dst=dst_norm_path)
 
-    def _transfer_file(self, start, finish):
-        """модуль сортировки переноса файлов по папкам"""
-        for dir_path, dir_names, file_names in os.walk(start):
-            for file in file_names:
-                start_file_path = os.path.join(dir_path, file)
-                secs = os.path.getmtime(start_file_path)
-                file_time = time.gmtime(secs)
-                path_year = str(file_time[0])
-                path_month = str(file_time[1])
-                finish_folder_path = os.path.normpath(os.path.join(finish, path_year, path_month))
-                finish_file_path = os.path.normpath(os.path.join(finish_folder_path, file))
-                os.makedirs(finish_folder_path, exist_ok=True)
-                shutil.copy2(start_file_path, finish_file_path)
+    def _collect(self, src, dst):
+        """ метод проверки типа файла: если zip то вызвать метод распаковки"""
+        if src.endswith('.zip'):
+            self.src_file_zip = zipfile.ZipFile(src, 'r')
+            self._sorted_in_zip(self.src_file_zip, dst)
+        else:
+            print('Это не файл в формате zip!!')
+
+    def _sorted_in_zip(self, src, dst):
+        """метод проверки файла на дату создания и распаковки в нужную папку год/месяц"""
+        for file in src.namelist():
+            file_time = src.getinfo(file).date_time
+            path_year = str(file_time[0])
+            path_month = str(file_time[1])
+            if file[-1] == '/':
+                continue
+            file_name = os.path.basename(file)
+            finish_folder_path = os.path.normpath(os.path.join(dst, path_year, path_month))
+            os.makedirs(finish_folder_path, exist_ok=True)
+            finish_file_path = os.path.normpath(os.path.join(finish_folder_path, file_name))
+            data_file_zip = self.src_file_zip.read(file)
+            dst_file = open(finish_file_path, 'wb')
+            dst_file.write(data_file_zip)
+            dst_file.close()
 
 
-start_folder = 'icons'
+
+start_file = 'icons.zip'
 finish_folder = 'icons_by_year'
 
-sorter_file = Sortetd(start_folder, finish_folder)
+sorter_file = Sortetd(start_file, finish_folder)
 sorter_file.norm_path()
 
 # Усложненное задание (делать по желанию)
