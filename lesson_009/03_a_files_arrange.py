@@ -38,6 +38,7 @@
 
 import os
 import zipfile
+import datetime
 
 
 class Sortetd:
@@ -47,6 +48,7 @@ class Sortetd:
         self.src_file = start
         self.dst_path = finish
         self.src_file_zip = None
+        self.file_time = None
 
     def norm_path(self):
         """нормализация пути"""
@@ -64,13 +66,14 @@ class Sortetd:
 
     def _sorted_in_zip(self, src, dst):
         """метод проверки файла на дату создания и распаковки в нужную папку год/месяц"""
-        for file in src.namelist():
-            file_time = src.getinfo(file).date_time
-            path_year = str(file_time[0])
-            path_month = str(file_time[1])
-            if file[-1] == '/':
+        for file in src.infolist():
+            file_name = file.filename
+            self.file_time = file.date_time
+            path_year = str(self.file_time[0])
+            path_month = str(self.file_time[1])
+            if file_name[-1] == '/':
                 continue
-            file_name = os.path.basename(file)
+            file_name = os.path.basename(file_name)
             finish_folder_path = os.path.normpath(os.path.join(dst, path_year, path_month))
             os.makedirs(finish_folder_path, exist_ok=True)
             finish_file_path = os.path.normpath(os.path.join(finish_folder_path, file_name))
@@ -78,9 +81,10 @@ class Sortetd:
             dst_file = open(finish_file_path, 'wb')
             dst_file.write(data_file_zip)
             dst_file.close()
+            src_file_time = int(datetime.datetime(*self.file_time).timestamp())
+            os.utime(finish_file_path, times=(src_file_time, src_file_time))
 
 
-# TODO для переноса мета данных используем os.utime()
 start_file = 'icons.zip'
 finish_folder = 'icons_by_year'
 
