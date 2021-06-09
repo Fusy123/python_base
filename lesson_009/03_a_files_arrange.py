@@ -36,8 +36,6 @@
 #   и https://gitlab.skillbox.ru/vadim_shandrinov/python_base_snippets/snippets/4
 
 
-# TODO усложненная версия
-
 import os
 import zipfile
 
@@ -82,7 +80,7 @@ class Sortetd:
             dst_file.close()
 
 
-
+# TODO для переноса мета данных используем os.utime()
 start_file = 'icons.zip'
 finish_folder = 'icons_by_year'
 
