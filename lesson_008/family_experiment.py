@@ -144,9 +144,9 @@ class Wife(Man):
 
     def shop_food_the_cat(self):
         """ метод поход в магазин за едой для кота"""
-        if self.house.money >= 20 * len(Simulation.cats):
-            self.house.cat_food += len(Simulation.cats) * 20
-            self.house.money -= len(Simulation.cats) * 20
+        if self.house.money >= 20 * len(cats):
+            self.house.cat_food += len(cats) * 20
+            self.house.money -= len(cats) * 20
 
     def buy_fur_coat(self):
         """ метод поход за шубой"""
@@ -243,95 +243,117 @@ class Cat:
         else:
             return False
 
+class Family(Husband, Wife, Child, House):
+    """класс создания семьи"""
+
+    def __init__(self):
+        self.serge = Husband(name='Сережа')
+        self.masha = Wife(name='Маша')
+        self.kolya = Child(name='Коля')
+        self.house = House()
+
+    def occupation_house(self):
+        """ метод заселения в дом"""
+        self.house = home
+        serge.go_to_the_house(house=home)
+        masha.go_to_the_house(house=home)
+        kolya.go_to_the_house(house=home)
+
 
 class Simulation:
     """ класс симуляции"""
 
-    # TODO принимаем только money_incidents, food_incidents но они не должны быть подчеркнуты
-    def __init__(self, salary, money_incidents, food_incidents):
-        # TODO зарплату мы будем передавать иначе
-        self.salary = salary
-        self.money_incidents = money_incidents
-        self.food_incidents = food_incidents
-        # TODO тут у нас еще должен быт ьсписок котов и два списка с инцидентами
-        # TODO объявляем тут через self все нужные нам экземпляры
+    #  принимаем только money_incidents, food_incidents но они не должны быть подчеркнуты
+    def __init__(self):
+        self.money_incidents = None
+        self.food_incidents = None
+        self.cats = None
 
-    # TODO тут через self мы их будем пересоздавать
+
     def new_family(self):
         """ создание новой семьи, при каждом вызове метода обнуляем данные"""
-        cats = []
-        home = House()
-        # TODO сразу написать классы так чтобы можно было через атрибут передать экземпляр дом
-        serge = Husband(name='Сережа')
-        masha = Wife(name='Маша')
-        kolya = Child(name='Коля')
+        self.cats = []
+        self.money_incidents = []
+        self.food_incidents = []
+        #  сразу написать классы так чтобы можно было через атрибут передать экземпляр дом
+        Family.occupation_house()
 
-    def add_cat(self):
-        """метод добавленяи котов из списка"""
-        cat_names = ['Кот', 'Пушистик', 'Киска', 'Мохнатый ублюдок', 'Облезлый', 'Длинный хвост']
-        cat = Cat(name=random(cat_names))  # создаем обьект из класса сат
-        serge.go_to_the_cat_house(cat)
-        cats.append(cat)
 
-    # TODO нужно написать два метода которые будут фомировать два одноименных списка с датами
-    # TODO по которым мы будем потом проходиться и подрезать ресурсы
+    def add_cat(self, count):
+        """метод добавления котов из списка"""
+        cat_names = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
+        for i in range(count):
+            cat = Cat(name=random(cat_names))  # создаем обьект из класса сат
+            serge.go_to_the_cat_house(cat)
+            cats.append(cat)
+
+    #  нужно написать два метода которые будут фомировать два одноименных списка с датами
+    #  по которым мы будем потом проходиться и подрезать ресурсы
+
+    def money_incident(self, count_money_incident):
+        """формируем список дат когда произойдет инцидент с пропажей монет"""
+        for _ in range(count_money_incident):
+            self.money_incidents.append(randint(1, 366))
+        self.money_incidents = sorted(self.money_incidents)
+
+    def food_incident(self, count_food_incident):
+        """формируем список дат когда произойдет инцидент с пропажей еды"""
+        for _ in range(count_food_incident):
+            self.food_incidents.append(randint(1, 365))
+        self.food_incidents = sorted(self.food_incidents)
+
 
     #  без дополнительных проверок и условий, сразу ретурним True|False
     def new_year(self):
         """ Метод жизнь 1 год"""
-        # TODO эту часть реализовать в классе писал выше
-        house = home
-        serge.go_to_the_house(house=house)
-        masha.go_to_the_house(house=house)
-        kolya.go_to_the_house(house=house)
-        # TODO <<<<<<
-        # TODO без дополнительной переменной ретурним True\False
-        live = False
         for day in range(1, 366):
             # cprint('================== День {} =================='.format(day), color='red')
-            house.muds()
+            home.muds()
             serge.happys()
             masha.happys()
             serge.act()
             masha.act()
             kolya.act()
-            if serge.live_dead() or masha.live_dead() or kolya.live_dead():
-                break
             for cat in cats:
                 cat.cat_act()
                 if cat.live_dead():
-                    live = True
-            if live:
-                break
-        if live is False:
-            # return cprint('Кто-то умер', color='red')
-            return True
-        else:
-            # return cprint('Все выжили', color='green')
-            return False
+                    return True
+            if serge.live_dead() or masha.live_dead() or kolya.live_dead():
+                return True
+            else:
+                return False
 
-    # TODO заводим цикл по количеству котов от 10 до 0 с шагом -1
-    # TODO объявляем переменную которая будет отвечать за верификацию
-    # TODO заводим цикл по range(3)
-    # TODO обнуляемся - пересоздаем экземпляры
-    # TODO передаем ЗП
-    # TODO создаем нужное количество котов
-    # TODO генерим инциденты
-    # TODO условие запускаем цикл, если тру то
-    # TODO увеличиваем верификацию на 1
-    # TODO вложенное условие проверяем если верификацию = 2
-    # TODO то ретурним количество котов
-    def experiments(self, salary):
+    #  заводим цикл по количеству котов от 10 до 0 с шагом -1  +
+    #  объявляем переменную которая будет отвечать за верификацию +
+    #  заводим цикл по range(3) +
+    #  обнуляемся - пересоздаем экземпляры +
+    #  передаем ЗП +
+    #  создаем нужное количество котов +
+    #  генерим инциденты +
+    #  условие запускаем цикл, если тру то +
+    #  увеличиваем верификацию на 1 +
+    #  вложенное условие проверяем если верификацию = 2 +
+    #  то ретурним количество котов
+    def experiments(self):
         """ метод эксперимент, 3 раза имитируем жизнь. если два раза из трех никто не умер, то эксперимент удачный"""
-        lacky = 0
-        self.salary = salary
-        for _ in range(3):
-            if self.new_year():
-                lacky += 1
-        if lacky >= 2:
-            cprint('Эксперимент удачный!', color='green')
-        else:
-            cprint('Эксперимент неудачный!', color='red')
+        for count_cats in range(10, 0, -1):
+            lacky = 0
+            for _ in range(3):
+                self.new_family()
+                for salary in range(50, 401, 50):
+                    self.add_cat(count_cats)
+                    for food_incidents in range(6):
+                        for money_incidents in range(6):
+                            life = Simulation(money_incidents, food_incidents)
+                            life.new_family()
+
+                        if self.new_year():
+                            lacky += 1
+                        if lacky >= 2:
+                            cprint('Эксперимент удачный!', color='green')
+                            print(f'При зарплате {salary} максимально можно прокормить {count_cats} котов')
+                        else:
+                            cprint('Эксперимент неудачный!', color='red')
 
 
 # Его нужно делать в отдельном файле, скопировав тут нужные классы из 01 и написать новый класс симуляции.
