@@ -17,8 +17,65 @@
 # При создании собственных исключений максимально использовать функциональность
 # базовых встроенных исключений.
 
-ENLIGHTENMENT_CARMA_LEVEL = 777
+from random import randint
 
-# TODO здесь ваш код
+class IamGodError(Exception):
+    pass
+
+class DrunkError(Exception):
+    pass
+
+class CarCrashError(Exception):
+    pass
+
+class GluttonyError(Exception):
+    pass
+
+class DepressionError(Exception):
+    pass
+
+class SuicideError(Exception):
+    pass
+
+def one_day():
+    one_day_carma = randint(1, 8)
+    chance_error = randint(1, 14)
+    if chance_error == 3:
+        raise IamGodError('Я Бог!')
+    elif chance_error == 5:
+        raise DrunkError('Синька - Зло!')
+    elif chance_error == 7:
+        raise CarCrashError('Авария - дочь мента!')
+    elif chance_error == 9:
+        raise GluttonyError('Очередной смертный грех')
+    elif chance_error == 11:
+        raise DepressionError('Я никому не нужен!!!')
+    elif chance_error == 13:
+        raise SuicideError('Прыгну со скалы!')
+    else:
+        return one_day_carma
+
+
+
+
+
+ENLIGHTENMENT_CARMA_LEVEL = 777
+carma = 0
+count_day = 0
+
+while True:
+    try:
+        carma += one_day()
+        count_day += 1
+        if carma >= ENLIGHTENMENT_CARMA_LEVEL:
+            print(f'Добро пожаловать в реальный мир!  Ваша карма {carma}')
+            print(f'Вы были у сурка {count_day} дней')
+            break
+    except Exception as exc:
+        file = open('log_error.txt', 'a', encoding='utf8')
+        file.write(f'Поймано исключение {exc} ')
+        file.write('\n')
+        file.close()
+
 
 # https://goo.gl/JnsDqu
