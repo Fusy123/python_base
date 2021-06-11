@@ -4,10 +4,19 @@
 
 BRUCE_WILLIS = 42
 
-input_data = input('Если хочешь что-нибудь сделать, сделай это сам: ')
-leeloo = int(input_data[4])
-result = BRUCE_WILLIS * leeloo
-print(f'- Leeloo Dallas! Multi-pass № {result}!')
+try:
+    input_data = input('Если хочешь что-нибудь сделать, сделай это сам: ')
+    leeloo = int(input_data[4])
+    result = BRUCE_WILLIS * leeloo
+    print(f'- Leeloo Dallas! Multi-pass № {result}!')
+except ValueError as exc:
+    print(f'невозможно преобразовать к числу {exc}')
+except IndexError as exc:
+    print(f'выход за границы списка {exc}')
+except Exception as exc:
+    print(f'прочие ошибки {exc}')
+
+
 
 # Ообернуть код и обработать исключительные ситуации для произвольных входных параметров
 # - ValueError - невозможно преобразовать к числу
