@@ -30,7 +30,13 @@ class NotNameError(NameError):
     pass
 
 
-
+# TODO когда мы получили его нужно распаковать на переменные name email age
+# TODO у вас будем всего 4 if проверки
+# TODO первая на то что имя не число
+# TODO вторая на то что валидный email
+# TODO третья что возраст в рамках
+# TODO и четверная на то что все 3 переменные не None
+# TODO вот тут можно записать в список положительных логов.
 def Valid(line):
     if line.count(' ') >= 2:
         name_user, email_user, age_user = line.split(' ')
@@ -48,12 +54,13 @@ def Valid(line):
         raise ValueError('Не хватает полей')
 
 
-
 with open('registrations.txt', 'r', encoding='utf8') as ff:
     for line in ff:
         line = line[:-1]
         try:
             valid_user = Valid(line)
+            # TODO вынесем в отдельную функцию записи, тут будем напонять список, формируя нужную стоку
+            # TODO в конце цикла нужно запустить функцию записи
             corrected_log = open('registrations_good.log', 'a', encoding='utf8')
             corrected_log.write(line)
             corrected_log.write('\n')
