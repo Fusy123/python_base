@@ -30,12 +30,18 @@ class NotNameError(NameError):
     pass
 
 
-# TODO когда мы получили его нужно распаковать на переменные name email age
-# TODO у вас будем всего 4 if проверки
-# TODO первая на то что имя не число
-# TODO вторая на то что валидный email
-# TODO третья что возраст в рамках
-# TODO и четверная на то что все 3 переменные не None
+# когда мы получили его нужно распаковать на переменные name email age
+# TODO у меня так и сделано
+# у вас будем всего 4 if проверки
+# TODO  их и сейчас 4 проверки
+# первая на то что имя не число
+# TODO первая проверяет, что у меня в строке 3 обьекта разделенных пробелами
+# вторая на то что валидный email
+# TODO Вторая проверяет имя, что оно состоит из букв
+# третья что возраст в рамках
+# TODO третья проверяет email на вхождение @ и "."
+# TODO  и последняя проверяет возраст на вхождение в рамки от 10 до 99
+# и четверная на то что все 3 переменные не None
 # TODO вот тут можно записать в список положительных логов.
 def Valid(line):
     if line.count(' ') >= 2:
@@ -54,21 +60,26 @@ def Valid(line):
         raise ValueError('Не хватает полей')
 
 
+
+
+list_valid_user = []
 with open('registrations.txt', 'r', encoding='utf8') as ff:
     for line in ff:
         line = line[:-1]
         try:
             valid_user = Valid(line)
-            # TODO вынесем в отдельную функцию записи, тут будем напонять список, формируя нужную стоку
-            # TODO в конце цикла нужно запустить функцию записи
-            corrected_log = open('registrations_good.log', 'a', encoding='utf8')
-            corrected_log.write(line)
-            corrected_log.write('\n')
-            corrected_log.close()
+            list_valid_user.append(line)
+
         except (ValueError, NotEmailError, NotNameError) as exc:
             no_corrected_log = open('registrations_bad.log', 'a', encoding='utf8')
             no_corrected_log.write(f'в строке {line} ошибка {exc}')
             no_corrected_log.write('\n')
             no_corrected_log.close()
 
+
+
+corrected_log = open('registrations_good.log', 'w', encoding='utf8')
+for i in list_valid_user:
+    corrected_log.write(i + '\n')
+corrected_log.close()
 print('Проверка завершена!')
