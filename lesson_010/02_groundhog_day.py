@@ -16,80 +16,89 @@
 # кармы до уровня ENLIGHTENMENT_CARMA_LEVEL. Исключения обработать и записать в лог.
 # При создании собственных исключений максимально использовать функциональность
 # базовых встроенных исключений.
-
+import random
 from random import randint
 
 
 class IamGodError(Exception):
-    pass
+    def __init__(self, input_data=None):
+        self.message = 'Я Бог!'
+        self.input_data = input_data
+
+    def __str__(self):
+        return self.message
 
 
 class DrunkError(Exception):
-    pass
+    def __init__(self, input_data=None):
+        self.message = 'Синька - Зло!'
+        self.input_data = input_data
+
+    def __str__(self):
+        return self.message
 
 
 class CarCrashError(Exception):
-    pass
+    def __init__(self, input_data=None):
+        self.message = 'Авария - дочь мента!'
+        self.input_data = input_data
+
+    def __str__(self):
+        return self.message
 
 
 class GluttonyError(Exception):
-    pass
+    def __init__(self, input_data=None):
+        self.message = 'Очередной смертный грех'
+        self.input_data = input_data
+
+    def __str__(self):
+        return self.message
 
 
 class DepressionError(Exception):
-    pass
+    def __init__(self, input_data=None):
+        self.message = 'Я никому не нужен!!!'
+        self.input_data = input_data
+
+    def __str__(self):
+        return self.message
 
 
 class SuicideError(Exception):
-    pass
+    def __init__(self, input_data=None):
+        self.message = 'Прыгну со скалы!'
+        self.input_data = input_data
+
+    def __str__(self):
+        return self.message
 
 
-# TODO создайте константу список в котором будут храниться имена class ов чтобы их потом можно было выбрать и вызвать!
-# TODO имена классов храним без их вызовов
-
-# TODO функция one_day() должна возвращать карму от 1 до 7 или рейзит ошибку из расчета 1 к 13
-# TODO мы можем объявить 2 переменные это карма равная рендинт от 1 до 7 и
-# TODO сам еррор который тоже равен рендинт от 1 до 13
-# TODO далее условие если еррор равен 13 то мы choice выбираем случайное исключение из списка
-# TODO и его рейзим как объект используя ()
-# TODO если условие не сработало то мы ретурним карму
-def one_day():
+def one_day(error_list):
     one_day_carma = randint(1, 8)
     chance_error = randint(1, 14)
-    if chance_error == 3:
-        raise IamGodError('Я Бог!')
-    elif chance_error == 5:
-        raise DrunkError('Синька - Зло!')
-    elif chance_error == 7:
-        raise CarCrashError('Авария - дочь мента!')
-    elif chance_error == 9:
-        raise GluttonyError('Очередной смертный грех')
-    elif chance_error == 11:
-        raise DepressionError('Я никому не нужен!!!')
-    elif chance_error == 13:
-        raise SuicideError('Прыгну со скалы!')
-    else:
-        return one_day_carma
+    if chance_error == 13:
+        karma_error = random.choice(error_list)
+        raise karma_error
+
+    return one_day_carma
 
 
 ENLIGHTENMENT_CARMA_LEVEL = 777
 carma = 0
 count_day = 0
+error_list = [IamGodError, DrunkError, CarCrashError, GluttonyError, DepressionError, SuicideError]
 
-while True:
-    try:
-        carma += one_day()
-        count_day += 1
-        # TODO условие на выход задать в цикле заголовке
-        if carma >= ENLIGHTENMENT_CARMA_LEVEL:
-            print(f'Добро пожаловать в реальный мир!  Ваша карма {carma}')
-            print(f'Вы были у сурка {count_day} дней')
-            break
-    except Exception as exc:
-        # TODO пишем функцию на запись через with
-        file = open('log_error.txt', 'a', encoding='utf8')
-        file.write(f'Поймано исключение {exc} ')
-        file.write('\n')
-        file.close()
+with open('log_error.txt', 'w', encoding='utf8') as file:
+    while carma <= ENLIGHTENMENT_CARMA_LEVEL:
+        try:
+            carma += one_day(error_list)
+            count_day += 1
+        except Exception as exc:
+            file.write(f'Поймано исключение {exc} \n')
 
+
+
+print(f'Добро пожаловать в реальный мир!  Ваша карма {carma}')
+print(f'Вы были у сурка {count_day} дней')
 # https://goo.gl/JnsDqu
