@@ -102,3 +102,5 @@ with open('log_error.txt', 'w', encoding='utf8') as file:
 print(f'Добро пожаловать в реальный мир!  Ваша карма {carma}')
 print(f'Вы были у сурка {count_day} дней')
 # https://goo.gl/JnsDqu
+
+# TODO применяем рекомендации данные ранее по неймингу переменных не указываем в именовании ее тип
