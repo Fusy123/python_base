@@ -30,7 +30,6 @@ class NotNameError(NameError):
     pass
 
 
-
 def Valid(line):
     if 2 < line.count(' '):
         raise ValueError('Не хватает полей')
@@ -42,7 +41,6 @@ def Valid(line):
     if age_user.isdigit and (10 <= int(age_user) <= 99) is False:
         raise ValueError('Некорректный возраст')
     return line
-
 
 
 activ_valid_user = []
@@ -59,11 +57,8 @@ with open('registrations.txt', 'r', encoding='utf8') as ff:
             no_corrected_log.write('\n')
             no_corrected_log.close()
 
-
-
 corrected_log = open('registrations_good.log', 'w', encoding='utf8')
 for i in activ_valid_user:
     corrected_log.write(i + '\n')
 corrected_log.close()
 print('Проверка завершена!')
-

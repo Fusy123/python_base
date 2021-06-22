@@ -97,9 +97,6 @@ with open('log_error.txt', 'w', encoding='utf8') as file:
         except Exception as exc:
             file.write(f'Поймано исключение {exc} \n')
 
-
-
 print(f'Добро пожаловать в реальный мир!  Ваша карма {carma}')
 print(f'Вы были у сурка {count_day} дней')
 # https://goo.gl/JnsDqu
-
