@@ -74,11 +74,11 @@ class SuicideError(Exception):
         return self.message
 
 
-def one_day(error_list):
+def one_day(variant_error):
     one_day_carma = randint(1, 8)
     chance_error = randint(1, 14)
     if chance_error == 13:
-        karma_error = random.choice(error_list)
+        karma_error = random.choice(variant_error)
         raise karma_error
 
     return one_day_carma
