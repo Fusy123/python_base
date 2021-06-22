@@ -87,12 +87,12 @@ def one_day(error_list):
 ENLIGHTENMENT_CARMA_LEVEL = 777
 carma = 0
 count_day = 0
-error_list = [IamGodError, DrunkError, CarCrashError, GluttonyError, DepressionError, SuicideError]
+variant_error = [IamGodError, DrunkError, CarCrashError, GluttonyError, DepressionError, SuicideError]
 
 with open('log_error.txt', 'w', encoding='utf8') as file:
     while carma <= ENLIGHTENMENT_CARMA_LEVEL:
         try:
-            carma += one_day(error_list)
+            carma += one_day(variant_error)
             count_day += 1
         except Exception as exc:
             file.write(f'Поймано исключение {exc} \n')
@@ -103,4 +103,3 @@ print(f'Добро пожаловать в реальный мир!  Ваша к
 print(f'Вы были у сурка {count_day} дней')
 # https://goo.gl/JnsDqu
 
-# TODO применяем рекомендации данные ранее по неймингу переменных не указываем в именовании ее тип

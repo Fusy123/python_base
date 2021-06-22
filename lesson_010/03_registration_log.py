@@ -30,34 +30,28 @@ class NotNameError(NameError):
     pass
 
 
-# TODO не должно быть подчеркивание кода
-# TODO if пишем без вложенности и else
+
 def Valid(line):
-    if line.count(' ') >= 2:
-        name_user, email_user, age_user = line.split(' ')
-        if name_user.isalpha():
-            if email_user.index('@') and email_user.index('.'):
-                if age_user.isdigit and (int(age_user) >= 10 and int(age_user) <= 99):
-                    return line
-                else:
-                    raise ValueError('Некорректный возраст')
-            else:
-                raise NotEmailError('Некорректный адрес')
-        else:
-            raise NotNameError('Некорректное имя')
-    else:
+    if 2 < line.count(' '):
         raise ValueError('Не хватает полей')
+    name_user, email_user, age_user = line.split(' ')
+    if name_user.isalpha() is False:
+        raise NotNameError('Некорректное имя')
+    if email_user.index('@') and email_user.index('.') is False:
+        raise NotEmailError('Некорректный адрес')
+    if age_user.isdigit and (10 <= int(age_user) <= 99) is False:
+        raise ValueError('Некорректный возраст')
+    return line
 
 
 
-
-list_valid_user = []
+activ_valid_user = []
 with open('registrations.txt', 'r', encoding='utf8') as ff:
     for line in ff:
         line = line[:-1]
         try:
             valid_user = Valid(line)
-            list_valid_user.append(line)
+            activ_valid_user.append(line)
 
         except (ValueError, NotEmailError, NotNameError) as exc:
             no_corrected_log = open('registrations_bad.log', 'a', encoding='utf8')
@@ -68,9 +62,8 @@ with open('registrations.txt', 'r', encoding='utf8') as ff:
 
 
 corrected_log = open('registrations_good.log', 'w', encoding='utf8')
-for i in list_valid_user:
+for i in activ_valid_user:
     corrected_log.write(i + '\n')
 corrected_log.close()
 print('Проверка завершена!')
 
-# TODO применяем рекомендации данные ранее по неймингу переменных
