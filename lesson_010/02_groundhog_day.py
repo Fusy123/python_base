@@ -74,6 +74,7 @@ class SuicideError(Exception):
         return self.message
 
 
+# TODO подчеркиваний быть не должно
 def one_day(variant_error):
     one_day_carma = randint(1, 8)
     chance_error = randint(1, 14)
@@ -94,6 +95,7 @@ with open('log_error.txt', 'w', encoding='utf8') as file:
         try:
             carma += one_day(variant_error)
             count_day += 1
+        # TODO базовые исключения мы ловить не должны, ловим только свои кастомные исключения
         except Exception as exc:
             file.write(f'Поймано исключение {exc} \n')
 
