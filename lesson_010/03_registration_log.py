@@ -30,6 +30,7 @@ class NotNameError(NameError):
     pass
 
 
+# TODO правим нейминг подчеркиваний быть не должно ни параметра ни имени функции
 def Valid(line):
     if 2 < line.count(' '):
         raise ValueError('Не хватает полей')
@@ -58,6 +59,7 @@ with open('registrations.txt', 'r', encoding='utf8') as ff:
             no_corrected_log.close()
 
 corrected_log = open('registrations_good.log', 'w', encoding='utf8')
+# TODO переменная i за что тут отвечает?
 for i in activ_valid_user:
     corrected_log.write(i + '\n')
 corrected_log.close()
