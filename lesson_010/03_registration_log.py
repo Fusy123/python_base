@@ -30,37 +30,38 @@ class NotNameError(NameError):
     pass
 
 
-# TODO правим нейминг подчеркиваний быть не должно ни параметра ни имени функции
+
 def Valid(line):
     if 2 < line.count(' '):
         raise ValueError('Не хватает полей')
-    name_user, email_user, age_user = line.split(' ')
-    if name_user.isalpha() is False:
+    nameuser, emailuser, ageuser = line.split(' ')
+    if nameuser.isalpha() is False:
         raise NotNameError('Некорректное имя')
-    if email_user.index('@') and email_user.index('.') is False:
+    if emailuser.index('@') and emailuser.index('.') is False:
         raise NotEmailError('Некорректный адрес')
-    if age_user.isdigit and (10 <= int(age_user) <= 99) is False:
+    if ageuser.isdigit and (10 <= int(ageuser) <= 99) is False:
         raise ValueError('Некорректный возраст')
     return line
 
 
-activ_valid_user = []
+activvaliduser = []
 with open('registrations.txt', 'r', encoding='utf8') as ff:
     for line in ff:
         line = line[:-1]
         try:
-            valid_user = Valid(line)
-            activ_valid_user.append(line)
+            validuser = Valid(line)
+            activvaliduser.append(line)
 
         except (ValueError, NotEmailError, NotNameError) as exc:
-            no_corrected_log = open('registrations_bad.log', 'a', encoding='utf8')
-            no_corrected_log.write(f'в строке {line} ошибка {exc}')
-            no_corrected_log.write('\n')
-            no_corrected_log.close()
+            nocorrectedlog = open('registrations_bad.log', 'a', encoding='utf8')
+            nocorrectedlog.write(f'в строке {line} ошибка {exc}')
+            nocorrectedlog.write('\n')
+            nocorrectedlog.close()
 
-corrected_log = open('registrations_good.log', 'w', encoding='utf8')
-# TODO переменная i за что тут отвечает?
-for i in activ_valid_user:
-    corrected_log.write(i + '\n')
-corrected_log.close()
+correctedlog = open('registrations_good.log', 'w', encoding='utf8')
+# переменная i за что тут отвечает?
+# TODO за построчную запись данных из списка в файл
+for i in activvaliduser:
+    correctedlog.write(i + '\n')
+correctedlog.close()
 print('Проверка завершена!')

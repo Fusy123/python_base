@@ -20,7 +20,11 @@ import random
 from random import randint
 
 
-class IamGodError(Exception):
+class GroundhogDay(Exception):
+    pass
+
+
+class IamGodError(GroundhogDay):
     def __init__(self, input_data=None):
         self.message = 'Я Бог!'
         self.input_data = input_data
@@ -29,7 +33,7 @@ class IamGodError(Exception):
         return self.message
 
 
-class DrunkError(Exception):
+class DrunkError(GroundhogDay):
     def __init__(self, input_data=None):
         self.message = 'Синька - Зло!'
         self.input_data = input_data
@@ -38,7 +42,7 @@ class DrunkError(Exception):
         return self.message
 
 
-class CarCrashError(Exception):
+class CarCrashError(GroundhogDay):
     def __init__(self, input_data=None):
         self.message = 'Авария - дочь мента!'
         self.input_data = input_data
@@ -47,7 +51,7 @@ class CarCrashError(Exception):
         return self.message
 
 
-class GluttonyError(Exception):
+class GluttonyError(GroundhogDay):
     def __init__(self, input_data=None):
         self.message = 'Очередной смертный грех'
         self.input_data = input_data
@@ -56,7 +60,7 @@ class GluttonyError(Exception):
         return self.message
 
 
-class DepressionError(Exception):
+class DepressionError(GroundhogDay):
     def __init__(self, input_data=None):
         self.message = 'Я никому не нужен!!!'
         self.input_data = input_data
@@ -65,7 +69,7 @@ class DepressionError(Exception):
         return self.message
 
 
-class SuicideError(Exception):
+class SuicideError(GroundhogDay):
     def __init__(self, input_data=None):
         self.message = 'Прыгну со скалы!'
         self.input_data = input_data
@@ -74,31 +78,29 @@ class SuicideError(Exception):
         return self.message
 
 
-# TODO подчеркиваний быть не должно
-def one_day(variant_error):
-    one_day_carma = randint(1, 8)
-    chance_error = randint(1, 14)
-    if chance_error == 13:
-        karma_error = random.choice(variant_error)
-        raise karma_error
+def OneDay(varianterror):
+    onedaycarma = randint(1, 8)
+    chanceerror = randint(1, 14)
+    if chanceerror == 13:
+        karmaerror = random.choice(varianterror)
+        raise karmaerror
 
-    return one_day_carma
+    return onedaycarma
 
 
 ENLIGHTENMENT_CARMA_LEVEL = 777
 carma = 0
-count_day = 0
-variant_error = [IamGodError, DrunkError, CarCrashError, GluttonyError, DepressionError, SuicideError]
+countday = 0
+varianterror = [IamGodError, DrunkError, CarCrashError, GluttonyError, DepressionError, SuicideError]
 
 with open('log_error.txt', 'w', encoding='utf8') as file:
     while carma <= ENLIGHTENMENT_CARMA_LEVEL:
         try:
-            carma += one_day(variant_error)
-            count_day += 1
-        # TODO базовые исключения мы ловить не должны, ловим только свои кастомные исключения
-        except Exception as exc:
+            carma += OneDay(varianterror)
+            countday += 1
+        except GroundhogDay as exc:
             file.write(f'Поймано исключение {exc} \n')
 
 print(f'Добро пожаловать в реальный мир!  Ваша карма {carma}')
-print(f'Вы были у сурка {count_day} дней')
+print(f'Вы были у сурка {countday} дней')
 # https://goo.gl/JnsDqu
