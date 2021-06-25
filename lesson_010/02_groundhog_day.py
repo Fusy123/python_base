@@ -77,8 +77,10 @@ class SuicideError(GroundhogDay):
     def __str__(self):
         return self.message
 
-
+# TODO переменные как имена функций в питоне пишутся в стиле snake_case
 def OneDay(varianterror):
+    # TODO слова разделяют через _
+    # TODO onedaycarma -> one_day_carma
     onedaycarma = randint(1, 8)
     chanceerror = randint(1, 14)
     if chanceerror == 13:
