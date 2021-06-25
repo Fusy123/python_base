@@ -77,29 +77,27 @@ class SuicideError(GroundhogDay):
     def __str__(self):
         return self.message
 
-# TODO переменные как имена функций в питоне пишутся в стиле snake_case
-def OneDay(varianterror):
-    # TODO слова разделяют через _
-    # TODO onedaycarma -> one_day_carma
-    onedaycarma = randint(1, 8)
-    chanceerror = randint(1, 14)
-    if chanceerror == 13:
-        karmaerror = random.choice(varianterror)
-        raise karmaerror
 
-    return onedaycarma
+def one_day(variant_error):
+    one_day_carma = randint(1, 8)
+    chance_error = randint(1, 14)
+    if chance_error == 13:
+        karma_error = random.choice(variant_error)
+        raise karma_error
+
+    return one_day_carma
 
 
 ENLIGHTENMENT_CARMA_LEVEL = 777
 carma = 0
 countday = 0
-varianterror = [IamGodError, DrunkError, CarCrashError, GluttonyError, DepressionError, SuicideError]
+variant_error = [IamGodError, DrunkError, CarCrashError, GluttonyError, DepressionError, SuicideError]
 
 with open('log_error.txt', 'w', encoding='utf8') as file:
     while carma <= ENLIGHTENMENT_CARMA_LEVEL:
         try:
-            carma += OneDay(varianterror)
-            countday += 1
+            carma += one_day(variant_error)
+            count_day += 1
         except GroundhogDay as exc:
             file.write(f'Поймано исключение {exc} \n')
 
