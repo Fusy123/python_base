@@ -30,18 +30,17 @@ class NotNameError(NameError):
     pass
 
 
-# TODO от 02 задания
-def valid_user(line):
+def valid_user(line_):
     if 2 < line.count(' '):
         raise ValueError('Не хватает полей')
-    name_user, email_user, age_user = line.split(' ')
+    name_user, email_user, age_user = line_.split(' ')
     if name_user.isalpha() is False:
         raise NotNameError('Некорректное имя')
     if email_user.index('@') and email_user.index('.') is False:
         raise NotEmailError('Некорректный адрес')
     if age_user.isdigit and (10 <= int(age_user) <= 99) is False:
         raise ValueError('Некорректный возраст')
-    return line
+    return line_
 
 
 activ_validuser = []
@@ -59,11 +58,8 @@ with open('registrations.txt', 'r', encoding='utf8') as ff:
             no_corrected_log.close()
 
 corrected_log = open('registrations_good.log', 'w', encoding='utf8')
-# переменная i за что тут отвечает?
-# за построчную запись данных из списка в файл
-# TODO наверное это не i что подразумевает index у списка
-# TODO правильней будет ее называть line как строка которую записывают
-for i in activ_validuser:
-    corrected_log.write(i + '\n')
+
+for line in activ_validuser:
+    corrected_log.write(line + '\n')
 corrected_log.close()
 print('Проверка завершена!')

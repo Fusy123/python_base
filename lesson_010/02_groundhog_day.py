@@ -78,16 +78,11 @@ class SuicideError(GroundhogDay):
         return self.message
 
 
-# TODO давайте начнем еще раз
-# TODO у вас сейчас variant_error передано так же как и переменная списка которая объявлена в глобальном скоупе
-# TODO есть замечательный символ когда нужно использовать почти одни и теже называния переменных\параметров
-# TODO используем один символ underscore в конце переменной
-# TODO variant_error -> variant_error_
-def one_day_carma_error(variant_error):
+def one_day_carma_error(variant_error_):
     one_day_carma = randint(1, 8)
     chance_error = randint(1, 14)
     if chance_error == 13:
-        karma_error = random.choice(variant_error)
+        karma_error = random.choice(variant_error_)
         raise karma_error
 
     return one_day_carma
@@ -96,7 +91,6 @@ def one_day_carma_error(variant_error):
 ENLIGHTENMENT_CARMA_LEVEL = 777
 carma = 0
 count_day = 0
-# TODO вот та самая переменная
 variant_error = [IamGodError, DrunkError, CarCrashError, GluttonyError, DepressionError, SuicideError]
 
 with open('log_error.txt', 'w', encoding='utf8') as file:
