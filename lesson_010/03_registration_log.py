@@ -30,7 +30,7 @@ class NotNameError(NameError):
     pass
 
 
-
+# TODO применить рекомендации данные ранее в 02
 def Valid(line):
     if 2 < line.count(' '):
         raise ValueError('Не хватает полей')
