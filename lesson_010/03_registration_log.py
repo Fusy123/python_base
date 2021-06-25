@@ -30,6 +30,7 @@ class NotNameError(NameError):
     pass
 
 
+# TODO от 02 задания
 def valid_user(line):
     if 2 < line.count(' '):
         raise ValueError('Не хватает полей')
@@ -59,7 +60,9 @@ with open('registrations.txt', 'r', encoding='utf8') as ff:
 
 corrected_log = open('registrations_good.log', 'w', encoding='utf8')
 # переменная i за что тут отвечает?
-# TODO за построчную запись данных из списка в файл
+# за построчную запись данных из списка в файл
+# TODO наверное это не i что подразумевает index у списка
+# TODO правильней будет ее называть line как строка которую записывают
 for i in activ_validuser:
     corrected_log.write(i + '\n')
 corrected_log.close()
