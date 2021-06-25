@@ -63,3 +63,6 @@ for line in activ_validuser:
     corrected_log.write(line + '\n')
 corrected_log.close()
 print('Проверка завершена!')
+
+
+# зачет!
