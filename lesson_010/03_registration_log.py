@@ -30,8 +30,7 @@ class NotNameError(NameError):
     pass
 
 
-
-def Valid(line):
+def valid_user(line):
     if 2 < line.count(' '):
         raise ValueError('Не хватает полей')
     name_user, email_user, age_user = line.split(' ')
@@ -49,7 +48,7 @@ with open('registrations.txt', 'r', encoding='utf8') as ff:
     for line in ff:
         line = line[:-1]
         try:
-            validuser = Valid(line)
+            validuser = valid_user(line)
             activ_validuser.append(line)
 
         except (ValueError, NotEmailError, NotNameError) as exc:

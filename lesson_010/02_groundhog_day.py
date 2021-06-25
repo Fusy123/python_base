@@ -78,7 +78,7 @@ class SuicideError(GroundhogDay):
         return self.message
 
 
-def one_day(variant_error):
+def one_day_carma_error(variant_error):
     one_day_carma = randint(1, 8)
     chance_error = randint(1, 14)
     if chance_error == 13:
@@ -90,17 +90,17 @@ def one_day(variant_error):
 
 ENLIGHTENMENT_CARMA_LEVEL = 777
 carma = 0
-countday = 0
+count_day = 0
 variant_error = [IamGodError, DrunkError, CarCrashError, GluttonyError, DepressionError, SuicideError]
 
 with open('log_error.txt', 'w', encoding='utf8') as file:
     while carma <= ENLIGHTENMENT_CARMA_LEVEL:
         try:
-            carma += one_day(variant_error)
+            carma += one_day_carma_error(variant_error)
             count_day += 1
         except GroundhogDay as exc:
             file.write(f'Поймано исключение {exc} \n')
 
 print(f'Добро пожаловать в реальный мир!  Ваша карма {carma}')
-print(f'Вы были у сурка {countday} дней')
+print(f'Вы были у сурка {count_day} дней')
 # https://goo.gl/JnsDqu
