@@ -16,8 +16,11 @@ sd.resolution = (1200, 600)
 
 
 def get_polygon(n):
+    # TODO вот тут пайчарм вам подчеркнул
     def draw_triangle(point, angle, length):
         # расчет переменных
+        # TODO попробуйте сократить ряд переменных которые просто переопределены и спользовать можно те которые были
+        # TODO приняты на вход
         start_point_figure = point
         user_angle = n
         angle1 = angle
@@ -37,7 +40,8 @@ def get_polygon(n):
     return draw_triangle
 
 
-draw_triangle = get_polygon(n=3)
+# TODO именование функций не должно пересекаться
+draw_triangle = get_polygon(n=8)
 draw_triangle(point=sd.get_point(600, 100), angle=30, length=150)
 
 sd.pause()
