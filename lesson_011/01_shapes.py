@@ -40,3 +40,5 @@ draw_figure = get_polygon(n=9)
 draw_figure(point=sd.get_point(600, 100), angle=30, length=150)
 
 sd.pause()
+
+# зачет!
