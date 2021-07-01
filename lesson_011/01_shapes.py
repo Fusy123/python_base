@@ -16,8 +16,8 @@ sd.resolution = (1200, 600)
 
 
 def get_polygon(n):
-    #  вот тут пайчарм вам подчеркнул
-    # TODO что подчеркнул? у меня нет выделенных ошибок
+    # TODO почему в функция фабрика у вас называется как рисуем треугольник ?
+    # TODO Мы может и квадрат и пентагон и так далее...
     def draw_triangle(point, angle, length):
         # расчет переменных
         user_angle = n
@@ -36,9 +36,8 @@ def get_polygon(n):
     return draw_triangle
 
 
-#  именование функций не должно пересекаться
-# TODO именование взято из условия задания как есть.
-draw_triangle = get_polygon(n=8)
+# TODO хорошо тут мы рисуем треугольник передав туда 3
+draw_triangle = get_polygon(n=3)
 draw_triangle(point=sd.get_point(600, 100), angle=30, length=150)
 
 sd.pause()
